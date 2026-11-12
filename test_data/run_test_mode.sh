@@ -22,13 +22,13 @@ echo "those external tools to be installed."
 echo ""
 
 # Run in test mode
-# The -json file is copied to the output as the input basename + .json.
+# The --json-file is copied to the output as the input basename + .json.
 # For test_protein.fasta as input, the expected name is test_protein.fasta.json.
 "${CMD[@]}" itaknext.py \
-  -test \
+  --test-mode \
   -i test_protein.fasta \
-  -json test_data/test_ipr_result.json \
-  -spechmm test_data/test_hmmscan_result.tbl \
+  --json-file test_data/test_ipr_result.json \
+  --spechmm-file test_data/test_hmmscan_result.tbl \
   -o output/test_mode_demo
 
 echo ""

@@ -16,6 +16,7 @@
 - Added combined result summary output: `result/all_match_tbl.txt`.
 
 ### Changed
+- CLI hardening: input/mode validation (including input existence, `--predict`/`--list-predict`/`--test-mode` exclusivity and Grad-CAM constraints) now runs before dependency checks, so invalid invocations no longer trigger a database download. `--cpu`/`--interproscan-cpu` require positive integers and `--score*` values must be non-negative. `--run-pk` and `--skip-pk` are now mutually exclusive, and `--skip-pk` is deprecated (PK is off by default). `--score-thresholds none` is now an explicit sentinel instead of relying on a missing file. Argument abbreviation is disabled, the deprecated single-dash aliases `-test`/`-json`/`-spechmm` are hidden from `--help` but still accepted with a warning, and the README parameter table is complete.
 - Removed the stale `winnowtak.py` duplicate (identical to `itaknext.py` apart from help text); `itaknext.py` is now the single CLI implementation.
 - Renamed the project from WinnowTAK to iTAK Next: the CLI entry point `winnowtak.py` → `itaknext.py`, the protein kinase database `db/winnowtak_pk/` → `db/itaknext_pk/`, the generated wrapper `run_winnowtak_local.sh` → `run_itaknext_local.sh`, and the conda environment / package name `winnowtak` → `itaknext`. The GitLab repository is now `moilab/projects/iTAK-Next`.
 - Renamed the main CLI entry point from `itak3-v1.0.py` to `itaknext.py`; all scripts, tests and docs now reference the new name.

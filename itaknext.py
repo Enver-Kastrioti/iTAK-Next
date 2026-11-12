@@ -803,7 +803,7 @@ def _get_or_create_processed_fasta(fasta_file, output_dir):
 
 def _run_protein_kinase_analysis(fasta_file, project_output, enabled=True, debug=False, cpu=4):
     if not enabled:
-        print("Protein kinase analysis skipped (--skip-pk)")
+        print("Protein kinase analysis skipped (PK is off by default; use --run-pk to enable)")
         return True
 
     kwargs = dict(debug=debug)
@@ -2588,7 +2588,7 @@ def run_test_mode(
         else:
             # No hmmscan result provided: auto-run hmmscan against the self-built HMM
             # on the same processed protein FASTA that classification will consume.
-            print("  -spechmm not provided; running auto hmmscan (self-built HMM) on the input proteome...")
+            print("  --spechmm-file not provided; running auto hmmscan (self-built HMM) on the input proteome...")
             import importlib.util
             get_fasta_path = MODULE_DIR / "get_fasta.py"
             spec = importlib.util.spec_from_file_location("get_fasta", get_fasta_path)
@@ -2649,17 +2649,25 @@ def run_test_mode(
 # Argument validators
 # ============================================================================
 
+VALID_APPLS = (
+    'CDD', 'NCBIfam', 'PANTHER', 'Pfam',
+    'PRINTS', 'PROSITEPATTERNS', 'PROSITEPROFILES', 'SMART',
+)
+DEFAULT_APPL = ','.join(VALID_APPLS)
+
+
 def validate_appl_list(appl_string):
-    valid_apps = {'CDD', 'NCBIfam', 'PANTHER', 'Pfam', 'PRINTS', 'PROSITEPATTERNS', 'PROSITEPROFILES', 'SMART'}
-    
     if appl_string:
         apps = [app.strip() for app in appl_string.split(',')]
-        invalid_apps = [app for app in apps if app not in valid_apps]
-        
+        invalid_apps = [app for app in apps if app not in VALID_APPLS]
+
         if invalid_apps:
-            raise argparse.ArgumentTypeError(f"Invalid application(s): {', '.join(invalid_apps)}. Allowed: {', '.join(sorted(valid_apps))}")
-    
+            raise argparse.ArgumentTypeError(
+                f"Invalid application(s): {', '.join(invalid_apps)}. Allowed: {', '.join(sorted(VALID_APPLS))}"
+            )
+
     return appl_string
+
 # Validate prediction threshold in [0, 1]
 def validate_threshold(value):
     try:
@@ -2669,6 +2677,28 @@ def validate_threshold(value):
         return threshold
     except ValueError:
         raise argparse.ArgumentTypeError("Threshold must be a number")
+
+
+def validate_positive_int(value):
+    """argparse type: positive integer (>= 1)."""
+    try:
+        ivalue = int(value)
+    except (TypeError, ValueError):
+        raise argparse.ArgumentTypeError("must be an integer")
+    if ivalue < 1:
+        raise argparse.ArgumentTypeError("must be >= 1")
+    return ivalue
+
+
+def validate_non_negative_float(value):
+    """argparse type: finite number >= 0."""
+    try:
+        fvalue = float(value)
+    except (TypeError, ValueError):
+        raise argparse.ArgumentTypeError("must be a number")
+    if fvalue != fvalue or fvalue < 0:  # NaN or negative
+        raise argparse.ArgumentTypeError("must be a number >= 0")
+    return fvalue
 
 
 class _TeeStream:
@@ -2728,17 +2758,42 @@ def _enable_terminal_log(log_path):
     return restore
 
 # ============================================================================
-# Main
+# CLI definition and validation
 # ============================================================================
 
-def main():
-    # Record start time
-    program_start_time = time.time()
-    start_datetime = datetime.now()
+# Old-style single-dash options kept as a compatibility shim: they are removed
+# from the parser (and therefore from --help) but still accepted with a warning.
+LEGACY_OPTION_ALIASES = {
+    '-test': '--test-mode',
+    '-json': '--json-file',
+    '-spechmm': '--spechmm-file',
+}
+
+
+def normalize_legacy_args(argv):
+    """Map deprecated single-dash options to their long forms.
+
+    Return ``(normalized_argv, used_legacy_options)``.
+    """
+    normalized = []
+    used = []
+    for token in argv:
+        replacement = LEGACY_OPTION_ALIASES.get(token)
+        if replacement is not None:
+            normalized.append(replacement)
+            used.append(token)
+        else:
+            normalized.append(token)
+    return normalized, used
+
+
+def build_parser():
+    """Build the iTAK Next command-line parser."""
     parser = argparse.ArgumentParser(
         prog="itaknext",
         description="iTAK Next - transcription factor prediction and analysis tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
+        allow_abbrev=False,
         epilog="""
 Example usage:
   # 1) Analyze input sequences directly (skip prediction)
@@ -2747,13 +2802,13 @@ Example usage:
   # 2) Enable prediction: predict TFs, then run domain analysis and family classification
   ./itaknext --predict -i input.fasta -t 0.1
   
-  # 3) Specify an output directory (default: output/<input_basename>/)
+  # 3) Specify an output directory (default: <install dir>/output/<input_basename>/)
   ./itaknext --predict -i input.fasta -o /path/to/output
   
   # 4) Restrict InterProScan applications (run only selected libraries)
   ./itaknext -i input.fasta --appl CDD,Pfam,SMART
   
-  # 5) Adjust InterProScan score filtering (retain only hits with score >= threshold)
+  # 5) Adjust domain score filtering (retain only hits above the threshold)
   ./itaknext -i input.fasta --score 1.0
   
   # 6) Classification policy: specific (specificity-first) or score (score-first, default)
@@ -2767,14 +2822,14 @@ Example usage:
   ./itaknext --predict --supplementary-only -i input.fasta
   ./itaknext --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
   
-  # 9) Grad-CAM heatmaps (available only with --predict; fast runs after classification in batch)
+  # 9) Grad-CAM heatmaps (all/positive require --predict; fast also works in direct/test mode)
   ./itaknext --predict --grad-cam-mode fast -i input.fasta
   ./itaknext --predict --grad-cam-mode all -i input.fasta
   
   # 10) Test mode: skip InterProScan and validate classification using provided files
-  ./itaknext -test -i input.fasta -json ipr_result.json -spechmm hmmscan_result.tbl
+  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json --spechmm-file hmmscan_result.tbl
   #     External IPR JSON only: hmmscan auto-runs against the self-built HMM database
-  ./itaknext -test -i input.fasta -json ipr_result.json
+  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json
   
   # 11) Use an external interproscan.sh (hmmscan will follow the specified InterProScan)
   ./itaknext -i input.fasta --interproscan /path/to/interproscan.sh
@@ -2783,89 +2838,184 @@ Example usage:
   ./itaknext --check-deps
         """
     )
-    
+
     # Primary parameters
     parser.add_argument('-i', '--input', help='Path to input FASTA file')
-    parser.add_argument('-t', '--threshold', type=validate_threshold, default=0.1, 
-                       help='Prediction threshold in [0, 1] (default: 0.1)')
+    parser.add_argument('-t', '--threshold', type=validate_threshold, default=0.1,
+                        help='Prediction threshold in [0, 1] (default: 0.1)')
     parser.add_argument('-o', '--output', help='Output directory path')
-    
+
     # Feature options
-    parser.add_argument('--predict', action='store_true', 
-                       help='Enable prediction (model inference is used as downstream analysis input)')
+    parser.add_argument('--predict', action='store_true',
+                        help='Enable prediction (model inference is used as downstream analysis input)')
     parser.add_argument('--list-predict', action='store_true',
-                       help='Predict once, then classify under multiple thresholds to produce multiple outputs')
-    # parser.add_argument('--extract-sequences', action='store_true', default=True, 
-    #                    help='Extract predicted TF sequences (only with --predict)')
-    
+                        help='Predict once, then classify under multiple thresholds to produce multiple outputs')
+
     # Test mode parameters
-    parser.add_argument('-test', '--test-mode', action='store_true',
-                       help='Enable test mode (skip InterProScan/hmmscan and validate classification using specified files)')
-    parser.add_argument('-json', '--json-file', 
-                       help='InterProScan JSON result file path for test mode (only with -test)')
-    parser.add_argument('-spechmm', '--spechmm-file',
-                       help='hmmscan result file path for test mode (only with -test); if omitted, hmmscan auto-runs against the self-built HMM database')
-    
+    parser.add_argument('--test-mode', action='store_true',
+                        help='Enable test mode (skip InterProScan/hmmscan and validate classification using specified files)')
+    parser.add_argument('--json-file',
+                        help='InterProScan JSON result file path for test mode (only with --test-mode)')
+    parser.add_argument('--spechmm-file',
+                        help='hmmscan result file path for test mode (only with --test-mode); if omitted, hmmscan auto-runs against the self-built HMM database')
+
     # InterProScan applications
     parser.add_argument('--appl', type=validate_appl_list,
-                       default='CDD,NCBIfam,PANTHER,Pfam,PRINTS,PROSITEPATTERNS,PROSITEPROFILES,SMART',
-                       help='InterProScan application list (comma-separated). Allowed: CDD,NCBIfam,PANTHER,Pfam,PRINTS,PROSITEPATTERNS,PROSITEPROFILES,SMART')
-    
+                        default=DEFAULT_APPL,
+                        help=f'InterProScan application list (comma-separated). Allowed: {DEFAULT_APPL}')
+
     # External InterProScan path
     parser.add_argument('--interproscan', help='Path to interproscan.sh (hmmscan will follow the specified InterProScan)')
-    parser.add_argument('--skip-pk', action='store_true',
-                       help='Skip protein kinase identification/classification (kept for backward compatibility; PK is OFF by default now, use --run-pk to enable)')
-    parser.add_argument('--run-pk', action='store_true',
-                       help='Enable protein kinase identification/classification (default: OFF — only TF identification/classification runs)')
-    parser.add_argument('--cpu', type=int, default=4,
-                       help='Number of CPU threads used uniformly across DeepWinnow, hmmscan, and protein kinase hmmscan runs (default: 4). InterProScan follows --cpu unless --interproscan-cpu is set independently.')
-    parser.add_argument('--interproscan-cpu', type=int, default=None, dest='interproscan_cpu',
-                       help='Independent CPU thread count for InterProScan only. Default: None, which means follow --cpu. Set to 1 to force InterProScan single-threaded while keeping other subsystems at --cpu.')
+
+    # Protein kinase analysis: PK is OFF by default; --skip-pk is deprecated.
+    pk_group = parser.add_mutually_exclusive_group()
+    pk_group.add_argument('--run-pk', action='store_true',
+                          help='Enable protein kinase (PK) identification/classification (default: OFF)')
+    pk_group.add_argument('--skip-pk', action='store_true',
+                          help='Deprecated no-op kept for backward compatibility; PK is off by default, use --run-pk to enable it')
+
+    parser.add_argument('--cpu', type=validate_positive_int, default=4,
+                        help='Number of CPU threads used uniformly across DeepWinnow, hmmscan, and protein kinase hmmscan runs (default: 4). InterProScan follows --cpu unless --interproscan-cpu is set independently.')
+    parser.add_argument('--interproscan-cpu', type=validate_positive_int, default=None, dest='interproscan_cpu',
+                        help='Independent CPU thread count for InterProScan only. Default: None, which means follow --cpu.')
 
     # Debug mode
     parser.add_argument('--debug', action='store_true', default=False,
-                       help='Enable debug mode and write intermediate artifacts (default: off)')
-    
+                        help='Enable debug mode and write intermediate artifacts (default: off)')
+
     # Score threshold
-    parser.add_argument('--score', type=float, default=1.0,
-                       help='Global score threshold (default: 1.0). Used for any path not explicitly overridden by --score-interpro / --score-hmm.')
-    parser.add_argument('--score-interpro', type=float, default=None, dest='score_interpro',
-                       help='Score threshold for the InterProScan domain path only. Default: None, which means follow --score.')
-    parser.add_argument('--score-hmm', type=float, default=None, dest='score_hmm',
-                       help='Global score threshold for the self-build HMM path only. Default: None, which means follow --score.')
+    parser.add_argument('--score', type=validate_non_negative_float, default=1.0,
+                        help='Global domain score threshold (default: 1.0). Used for any path not explicitly overridden by --score-interpro / --score-hmm.')
+    parser.add_argument('--score-interpro', type=validate_non_negative_float, default=None, dest='score_interpro',
+                        help='Score threshold for the InterProScan domain path only. Default: None, which means follow --score.')
+    parser.add_argument('--score-hmm', type=validate_non_negative_float, default=None, dest='score_hmm',
+                        help='Global score threshold for the self-build HMM path only. Default: None, which means follow --score.')
     parser.add_argument('--score-thresholds', default=None, dest='score_thresholds',
-                       help='JSON file with per-model score thresholds for the self-build HMM path; models absent from it use --score-hmm. Default: hmm/self_build_thresholds.json. Pass "none" to disable per-model thresholds and use --score-hmm uniformly.')
-    
+                        help='JSON file with per-model score thresholds for the self-build HMM path; models absent from it use --score-hmm. Default: hmm/self_build_thresholds.json. Pass "none" (case-insensitive) to disable per-model thresholds.')
+
     # Classification mode
     parser.add_argument('--classification-mode', choices=['specific', 'score'], default='score',
-                       help="Classification mode: 'specific' (specificity-first) or 'score' (score-first, default)")
-    
+                        help="Classification mode: 'specific' (specificity-first) or 'score' (score-first, default)")
+
     # Prediction splitting mode
     parser.add_argument('--predict-mode', choices=['fast', 'full'], default='fast',
-                       help="Prediction splitting mode: 'fast' (default) or 'full' (full coverage)")
+                        help="Prediction splitting mode: 'fast' (default) or 'full' (full coverage)")
+
     # Supplementary model options
     parser.add_argument('--use-supplementary', action='store_true',
-                       help='Enable supplementary models for an additional prediction pass (default: off)')
+                        help='Enable supplementary models for an additional prediction pass (default: off)')
     parser.add_argument('--supplementary-only', action='store_true',
-                       help='Use supplementary models only; skip the main model')
+                        help='Use supplementary models only; skip the main model')
     parser.add_argument('--supp-models', nargs='*', default=None,
-                       help='Optional: specify supplementary model path(s); if omitted, use all models in the directory')
-    
+                        help='Optional: specify supplementary model path(s); if omitted, use all models in the directory')
+
     # Grad-CAM options
     parser.add_argument('--grad-cam-mode', choices=['none', 'all', 'positive', 'fast'], default='none',
-                       help='Grad-CAM mode: none (default), all, positive (thresholded), fast')
+                        help='Grad-CAM mode: none (default), all, positive (thresholded), fast')
 
     # Dependency checks
     parser.add_argument('--check-deps', action='store_true',
-                       help='Check dependencies and exit')
+                        help='Check dependencies and exit')
     parser.add_argument('--skip-deps-check', action='store_true',
-                       help='Skip dependency checks and run anyway (not recommended)')
+                        help='Skip dependency checks and run anyway (not recommended)')
 
     parser.add_argument('--version', action='version',
-                       version=f'iTAK Next version {__version__} ({__date__})',
-                       help='Show version information and exit')
+                        version=f'iTAK Next version {__version__} ({__date__})',
+                        help='Show version information and exit')
 
-    args = parser.parse_args()
+    return parser
+
+
+def validate_cli_args(parser, args):
+    """Validate CLI combinations before any dependency checks or db downloads.
+
+    Uses ``parser.error`` (exit code 2) so that invalid invocations fail fast
+    and do not trigger the automatic database download.
+    """
+    # Deprecated flag: keep accepting it, but make the no-op explicit.
+    if args.skip_pk:
+        print(
+            "Warning: --skip-pk is deprecated and has no effect; PK analysis is off by "
+            "default. Use --run-pk to enable it.",
+            file=sys.stderr,
+        )
+
+    # --score-thresholds: explicit "none" sentinel instead of relying on a
+    # non-existent path (a file literally named "none" must not be loaded).
+    if args.score_thresholds is not None:
+        if args.score_thresholds.strip().lower() == 'none':
+            args.score_thresholds = None
+        elif not Path(args.score_thresholds).exists():
+            parser.error(
+                f"--score-thresholds file not found: {args.score_thresholds} "
+                "(pass 'none' to disable per-model thresholds)"
+            )
+
+    # Input is required for every mode except --check-deps (handled by caller).
+    if not args.input:
+        parser.error("the following arguments are required: -i/--input")
+    if not Path(args.input).exists():
+        parser.error(f"input FASTA file not found: {args.input}")
+
+    # Mode exclusivity.
+    if args.predict and args.list_predict:
+        parser.error("--predict and --list-predict are mutually exclusive")
+    if args.test_mode and (args.predict or args.list_predict):
+        parser.error("--test-mode cannot be combined with --predict or --list-predict")
+    if not args.test_mode and (args.json_file or args.spechmm_file):
+        parser.error("--json-file and --spechmm-file can only be used with --test-mode")
+
+    # Test mode inputs.
+    if args.test_mode:
+        if not args.json_file:
+            parser.error("--test-mode requires --json-file (InterProScan JSON result)")
+        if not Path(args.json_file).exists():
+            parser.error(f"InterProScan JSON file not found: {args.json_file}")
+        if args.spechmm_file and not Path(args.spechmm_file).exists():
+            parser.error(f"hmmscan result file not found: {args.spechmm_file}")
+        if not args.spechmm_file:
+            print("Note: --spechmm-file not provided; hmmscan will auto-run against the self-built HMM database")
+
+    # Grad-CAM constraints.
+    if args.grad_cam_mode in ('all', 'positive') and not args.predict:
+        parser.error("Grad-CAM modes 'all' and 'positive' require --predict")
+    if args.list_predict and args.grad_cam_mode != 'none':
+        parser.error("--list-predict does not support Grad-CAM; use --grad-cam-mode none")
+
+    # Supplementary options only affect prediction paths.
+    supp_requested = args.use_supplementary or args.supplementary_only or bool(args.supp_models)
+    if supp_requested and not (args.predict or args.list_predict):
+        print(
+            "Warning: --use-supplementary/--supplementary-only/--supp-models are ignored "
+            "without --predict or --list-predict.",
+            file=sys.stderr,
+        )
+
+
+# ============================================================================
+# Main
+# ============================================================================
+
+def main():
+    # Record start time
+    program_start_time = time.time()
+    start_datetime = datetime.now()
+    parser = build_parser()
+
+    # Keep accepting the deprecated single-dash options (-test/-json/-spechmm)
+    argv, legacy_options = normalize_legacy_args(sys.argv[1:])
+    if legacy_options:
+        print(
+            "Warning: deprecated option(s) "
+            + ", ".join(legacy_options)
+            + "; use --test-mode / --json-file / --spechmm-file instead.",
+            file=sys.stderr,
+        )
+    args = parser.parse_args(argv)
+
+    # Validate CLI combinations before dependency checks (which may download db assets)
+    if not args.check_deps:
+        validate_cli_args(parser, args)
 
     restore_terminal = None
     if args.debug and not args.check_deps and args.input:
@@ -2936,16 +3086,6 @@ Example usage:
     elif args.skip_deps_check:
         print("[WARN] Dependency checks were skipped\n")
     
-    # Validate input argument
-    if not args.input:
-        print("Error: input file must be provided (-i/--input)")
-        sys.exit(1)
-    
-    # Validate input file exists
-    if not Path(args.input).exists():
-        print(f"Error: input file not found: {args.input}")
-        sys.exit(1)
-    
     # Validate FASTA format
     if FastaValidator:
         print(" Validating FASTA format...")
@@ -2959,51 +3099,6 @@ Example usage:
         print("[OK] FASTA validation passed\n")
     else:
         print("[WARN] FASTA validation module unavailable; skipping format validation\n")
-    
-    # Grad-CAM argument validation
-    if args.grad_cam_mode in ['all', 'positive'] and not (args.predict or args.list_predict):
-        print("Error: Grad-CAM modes 'all' and 'positive' require --predict")
-        sys.exit(1)
-    if args.list_predict and args.grad_cam_mode != 'none':
-        print("Error: --list-predict does not currently support Grad-CAM; use --grad-cam-mode none")
-        sys.exit(1)
-        
-    # Validate test mode arguments
-    if args.test_mode:
-        # In test mode, prediction is not allowed
-        if args.predict:
-            print("Error: --predict cannot be used in test mode (-test)")
-            sys.exit(1)
-        if args.list_predict:
-            print("Error: --list-predict cannot be used in test mode (-test)")
-            sys.exit(1)
-        
-        # Test mode requires json; spechmm is optional (auto-hmmscan when omitted)
-        if not args.json_file:
-            print("Error: test mode requires -json (InterProScan JSON result file)")
-            sys.exit(1)
-
-        if not args.spechmm_file:
-            print("Note: -spechmm not provided; hmmscan will auto-run against the self-built HMM database")
-
-        # Validate test-mode files exist
-        if not Path(args.json_file).exists():
-            print(f"Error: InterProScan JSON file not found: {args.json_file}")
-            sys.exit(1)
-
-        if args.spechmm_file and not Path(args.spechmm_file).exists():
-            print(f"Error: hmmscan result file not found: {args.spechmm_file}")
-            sys.exit(1)
-    
-    # Disallow test-only arguments outside test mode
-    if not args.test_mode:
-        if args.json_file:
-            print("Error: -json can be used only in test mode (-test)")
-            sys.exit(1)
-        
-        if args.spechmm_file:
-            print("Error: -spechmm can be used only in test mode (-test)")
-            sys.exit(1)
     
     # Dispatch by mode
     if args.test_mode:
