@@ -2736,50 +2736,51 @@ def main():
     program_start_time = time.time()
     start_datetime = datetime.now()
     parser = argparse.ArgumentParser(
+        prog="itaknext",
         description="iTAK Next - transcription factor prediction and analysis tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Example usage:
   # 1) Analyze input sequences directly (skip prediction)
-  python itaknext.py -i input.fasta
+  ./itaknext -i input.fasta
   
   # 2) Enable prediction: predict TFs, then run domain analysis and family classification
-  python itaknext.py --predict -i input.fasta -t 0.1
+  ./itaknext --predict -i input.fasta -t 0.1
   
   # 3) Specify an output directory (default: output/<input_basename>/)
-  python itaknext.py --predict -i input.fasta -o /path/to/output
+  ./itaknext --predict -i input.fasta -o /path/to/output
   
   # 4) Restrict InterProScan applications (run only selected libraries)
-  python itaknext.py -i input.fasta --appl CDD,Pfam,SMART
+  ./itaknext -i input.fasta --appl CDD,Pfam,SMART
   
   # 5) Adjust InterProScan score filtering (retain only hits with score >= threshold)
-  python itaknext.py -i input.fasta --score 1.0
+  ./itaknext -i input.fasta --score 1.0
   
   # 6) Classification policy: specific (specificity-first) or score (score-first, default)
-  python itaknext.py -i input.fasta --classification-mode specific
+  ./itaknext -i input.fasta --classification-mode specific
   
   # 7) Prediction splitting mode: fast (default) or full (more comprehensive, slower)
-  python itaknext.py --predict -i input.fasta --predict-mode full
+  ./itaknext --predict -i input.fasta --predict-mode full
   
   # 8) Use supplementary models (stacked with main model, or supplementary-only)
-  python itaknext.py --predict --use-supplementary -i input.fasta
-  python itaknext.py --predict --supplementary-only -i input.fasta
-  python itaknext.py --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
+  ./itaknext --predict --use-supplementary -i input.fasta
+  ./itaknext --predict --supplementary-only -i input.fasta
+  ./itaknext --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
   
   # 9) Grad-CAM heatmaps (available only with --predict; fast runs after classification in batch)
-  python itaknext.py --predict --grad-cam-mode fast -i input.fasta
-  python itaknext.py --predict --grad-cam-mode all -i input.fasta
+  ./itaknext --predict --grad-cam-mode fast -i input.fasta
+  ./itaknext --predict --grad-cam-mode all -i input.fasta
   
   # 10) Test mode: skip InterProScan and validate classification using provided files
-  python itaknext.py -test -i input.fasta -json ipr_result.json -spechmm hmmscan_result.tbl
+  ./itaknext -test -i input.fasta -json ipr_result.json -spechmm hmmscan_result.tbl
   #     External IPR JSON only: hmmscan auto-runs against the self-built HMM database
-  python itaknext.py -test -i input.fasta -json ipr_result.json
+  ./itaknext -test -i input.fasta -json ipr_result.json
   
   # 11) Use an external interproscan.sh (hmmscan will follow the specified InterProScan)
-  python itaknext.py -i input.fasta --interproscan /path/to/interproscan.sh
+  ./itaknext -i input.fasta --interproscan /path/to/interproscan.sh
   
   # 12) Check dependencies and exit
-  python itaknext.py --check-deps
+  ./itaknext --check-deps
         """
     )
     

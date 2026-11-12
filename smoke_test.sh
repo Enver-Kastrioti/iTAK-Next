@@ -81,7 +81,9 @@ fi
 INPUT_FASTA="$(cd "$(dirname "$INPUT_FASTA")" && pwd)/$(basename "$INPUT_FASTA")"
 
 CMD=()
-if [[ -x "$ROOT_DIR/run_itaknext_local.sh" ]]; then
+if [[ -x "$ROOT_DIR/itaknext" ]]; then
+  CMD=("$ROOT_DIR/itaknext")
+elif [[ -x "$ROOT_DIR/run_itaknext_local.sh" ]]; then
   CMD=("$ROOT_DIR/run_itaknext_local.sh")
 elif [[ -x "$ROOT_DIR/.venv/bin/python" ]]; then
   CMD=("$ROOT_DIR/.venv/bin/python" "$ROOT_DIR/itaknext.py")
@@ -91,7 +93,7 @@ else
   elif command -v python >/dev/null 2>&1; then
     CMD=("python" "$ROOT_DIR/itaknext.py")
   else
-    echo "No Python interpreter found (expected run_itaknext_local.sh, .venv/bin/python, python3, or python)" >&2
+    echo "No Python interpreter found (expected itaknext, run_itaknext_local.sh, .venv/bin/python, python3, or python)" >&2
     exit 1
   fi
 fi
