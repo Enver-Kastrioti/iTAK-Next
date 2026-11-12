@@ -48,7 +48,7 @@ def main():
     # Use a temp output dir
     output_dir = Path(tempfile.mkdtemp(prefix="pk_smoke_")).resolve()
 
-    itak_script = PROJECT_DIR / "winnowtak.py"
+    itak_script = PROJECT_DIR / "itaknext.py"
     if not itak_script.exists():
         print(f"iTAK Next script not found: {itak_script}")
         sys.exit(1)

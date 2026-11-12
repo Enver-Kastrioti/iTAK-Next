@@ -3,19 +3,20 @@
 ## Unreleased
 
 ### Added
-- Reintroduced protein kinase identification and classification into iTAK Next using bundled HMM profiles under `db/winnowtak_pk/`.
+- Reintroduced protein kinase identification and classification into iTAK Next using bundled HMM profiles under `db/itaknext_pk/`.
 - Added a dedicated protein kinase pipeline in `module/protein_kinase.py` with:
   - kinase identification via `PF00069` / `PF07714`
   - Shiu classification
   - PPC classification
   - subclass refinement for WNK1 and MAK groups
-- Added bundled protein kinase database assets under `db/winnowtak_pk/`.
+- Added bundled protein kinase database assets under `db/itaknext_pk/`.
 - Added positive protein kinase example input: `test_protein_kinase.fasta`.
 - Added positive protein kinase smoke-test coverage for both direct mode and `--predict` mode.
 - Added combined result summary output: `result/all_match_tbl.txt`.
 
 ### Changed
-- Renamed the main CLI entry point from `itak3-v1.0.py` to `winnowtak.py`; all scripts, tests and docs now reference the new name.
+- Renamed the project from WinnowTAK to iTAK Next: the CLI entry point `winnowtak.py` → `itaknext.py`, the protein kinase database `db/winnowtak_pk/` → `db/itaknext_pk/`, the generated wrapper `run_winnowtak_local.sh` → `run_itaknext_local.sh`, and the conda environment / package name `winnowtak` → `itaknext`. The GitLab repository is now `moilab/projects/iTAK-Next`.
+- Renamed the main CLI entry point from `itak3-v1.0.py` to `itaknext.py`; all scripts, tests and docs now reference the new name.
 - Unified the version number to `3.7` (iTAK Next v3.7): `__version__` and `pyproject.toml` no longer use the inconsistent `3.7.0`.
 - Integrated protein kinase analysis into both direct analysis mode and prediction mode.
 - Added `--skip-pk` to disable protein kinase analysis when needed.
@@ -38,7 +39,7 @@
 - `./smoke_test.sh --output output/smoke_test_regression_default`
 - `./smoke_test.sh --input test_protein_kinase.fasta --require-pk 2 --output output/smoke_test_regression_pk`
 - `./smoke_test.sh --predict --input test_protein_kinase.fasta --require-pk 2 --output output/smoke_test_predict_pk_recheck`
-- `./run_winnowtak_local.sh -i test_protein_kinase.fasta --appl PROSITEPROFILES --debug -o output/pk_debug_json`
+- `./run_itaknext_local.sh -i test_protein_kinase.fasta --appl PROSITEPROFILES --debug -o output/pk_debug_json`
 
 ### Relevant commits
 - `2e10ea3` Add protein kinase classification workflow

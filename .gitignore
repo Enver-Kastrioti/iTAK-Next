@@ -34,5 +34,3 @@ db/interproscan/data/prosite/**
 !db/interproscan/data/prosite/2025_01/
 db/interproscan/data/prosite/2025_01/**
 !db/interproscan/data/prosite/2025_01/skip_flagged_profiles.txt
-!db/itak3_pk/
-!db/itak3_pk/**

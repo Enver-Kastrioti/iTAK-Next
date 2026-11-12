@@ -21,25 +21,36 @@ def calculate_sha256(file_path):
 
 def check_db_integrity(db_path):
     """
-    Check if the db directory exists and contains necessary subdirectories.
-    
+    Check whether the bundled database is fully in place.
+
+    Directory existence alone is not a reliable signal: a fresh ``git clone``
+    already contains the ``db/interproscan/`` directory (it holds a few tracked
+    scripts), but neither the InterProScan data nor the PK library is tracked in
+    git -- both ship only inside ``db.tar.gz``. We therefore require sentinel
+    files that appear only after the archive has been extracted.
+
     Args:
         db_path (Path): Path to the db directory.
-        
+
     Returns:
-        bool: True if db is complete, False otherwise.
+        bool: True if the database assets are complete, False otherwise.
     """
     db_path = Path(db_path)
     if not db_path.exists() or not db_path.is_dir():
         return False
-        
-    # Check for essential subdirectories
-    required_subdirs = ["interproscan"]
-    for subdir in required_subdirs:
-        if not (db_path / subdir).exists():
-            print(f"Missing required subdirectory: {subdir}")
+
+    # Sentinel files that are present only once db.tar.gz has been extracted.
+    # db/interproscan/interproscan.properties is git-ignored, so it is absent in
+    # a fresh clone and present only after extraction.
+    required_markers = {
+        "interproscan": "interproscan.properties",
+        "itaknext_pk": "Tfam_domain.hmm",
+    }
+    for subdir, marker in required_markers.items():
+        if not (db_path / subdir / marker).exists():
+            print(f"Missing db/{subdir}/{marker}")
             return False
-            
+
     return True
 
 import subprocess
@@ -108,13 +119,9 @@ def setup_db(project_root):
     db_path = project_root / "db"
     tar_path = project_root / "db.tar.gz"
     
-    # URL for db.tar.gz (Replace with actual URL if known, using a placeholder for now based on repo)
-    # Assuming the file is released in the repo or hosted somewhere accessible.
-    # Since I don't have the exact URL, I'll use a likely one or a placeholder.
-    # User said "from githup download", so likely:
-    # Keep the current release asset URL until a renamed iTAK Next release asset is published.
-    DB_DOWNLOAD_URL = "https://github.com/Enver-Kastrioti/itak2_9.19/releases/download/iTAK2/db.tar.gz"
-    EXPECTED_SHA256 = "a6121bff3a37096990fb2422fb7e7419db7b11423aa07e284a1f5c8b90926c5c"
+    # Bundled database release for iTAK Next (pruned InterProScan library).
+    DB_DOWNLOAD_URL = "https://github.com/Enver-Kastrioti/itak2_9.19/releases/download/iTAK-Next-db/db.tar.gz"
+    EXPECTED_SHA256 = "d03341d1e81097a8ba13d4edbc4ae63f7cdfc4bae0c404a7dd53aad129f87bce"
     
     # 1. Check integrity
     if check_db_integrity(db_path):

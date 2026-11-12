@@ -168,8 +168,8 @@ class TestLoadGACutoffs(unittest.TestCase):
 
     def test_ga_cutoff_file_exists(self):
         """The GA_table.txt and Tfam_domain.hmm should be present."""
-        ga_table = PROJECT_DIR / "db" / "winnowtak_pk" / "GA_table.txt"
-        tfam_hmm = PROJECT_DIR / "db" / "winnowtak_pk" / "Tfam_domain.hmm"
+        ga_table = PROJECT_DIR / "db" / "itaknext_pk" / "GA_table.txt"
+        tfam_hmm = PROJECT_DIR / "db" / "itaknext_pk" / "Tfam_domain.hmm"
         self.assertTrue(ga_table.exists(), f"Missing: {ga_table}")
         self.assertTrue(tfam_hmm.exists(), f"Missing: {tfam_hmm}")
 
@@ -178,7 +178,7 @@ class TestLoadDescriptions(unittest.TestCase):
     """Test loading PK class descriptions."""
 
     def test_desc_file_exists(self):
-        desc_file = PROJECT_DIR / "db" / "winnowtak_pk" / "PK_class_desc.txt"
+        desc_file = PROJECT_DIR / "db" / "itaknext_pk" / "PK_class_desc.txt"
         self.assertTrue(desc_file.exists(), f"Missing: {desc_file}")
 
     def test_desc_has_entries(self):

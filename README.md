@@ -41,14 +41,14 @@ External tools:
 Project Layout
 --------
 ## Key Scripts
-- `winnowtak.py`: main CLI entry point (analysis / prediction / Grad-CAM orchestration)
+- `itaknext.py`: main CLI entry point (analysis / prediction / Grad-CAM orchestration)
 - `pre_model/predict.py`: deep-learning preclassification (+ Grad-CAM heatmaps)
 - `module/`: pipeline modules (FASTA processing, IPR JSON parsing, hmmscan processing, classification, protein kinase, checks)
 - `rule.txt`: TF/TR/GTF family classification rules (124 family entries, 187 IPR domains)
 
 ```text
 itak3.7/
-├── winnowtak.py
+├── itaknext.py
 ├── module/
 │   ├── check_dependencies.py
 │   ├── validate_fasta.py
@@ -66,7 +66,7 @@ itak3.7/
 │   └── supplementary_model/
 ├── db/
 │   ├── interproscan/
-│   └── winnowtak_pk/
+│   └── itaknext_pk/
 ├── hmm/
 │   └── self_build.hmm
 ├── rule.txt
@@ -130,9 +130,9 @@ This installer will:
 - install required Python packages
 - generate `db/interproscan/interproscan.local.properties`
 - generate `run_interproscan_local.sh`
-- generate `run_winnowtak_local.sh`
+- generate `run_itaknext_local.sh`
 - configure the bundled InterProScan to use the platform helper binaries under `bin/`
-- run `python winnowtak.py --check-deps`
+- run `python itaknext.py --check-deps`
 - optionally run a post-install smoke test through both InterProScan and the main iTAK Next workflow
 
 Generated runtime files can be removed with:
@@ -163,30 +163,33 @@ pip install torch torchvision torchaudio
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
 
-## InterProScan Database (db/)
-- If you use the bundled InterProScan, make sure `db/` exists or `db.tar.gz` is available in the project root.
-- If you use an external InterProScan via `--interproscan /path/to/interproscan.sh`, you can skip the bundled `db/`.
+## Bundled database (`db/`)
+- The bundled database is distributed as a single archive, `db.tar.gz`, and contains two
+  parts: the pruned InterProScan library (`db/interproscan/`) and the protein kinase HMM
+  library (`db/itaknext_pk/`). On first run the program downloads `db.tar.gz` from the
+  release and extracts both parts automatically.
+- If you use an external InterProScan via `--interproscan /path/to/interproscan.sh`,
+  you can skip the bundled `db/` (the download is not attempted in that case).
 
-## Protein kinase database (`db/winnowtak_pk`)
-- iTAK Next bundles a reduced protein kinase HMM database under `db/winnowtak_pk/`.
+## Protein kinase database (`db/itaknext_pk`)
+- The protein kinase HMM database is included in `db.tar.gz` (see above); no separate
+  download is required.
 - This PK workflow uses `hmmscan` only; it does not depend on InterProScan.
 - Required profiles include `Tfam_domain.hmm`, `Plant_Pkinase_fam.hmm`, `PlantsPHMM3_89.hmm`,
   `Pkinase_sub_WNK1.hmm`, `Pkinase_sub_MAK.hmm`, plus `GA_table.txt` and `PK_class_desc.txt`.
 
 ## Deploy / Install from GitLab
 ```bash
-git clone git@git.moilab.net:moilab/projects/WinnowTAK.git "iTAK Next"
-cd "iTAK Next/itak3.7"
+git clone git@git.moilab.net:moilab/projects/iTAK-Next.git
+cd iTAK-Next/itak3.7
 ```
-> 项目已更名为 **iTAK Next**；克隆时显式指定目标目录名，使本地目录与项目名一致。
-> （GitLab 仓库随后更名，届时可直接 `git clone .../iTAK-Next.git`。）
 
 Usage
 --------
 
 ## Syntax
 ```bash
-python winnowtak.py [options] -i <input_file>
+python itaknext.py [options] -i <input_file>
 ```
 
 ## Primary arguments
@@ -219,42 +222,42 @@ Examples
 --------
 
 1. Basic analysis (analyze input directly):
-   python winnowtak.py -i test_protein.fasta
+   python itaknext.py -i test_protein.fasta
 
 2. Prediction workflow:
-   python winnowtak.py --predict -i test_protein.fasta -t 0.1
+   python itaknext.py --predict -i test_protein.fasta -t 0.1
 
 3. Specify an output directory:
-   python winnowtak.py --predict -i test_protein.fasta -o /path/to/output
+   python itaknext.py --predict -i test_protein.fasta -o /path/to/output
 
 4. Enable debug mode:
-   python winnowtak.py --predict -i test_protein.fasta --debug
+   python itaknext.py --predict -i test_protein.fasta --debug
 
 5. Restrict InterProScan applications:
-   python winnowtak.py -i test_protein.fasta --appl CDD,Pfam,SMART
+   python itaknext.py -i test_protein.fasta --appl CDD,Pfam,SMART
 
 6. Test mode:
-   python winnowtak.py -test -i input.fasta -json ipr_result.json -spechmm hmmscan_result.tbl
+   python itaknext.py -test -i input.fasta -json ipr_result.json -spechmm hmmscan_result.tbl
 
 7. Check dependencies:
-   python winnowtak.py --check-deps
+   python itaknext.py --check-deps
 
 8. Use supplementary models (requires --predict):
-   python winnowtak.py --predict --use-supplementary -i input.fasta
-   python winnowtak.py --predict --supplementary-only -i input.fasta
-   python winnowtak.py --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
+   python itaknext.py --predict --use-supplementary -i input.fasta
+   python itaknext.py --predict --supplementary-only -i input.fasta
+   python itaknext.py --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
 
 9. Grad-CAM heatmaps (requires --predict):
    - fast: runs after classification, using the classified TF FASTA under result/ (batch mode)
    - all: runs on the original input FASTA (all sequences)
-   python winnowtak.py --predict --grad-cam-mode fast -i input.fasta
-   python winnowtak.py --predict --grad-cam-mode all -i input.fasta
+   python itaknext.py --predict --grad-cam-mode fast -i input.fasta
+   python itaknext.py --predict --grad-cam-mode all -i input.fasta
 
 10. Skip protein kinase analysis:
-   python winnowtak.py -i test_protein.fasta --skip-pk
+   python itaknext.py -i test_protein.fasta --skip-pk
 
 11. Run a positive protein kinase example:
-   python winnowtak.py -i test_protein_kinase.fasta --skip-deps-check
+   python itaknext.py -i test_protein_kinase.fasta --skip-deps-check
 
 12. Run a positive protein kinase smoke test:
    ./smoke_test.sh --input test_protein_kinase.fasta --require-pk 2
@@ -312,21 +315,21 @@ FAQ / Troubleshooting
 --------
 
 1) db download / preparation failed (timeout / network error)
-   - Download `db.tar.gz` manually, then place it in the project root (same directory as `winnowtak.py`).
+   - Download `db.tar.gz` manually, then place it in the project root (same directory as `itaknext.py`).
    - Re-run the program (it will try to extract / prepare db assets automatically), or extract manually:
      ```bash
      tar -xzf db.tar.gz
      ```
    - If you already have a working InterProScan, prefer using it directly:
      ```bash
-     python winnowtak.py -i input.fasta --interproscan /path/to/interproscan.sh
+     python itaknext.py -i input.fasta --interproscan /path/to/interproscan.sh
      ```
 
 2) "Dependency checks failed"
    - Ensure Python packages are installed and `java` / `hmmscan` are available on PATH.
    - Run:
      ```bash
-     python winnowtak.py --check-deps
+     python itaknext.py --check-deps
      ```
 
 3) "FASTA validation failed"

@@ -24,7 +24,7 @@ echo ""
 # Run in test mode
 # The -json file is copied to the output as the input basename + .json.
 # For test_protein.fasta as input, the expected name is test_protein.fasta.json.
-"${CMD[@]}" winnowtak.py \
+"${CMD[@]}" itaknext.py \
   -test \
   -i test_protein.fasta \
   -json test_data/test_ipr_result.json \

@@ -19,7 +19,7 @@ except ImportError:
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent.parent
-PK_DB_DIR = SCRIPT_DIR / "db" / "winnowtak_pk"
+PK_DB_DIR = SCRIPT_DIR / "db" / "itaknext_pk"
 PK_IDENTIFY_DOMAINS = {"PF00069", "PF07714"}
 PPC_SUBCLASS_RULES = (
     ("PPC:4.1.5", "Pkinase_sub_WNK1.hmm", 30.0, "PPC:4.1.5.1"),
@@ -255,7 +255,7 @@ def _ensure_pk_database():
     missing = [name for name in required if not (PK_DB_DIR / name).exists()]
     if missing:
         raise FileNotFoundError(
-            "Missing protein kinase database files under db/winnowtak_pk: " + ", ".join(missing)
+            "Missing protein kinase database files under db/itaknext_pk: " + ", ".join(missing)
         )
 
 

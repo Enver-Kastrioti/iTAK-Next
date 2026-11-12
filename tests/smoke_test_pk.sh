@@ -40,12 +40,12 @@ fi
 mkdir -p "$OUTPUT_DIR"
 
 CMD=()
-if [[ -x "$ROOT_DIR/run_winnowtak_local.sh" ]]; then
-  CMD=("$ROOT_DIR/run_winnowtak_local.sh")
+if [[ -x "$ROOT_DIR/run_itaknext_local.sh" ]]; then
+  CMD=("$ROOT_DIR/run_itaknext_local.sh")
 elif [[ -x "$ROOT_DIR/.venv/bin/python" ]]; then
-  CMD=("$ROOT_DIR/.venv/bin/python" "$ROOT_DIR/winnowtak.py")
+  CMD=("$ROOT_DIR/.venv/bin/python" "$ROOT_DIR/itaknext.py")
 else
-  CMD=("python3" "$ROOT_DIR/winnowtak.py")
+  CMD=("python3" "$ROOT_DIR/itaknext.py")
 fi
 
 # Run iTAK Next with --skip-pk disabled so PK analysis runs,

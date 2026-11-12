@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "winnowtak"
+name = "itaknext"
 version = "3.7"
 description = "Transcription factor and protein kinase analysis tool for plant genomes"
 readme = "README.md"
@@ -45,4 +45,4 @@ predict = [
 ]
 
 [project.urls]
-Repository = "https://git.moilab.net/moilab/projects/WinnowTAK"
+Repository = "https://git.moilab.net/moilab/projects/iTAK-Next"

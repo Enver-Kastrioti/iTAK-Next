@@ -1,4 +1,4 @@
-name: winnowtak
+name: itaknext
 channels:
   - conda-forge
   - bioconda

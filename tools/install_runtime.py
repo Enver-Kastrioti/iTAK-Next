@@ -140,7 +140,7 @@ def write_itak_wrapper(wrapper_path, *, java_bin, helper_root, config_path, pyth
     lines = build_runtime_shell_lines(java_bin=java_bin, helper_root=helper_root, config_path=config_path)
     lines.extend(
         [
-            f'exec "{python_bin}" "$SCRIPT_DIR/winnowtak.py" "$@"',
+            f'exec "{python_bin}" "$SCRIPT_DIR/itaknext.py" "$@"',
             "",
         ]
     )
@@ -161,7 +161,7 @@ def install_python_packages(python_bin, *, with_predict, predict_backend, torch_
 def run_dependency_check(python_bin, *, config_path):
     env = build_runtime_env(ROOT_DIR)
     env["INTERPROSCAN_CONF"] = str(config_path)
-    run_command([str(python_bin), str(ROOT_DIR / "winnowtak.py"), "--check-deps"], env=env)
+    run_command([str(python_bin), str(ROOT_DIR / "itaknext.py"), "--check-deps"], env=env)
 
 
 def run_smoke_test(python_bin, *, wrapper_path, config_path, input_fasta, appl_list, output_root):
@@ -195,7 +195,7 @@ def run_smoke_test(python_bin, *, wrapper_path, config_path, input_fasta, appl_l
     run_command(
         [
             str(python_bin),
-            str(ROOT_DIR / "winnowtak.py"),
+            str(ROOT_DIR / "itaknext.py"),
             "-i",
             str(input_fasta),
             "--appl",
@@ -212,7 +212,7 @@ def clean_runtime(*, interproscan_dir, venv_dir, remove_venv):
     candidates = [
         ROOT_DIR / "run_interproscan_local.sh",
         ROOT_DIR / "run_itak2_local.sh",
-        ROOT_DIR / "run_winnowtak_local.sh",
+        ROOT_DIR / "run_itaknext_local.sh",
         interproscan_dir / "interproscan.local.properties",
     ]
 
@@ -234,7 +234,7 @@ def clean_runtime(*, interproscan_dir, venv_dir, remove_venv):
 def print_status(*, interproscan_dir, venv_dir):
     local_config = interproscan_dir / "interproscan.local.properties"
     interproscan_wrapper = ROOT_DIR / "run_interproscan_local.sh"
-    itak_wrapper = ROOT_DIR / "run_winnowtak_local.sh"
+    itak_wrapper = ROOT_DIR / "run_itaknext_local.sh"
     properties = load_properties(local_config)
 
     installed = local_config.exists() and interproscan_wrapper.exists() and itak_wrapper.exists()
@@ -414,7 +414,7 @@ def main():
     if legacy_wrapper_path.exists() or legacy_wrapper_path.is_symlink():
         legacy_wrapper_path.unlink()
 
-    itak_wrapper_path = ROOT_DIR / "run_winnowtak_local.sh"
+    itak_wrapper_path = ROOT_DIR / "run_itaknext_local.sh"
     write_itak_wrapper(
         itak_wrapper_path,
         java_bin=java_bin,
@@ -450,7 +450,7 @@ def main():
         )
 
     print("\nInstall completed.")
-    print(f"Use iTAK Next with: {shell_join([str(runtime_python), str(ROOT_DIR / 'winnowtak.py'), '-i', 'input.fasta'])}")
+    print(f"Use iTAK Next with: {shell_join([str(runtime_python), str(ROOT_DIR / 'itaknext.py'), '-i', 'input.fasta'])}")
     print(f"Use iTAK Next wrapper with: {shell_join([str(itak_wrapper_path), '-i', 'input.fasta'])}")
     print(f"Use InterProScan directly with: {shell_join([str(wrapper_path), '-i', 'input.fasta', '-f', 'json', '-d', 'output_dir'])}")
 
