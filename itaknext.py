@@ -803,7 +803,7 @@ def _get_or_create_processed_fasta(fasta_file, output_dir):
 
 def _run_protein_kinase_analysis(fasta_file, project_output, enabled=True, debug=False, cpu=4):
     if not enabled:
-        print("Protein kinase analysis skipped (PK is off by default; use --run-pk to enable)")
+        print("Protein kinase analysis skipped")
         return True
 
     kwargs = dict(debug=debug)
@@ -2255,7 +2255,7 @@ def predict_transcription_factors(threshold, fasta_file, output=None, extract_se
         if pk_success:
             print(f"Protein kinase step completed (elapsed: {format_duration(step_duration)})")
         else:
-            return False
+            print("[WARN] Protein kinase analysis failed; continuing without PK results")
 
         # Run InterProScan
         if run_interproscan_analysis and tf_fasta:
@@ -2445,7 +2445,7 @@ def analyze_sequences_directly(
         if pk_success:
             print(f"Protein kinase step completed (elapsed: {format_duration(step_duration)})")
         else:
-            return False
+            print("[WARN] Protein kinase analysis failed; continuing without PK results")
 
         # Run InterProScan
         print("\n2. Running InterProScan...")
@@ -2787,141 +2787,168 @@ def normalize_legacy_args(argv):
     return normalized, used
 
 
-def build_parser():
-    """Build the iTAK Next command-line parser."""
+COMMON_EPILOG = """
+Example usage:
+  # 1) Analyze input sequences directly (prediction is skipped)
+  ./itaknext -i input.fasta
+
+  # 2) Enable prediction, then annotate/classify the predicted TFs
+  ./itaknext --predict -i input.fasta -t 0.1
+
+  # 3) Choose an output directory (default: <install dir>/output/<input_basename>/)
+  ./itaknext --predict -i input.fasta -o /path/to/output
+
+  # 4) Restrict InterProScan applications
+  ./itaknext -i input.fasta --appl CDD,Pfam,SMART
+
+  # 5) Adjust the domain score threshold
+  ./itaknext -i input.fasta --score 1.0
+
+  # 6) Generate Grad-CAM heatmaps for predicted TFs
+  ./itaknext --predict --grad-cam-mode fast -i input.fasta
+
+  # 7) Check dependencies and exit
+  ./itaknext --check-deps
+
+Run './itaknext --help-all' to list advanced/developer options.
+"""
+
+FULL_EPILOG = """
+Example usage:
+  # 1) Analyze input sequences directly (skip prediction)
+  ./itaknext -i input.fasta
+
+  # 2) Enable prediction: predict TFs, then run domain analysis and family classification
+  ./itaknext --predict -i input.fasta -t 0.1
+
+  # 3) Specify an output directory (default: <install dir>/output/<input_basename>/)
+  ./itaknext --predict -i input.fasta -o /path/to/output
+
+  # 4) Restrict InterProScan applications (run only selected libraries)
+  ./itaknext -i input.fasta --appl CDD,Pfam,SMART
+
+  # 5) Adjust domain score filtering (retain only hits above the threshold)
+  ./itaknext -i input.fasta --score 1.0
+
+  # 6) Classification policy: specific (specificity-first) or score (score-first, default)
+  ./itaknext -i input.fasta --classification-mode specific
+
+  # 7) Prediction splitting mode: fast (default) or full (more comprehensive, slower)
+  ./itaknext --predict -i input.fasta --predict-mode full
+
+  # 8) Use supplementary models (stacked with main model, or supplementary-only)
+  ./itaknext --predict --use-supplementary -i input.fasta
+  ./itaknext --predict --supplementary-only -i input.fasta
+  ./itaknext --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
+
+  # 9) Grad-CAM heatmaps (all/positive require --predict; fast also works in direct/test mode)
+  ./itaknext --predict --grad-cam-mode fast -i input.fasta
+  ./itaknext --predict --grad-cam-mode all -i input.fasta
+
+  # 10) Test mode: skip InterProScan and validate classification using provided files
+  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json --spechmm-file hmmscan_result.tbl
+  #     External IPR JSON only: hmmscan auto-runs against the self-built HMM database
+  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json
+
+  # 11) Use an external interproscan.sh (hmmscan will follow the specified InterProScan)
+  ./itaknext -i input.fasta --interproscan /path/to/interproscan.sh
+
+  # 12) Check dependencies and exit
+  ./itaknext --check-deps
+"""
+
+
+def build_parser(show_advanced=False):
+    """Build the iTAK Next command-line parser.
+
+    By default only the common user-facing options are shown in ``--help``.
+    Advanced/developer options are still accepted but hidden; they are listed
+    when ``show_advanced=True`` (used by ``--help-all``).
+    """
     parser = argparse.ArgumentParser(
         prog="itaknext",
         description="iTAK Next - transcription factor prediction and analysis tool",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         allow_abbrev=False,
-        epilog="""
-Example usage:
-  # 1) Analyze input sequences directly (skip prediction)
-  ./itaknext -i input.fasta
-  
-  # 2) Enable prediction: predict TFs, then run domain analysis and family classification
-  ./itaknext --predict -i input.fasta -t 0.1
-  
-  # 3) Specify an output directory (default: <install dir>/output/<input_basename>/)
-  ./itaknext --predict -i input.fasta -o /path/to/output
-  
-  # 4) Restrict InterProScan applications (run only selected libraries)
-  ./itaknext -i input.fasta --appl CDD,Pfam,SMART
-  
-  # 5) Adjust domain score filtering (retain only hits above the threshold)
-  ./itaknext -i input.fasta --score 1.0
-  
-  # 6) Classification policy: specific (specificity-first) or score (score-first, default)
-  ./itaknext -i input.fasta --classification-mode specific
-  
-  # 7) Prediction splitting mode: fast (default) or full (more comprehensive, slower)
-  ./itaknext --predict -i input.fasta --predict-mode full
-  
-  # 8) Use supplementary models (stacked with main model, or supplementary-only)
-  ./itaknext --predict --use-supplementary -i input.fasta
-  ./itaknext --predict --supplementary-only -i input.fasta
-  ./itaknext --predict --use-supplementary --supp-models a.pth b.pth -i input.fasta
-  
-  # 9) Grad-CAM heatmaps (all/positive require --predict; fast also works in direct/test mode)
-  ./itaknext --predict --grad-cam-mode fast -i input.fasta
-  ./itaknext --predict --grad-cam-mode all -i input.fasta
-  
-  # 10) Test mode: skip InterProScan and validate classification using provided files
-  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json --spechmm-file hmmscan_result.tbl
-  #     External IPR JSON only: hmmscan auto-runs against the self-built HMM database
-  ./itaknext --test-mode -i input.fasta --json-file ipr_result.json
-  
-  # 11) Use an external interproscan.sh (hmmscan will follow the specified InterProScan)
-  ./itaknext -i input.fasta --interproscan /path/to/interproscan.sh
-  
-  # 12) Check dependencies and exit
-  ./itaknext --check-deps
-        """
+        epilog=FULL_EPILOG if show_advanced else COMMON_EPILOG,
     )
 
-    # Primary parameters
-    parser.add_argument('-i', '--input', help='Path to input FASTA file')
-    parser.add_argument('-t', '--threshold', type=validate_threshold, default=0.1,
-                        help='Prediction threshold in [0, 1] (default: 0.1)')
-    parser.add_argument('-o', '--output', help='Output directory path')
+    input_group = parser.add_argument_group('Input and output')
+    input_group.add_argument('-i', '--input', help='Path to input FASTA file')
+    input_group.add_argument('-o', '--output',
+                             help='Output directory (default: <install dir>/output/<input_basename>/)')
+    input_group.add_argument('-t', '--threshold', type=validate_threshold, default=0.1,
+                             help='Prediction threshold in [0, 1] (default: 0.1; affects prediction only)')
 
-    # Feature options
-    parser.add_argument('--predict', action='store_true',
-                        help='Enable prediction (model inference is used as downstream analysis input)')
-    parser.add_argument('--list-predict', action='store_true',
-                        help='Predict once, then classify under multiple thresholds to produce multiple outputs')
+    analysis_group = parser.add_argument_group('Analysis options')
+    analysis_group.add_argument('--predict', action='store_true',
+                                help='Run the deep-learning pre-classification, then annotate/classify the predicted TFs (requires PyTorch)')
+    analysis_group.add_argument('--appl', type=validate_appl_list, default=DEFAULT_APPL,
+                                help=f'InterProScan application list (comma-separated). Allowed: {DEFAULT_APPL}')
+    analysis_group.add_argument('--interproscan',
+                                help='Path to an external interproscan.sh (skips bundled-db checks)')
+    analysis_group.add_argument('--score', type=validate_non_negative_float, default=1.0,
+                                help='Global domain score threshold (default: 1.0); --score-interpro/--score-hmm override it per path')
+    analysis_group.add_argument('--cpu', type=validate_positive_int, default=4,
+                                help='Thread count for DeepWinnow/hmmscan/PK hmmscan (default: 4)')
+    analysis_group.add_argument('--grad-cam-mode', choices=['none', 'all', 'positive', 'fast'], default='none',
+                                help='Grad-CAM heatmaps: none (default), fast, all, positive '
+                                     '(all/positive require --predict; fast also works in direct/test mode)')
 
-    # Test mode parameters
-    parser.add_argument('--test-mode', action='store_true',
-                        help='Enable test mode (skip InterProScan/hmmscan and validate classification using specified files)')
-    parser.add_argument('--json-file',
-                        help='InterProScan JSON result file path for test mode (only with --test-mode)')
-    parser.add_argument('--spechmm-file',
-                        help='hmmscan result file path for test mode (only with --test-mode); if omitted, hmmscan auto-runs against the self-built HMM database')
+    misc_group = parser.add_argument_group('Dependency checks and information')
+    misc_group.add_argument('--check-deps', action='store_true',
+                            help='Run dependency checks and exit')
+    misc_group.add_argument('--help-all', action='store_true',
+                            help='Show all options, including advanced/developer ones')
+    misc_group.add_argument('--version', action='version',
+                            version=f'iTAK Next version {__version__} ({__date__})',
+                            help='Show version information and exit')
 
-    # InterProScan applications
-    parser.add_argument('--appl', type=validate_appl_list,
-                        default=DEFAULT_APPL,
-                        help=f'InterProScan application list (comma-separated). Allowed: {DEFAULT_APPL}')
+    if show_advanced:
+        adv_group = parser.add_argument_group('Advanced / developer options')
+    else:
+        adv_group = parser
 
-    # External InterProScan path
-    parser.add_argument('--interproscan', help='Path to interproscan.sh (hmmscan will follow the specified InterProScan)')
+    def add_advanced(*args, **kwargs):
+        if not show_advanced:
+            kwargs['help'] = argparse.SUPPRESS
+        adv_group.add_argument(*args, **kwargs)
 
-    # Protein kinase analysis: PK is OFF by default; --skip-pk is deprecated.
-    pk_group = parser.add_mutually_exclusive_group()
-    pk_group.add_argument('--run-pk', action='store_true',
-                          help='Enable protein kinase (PK) identification/classification (default: OFF)')
-    pk_group.add_argument('--skip-pk', action='store_true',
-                          help='Deprecated no-op kept for backward compatibility; PK is off by default, use --run-pk to enable it')
+    add_advanced('--list-predict', action='store_true',
+                 help='Predict once, then classify under multiple thresholds to produce multiple outputs')
+    add_advanced('--test-mode', action='store_true',
+                 help='Test mode: skip InterProScan/hmmscan and validate classification using provided files')
+    add_advanced('--json-file',
+                 help='InterProScan JSON result file for --test-mode (required with --test-mode)')
+    add_advanced('--spechmm-file',
+                 help='hmmscan result file for --test-mode (optional; hmmscan auto-runs when omitted)')
+    add_advanced('--score-interpro', type=validate_non_negative_float, default=None, dest='score_interpro',
+                 help='InterProScan-path-only score threshold (default: follow --score)')
+    add_advanced('--score-hmm', type=validate_non_negative_float, default=None, dest='score_hmm',
+                 help='self-built HMM-path-only score threshold (default: follow --score)')
+    add_advanced('--score-thresholds', default=None, dest='score_thresholds',
+                 help='JSON file with per-model HMM thresholds (default: hmm/self_build_thresholds.json; pass "none" to disable)')
+    add_advanced('--classification-mode', choices=['specific', 'score'], default='score',
+                 help="Classification mode: 'specific' (specificity-first) or 'score' (score-first, default)")
+    add_advanced('--predict-mode', choices=['fast', 'full'], default='fast',
+                 help="Prediction splitting mode: 'fast' (default) or 'full' (full coverage)")
+    add_advanced('--interproscan-cpu', type=validate_positive_int, default=None, dest='interproscan_cpu',
+                 help='Independent InterProScan thread count (default: follow --cpu)')
+    add_advanced('--use-supplementary', action='store_true',
+                 help='Run supplementary models on sequences called Non-TF (requires --predict/--list-predict)')
+    add_advanced('--supplementary-only', action='store_true',
+                 help='Use supplementary models only; skip the main model')
+    add_advanced('--supp-models', nargs='*', default=None,
+                 help='Explicit supplementary model paths (default: all .pth in pre_model/supplementary_model/)')
+    add_advanced('--debug', action='store_true', default=False,
+                 help='Write intermediate artifacts and a terminal log (default: off)')
+    add_advanced('--skip-deps-check', action='store_true',
+                 help='Skip dependency checks and run anyway (not recommended)')
 
-    parser.add_argument('--cpu', type=validate_positive_int, default=4,
-                        help='Number of CPU threads used uniformly across DeepWinnow, hmmscan, and protein kinase hmmscan runs (default: 4). InterProScan follows --cpu unless --interproscan-cpu is set independently.')
-    parser.add_argument('--interproscan-cpu', type=validate_positive_int, default=None, dest='interproscan_cpu',
-                        help='Independent CPU thread count for InterProScan only. Default: None, which means follow --cpu.')
-
-    # Debug mode
-    parser.add_argument('--debug', action='store_true', default=False,
-                        help='Enable debug mode and write intermediate artifacts (default: off)')
-
-    # Score threshold
-    parser.add_argument('--score', type=validate_non_negative_float, default=1.0,
-                        help='Global domain score threshold (default: 1.0). Used for any path not explicitly overridden by --score-interpro / --score-hmm.')
-    parser.add_argument('--score-interpro', type=validate_non_negative_float, default=None, dest='score_interpro',
-                        help='Score threshold for the InterProScan domain path only. Default: None, which means follow --score.')
-    parser.add_argument('--score-hmm', type=validate_non_negative_float, default=None, dest='score_hmm',
-                        help='Global score threshold for the self-build HMM path only. Default: None, which means follow --score.')
-    parser.add_argument('--score-thresholds', default=None, dest='score_thresholds',
-                        help='JSON file with per-model score thresholds for the self-build HMM path; models absent from it use --score-hmm. Default: hmm/self_build_thresholds.json. Pass "none" (case-insensitive) to disable per-model thresholds.')
-
-    # Classification mode
-    parser.add_argument('--classification-mode', choices=['specific', 'score'], default='score',
-                        help="Classification mode: 'specific' (specificity-first) or 'score' (score-first, default)")
-
-    # Prediction splitting mode
-    parser.add_argument('--predict-mode', choices=['fast', 'full'], default='fast',
-                        help="Prediction splitting mode: 'fast' (default) or 'full' (full coverage)")
-
-    # Supplementary model options
-    parser.add_argument('--use-supplementary', action='store_true',
-                        help='Enable supplementary models for an additional prediction pass (default: off)')
-    parser.add_argument('--supplementary-only', action='store_true',
-                        help='Use supplementary models only; skip the main model')
-    parser.add_argument('--supp-models', nargs='*', default=None,
-                        help='Optional: specify supplementary model path(s); if omitted, use all models in the directory')
-
-    # Grad-CAM options
-    parser.add_argument('--grad-cam-mode', choices=['none', 'all', 'positive', 'fast'], default='none',
-                        help='Grad-CAM mode: none (default), all, positive (thresholded), fast')
-
-    # Dependency checks
-    parser.add_argument('--check-deps', action='store_true',
-                        help='Check dependencies and exit')
-    parser.add_argument('--skip-deps-check', action='store_true',
-                        help='Skip dependency checks and run anyway (not recommended)')
-
-    parser.add_argument('--version', action='version',
-                        version=f'iTAK Next version {__version__} ({__date__})',
-                        help='Show version information and exit')
+    # Deprecated compatibility switches: accepted but never shown, since protein
+    # kinase analysis now runs by default.
+    parser.add_argument('--run-pk', action='store_true', help=argparse.SUPPRESS)
+    parser.add_argument('--skip-pk', action='store_true', help=argparse.SUPPRESS)
 
     return parser
 
@@ -2932,11 +2959,12 @@ def validate_cli_args(parser, args):
     Uses ``parser.error`` (exit code 2) so that invalid invocations fail fast
     and do not trigger the automatic database download.
     """
-    # Deprecated flag: keep accepting it, but make the no-op explicit.
-    if args.skip_pk:
+    # Deprecated PK switches: protein kinase analysis now runs by default. Keep
+    # accepting the old flags for script compatibility, but make the no-op explicit.
+    if getattr(args, 'run_pk', False) or getattr(args, 'skip_pk', False):
         print(
-            "Warning: --skip-pk is deprecated and has no effect; PK analysis is off by "
-            "default. Use --run-pk to enable it.",
+            "Warning: --run-pk/--skip-pk are deprecated and have no effect; protein "
+            "kinase analysis is enabled by default.",
             file=sys.stderr,
         )
 
@@ -3011,6 +3039,11 @@ def main():
             + "; use --test-mode / --json-file / --spechmm-file instead.",
             file=sys.stderr,
         )
+    # --help-all prints the full option list (including advanced/developer options).
+    if '--help-all' in argv:
+        print(build_parser(show_advanced=True).format_help())
+        sys.exit(0)
+
     args = parser.parse_args(argv)
 
     # Validate CLI combinations before dependency checks (which may download db assets)
@@ -3201,7 +3234,7 @@ def main():
             use_supplementary=args.use_supplementary,
             supplementary_only=args.supplementary_only,
             supp_models=args.supp_models,
-            run_protein_kinase_analysis=(args.run_pk and not args.skip_pk),
+            run_protein_kinase_analysis=True,
             cpu=args.cpu,
             interproscan_cpu=args.interproscan_cpu,
         )
@@ -3254,7 +3287,7 @@ def main():
             use_supplementary=args.use_supplementary,
             supplementary_only=args.supplementary_only,
             supp_models=args.supp_models,
-            run_protein_kinase_analysis=(args.run_pk and not args.skip_pk),
+            run_protein_kinase_analysis=True,
             cpu=args.cpu,
             interproscan_cpu=args.interproscan_cpu,
         )
@@ -3285,7 +3318,7 @@ def main():
             score_hmm=args.score_hmm,
             thresholds_file=args.score_thresholds,
             interproscan_path=args.interproscan,
-            run_protein_kinase_analysis=(args.run_pk and not args.skip_pk),
+            run_protein_kinase_analysis=True,
             cpu=args.cpu,
             interproscan_cpu=args.interproscan_cpu,
         )

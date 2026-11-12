@@ -203,53 +203,48 @@ Usage
 python itaknext.py [options] -i <input_file>
 ```
 
-## Primary arguments
-- `-i, --input`: Input FASTA file path (required except with `--check-deps` / `--version`)
-- `-o, --output`: Output directory (default: `<install dir>/output/<input_basename>/`; an existing directory is reused)
-- `-t, --threshold`: Prediction threshold in [0,1] (default: 0.1; affects prediction only, not domain filtering)
+## Common options (shown by `./itaknext --help`)
 
-## Domain score thresholds
-- `--score`: Global domain score threshold for both annotation paths (default: 1.0)
-- `--score-interpro`: InterProScan-path-only threshold (default: follow `--score`)
-- `--score-hmm`: self-built HMM-path-only threshold (default: follow `--score`)
-- `--score-thresholds`: JSON file with per-model HMM thresholds (default: `hmm/self_build_thresholds.json`; pass `none` to disable)
+| Option | Default | Explanation |
+|---|---|---|
+| `-i, --input` | required | Input FASTA file (required except with `--check-deps` / `--version`) |
+| `-o, --output` | `<install dir>/output/<input_basename>/` | Output directory; an existing directory is reused |
+| `-t, --threshold` | `0.1` | Prediction threshold in [0,1]; affects prediction only, not domain filtering |
+| `--predict` | off | Run the deep-learning pre-classification, then annotate/classify the predicted TFs (requires PyTorch) |
+| `--appl` | all 8 libraries | InterProScan application list |
+| `--interproscan` | bundled | Path to an external `interproscan.sh` (skips bundled-db checks) |
+| `--score` | `1.0` | Global domain score threshold |
+| `--cpu` | `4` | Thread count for DeepWinnow/hmmscan/PK hmmscan |
+| `--grad-cam-mode` | `none` | Grad-CAM heatmaps: `none`/`fast`/`all`/`positive` (all/positive require `--predict`) |
+| `--check-deps` | off | Run dependency checks and exit |
+| `--help-all` | off | Show advanced/developer options as well |
+| `--version` | — | Print version information and exit |
 
-## Classification and prediction
-- `--classification-mode`: `specific` (specificity-first) or `score` (score-first, default)
-- `--predict`: enable prediction, then analyze the predicted TF sequences
-- `--list-predict`: predict once, then classify under multiple thresholds
-- `--predict-mode`: long-sequence splitting mode, `fast` (default) or `full`
+**Protein kinase (PK) analysis runs by default** — there is no switch to enable it. PK results appear under `protein_kinase/` when the `db/itaknext_pk/` assets are available; if PK analysis fails, a warning is printed and the TF/TR classification continues.
 
-## Domain annotation
-- `--appl`: InterProScan application list (default: `CDD,NCBIfam,PANTHER,Pfam,PRINTS,PROSITEPATTERNS,PROSITEPROFILES,SMART`)
-- `--interproscan`: path to an external `interproscan.sh` (skips bundled-db checks)
+## Advanced / developer options (hidden by default; run `./itaknext --help-all`)
 
-## Protein kinase (PK) analysis
-- `--run-pk`: enable PK identification/classification (default: OFF)
-- `--skip-pk`: deprecated no-op kept for backward compatibility (PK is already off); use `--run-pk` to enable it
+| Option | Default | Explanation |
+|---|---|---|
+| `--list-predict` | off | Predict once, then classify under multiple thresholds |
+| `--test-mode` | off | Skip InterProScan/hmmscan and validate classification using provided result files |
+| `--json-file` | — | InterProScan JSON result for `--test-mode` (required with `--test-mode`) |
+| `--spechmm-file` | — | hmmscan `result.tbl` for `--test-mode` (optional; hmmscan auto-runs when omitted) |
+| `--score-interpro` | follow `--score` | InterProScan-path-only score threshold |
+| `--score-hmm` | follow `--score` | self-built HMM-path-only score threshold |
+| `--score-thresholds` | `hmm/self_build_thresholds.json` | Per-model HMM thresholds; pass `none` to disable |
+| `--classification-mode` | `score` | Family assignment policy: `score` (score-first) or `specific` (specificity-first) |
+| `--predict-mode` | `fast` | Long-sequence splitting: `fast` (fixed chunks + tail) or `full` (200 aa sliding window) |
+| `--interproscan-cpu` | follow `--cpu` | Independent InterProScan thread count |
+| `--use-supplementary` | off | Re-evaluate Non-TF predictions with supplementary models |
+| `--supplementary-only` | off | Skip the main model and use supplementary models only |
+| `--supp-models` | all `.pth` in the directory | Explicit supplementary model paths |
+| `--debug` | off | Write intermediate artifacts and a terminal log |
+| `--skip-deps-check` | off | Skip dependency checks (not recommended) |
 
-## Test mode
-- `--test-mode`: skip InterProScan/hmmscan and validate classification using provided result files
-- `--json-file`: InterProScan JSON result file (required with `--test-mode`)
-- `--spechmm-file`: hmmscan `result.tbl` (optional with `--test-mode`; when omitted, hmmscan auto-runs)
-
-## Supplementary models (require `--predict` or `--list-predict`)
-- `--use-supplementary`: additional prediction pass on sequences called Non-TF
-- `--supplementary-only`: use supplementary models only; skip the main model
-- `--supp-models`: explicit model paths (default: all `.pth` in `pre_model/supplementary_model/`)
-
-## Grad-CAM
-- `--grad-cam-mode`: `none` (default) / `fast` / `all` / `positive`; `all` and `positive` require `--predict`, and `--list-predict` does not support Grad-CAM (`fast` also works in direct/test mode)
-
-## Other options
-- `--cpu`: thread count for DeepWinnow/hmmscan/PK hmmscan (default: 4)
-- `--interproscan-cpu`: independent InterProScan thread count (default: follow `--cpu`)
-- `--debug`: write intermediate artifacts and a terminal log (default: off)
-- `--check-deps`: run dependency checks and exit
-- `--skip-deps-check`: skip dependency checks (not recommended)
-- `--version`: print version information and exit
-
-> The deprecated single-dash aliases `-test`, `-json` and `-spechmm` are still accepted but hidden from `--help`; prefer the long forms.
+> The deprecated single-dash aliases `-test`, `-json`, `-spechmm` and the old PK
+> switches `--run-pk` / `--skip-pk` are still accepted (with a warning) but are
+> not shown in any help screen.
 
 Examples
 --------
@@ -286,11 +281,11 @@ Examples
    ./itaknext --predict --grad-cam-mode fast -i input.fasta
    ./itaknext --predict --grad-cam-mode all -i input.fasta
 
-10. Run protein kinase analysis (PK is off by default):
-   ./itaknext -i test_protein.fasta --run-pk
+10. Protein kinase analysis runs by default (results under protein_kinase/):
+   ./itaknext -i test_protein.fasta
 
-11. Run a positive protein kinase example (skips dependency checks):
-   ./itaknext -i test_protein_kinase.fasta --run-pk --skip-deps-check
+11. List advanced/developer options:
+   ./itaknext --help-all
 
 12. Run a positive protein kinase smoke test:
    ./smoke_test.sh --input test_protein_kinase.fasta --require-pk 2
@@ -312,7 +307,7 @@ The program creates the following files and directories under the output directo
 │   └── <input>.json
 ├── hmmscan/                               # hmmscan output directory
 │   └── result.tbl
-├── protein_kinase/                        # Protein kinase outputs (only with --run-pk)
+├── protein_kinase/                        # Protein kinase outputs (PK runs by default)
 │   ├── match_tbl.txt                      # PK classification table in the same 6-column style as TF/TR match_tbl.txt
 │   ├── match.json                         # Debug output (--debug): PK classification JSON in the same schema as TF/TR match.json
 │   ├── <name>_pk_classified.fasta         # Classified PK sequences in the same header style as TF classified FASTA

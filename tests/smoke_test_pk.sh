@@ -48,8 +48,8 @@ else
   CMD=("python3" "$ROOT_DIR/itaknext.py")
 fi
 
-# Run iTAK Next with --skip-pk disabled so PK analysis runs,
-# but also skip-deps-check for environments without full InterProScan data
+# Run iTAK Next (PK analysis is enabled by default).
+# --skip-deps-check keeps this usable in environments without full InterProScan data.
 ARGS=(-i "$INPUT_FASTA" -o "$OUTPUT_DIR")
 
 echo "=== PK Smoke Test ==="

@@ -49,7 +49,7 @@ def parse_and_validate(argv):
 
 
 # ---------------------------------------------------------------------------
-# Parser definition
+# Parser definition / two-tier help
 # ---------------------------------------------------------------------------
 
 class TestParserDefinition:
@@ -66,23 +66,46 @@ class TestParserDefinition:
         assert args.predict_mode == "fast"
         assert args.appl == itaknext.DEFAULT_APPL
         assert args.grad_cam_mode == "none"
-        assert args.run_pk is False
-        assert args.skip_pk is False
+        assert args.help_all is False
 
-    def test_help_exposes_long_test_options_only(self):
+    def test_default_help_is_compact(self):
         help_text = itaknext.build_parser().format_help()
-        assert "--test-mode" in help_text
-        assert "--json-file" in help_text
-        assert "--spechmm-file" in help_text
-        # The deprecated single-dash aliases must no longer be advertised.
-        assert "-test, --test-mode" not in help_text
-        assert "  -json " not in help_text
-        assert "  -spechmm " not in help_text
+        for common in ("-i INPUT", "--predict", "--appl", "--score",
+                       "--cpu", "--grad-cam-mode", "--check-deps", "--help-all"):
+            assert common in help_text
+        for advanced in ("--test-mode", "--json-file", "--list-predict",
+                         "--classification-mode", "--predict-mode",
+                         "--score-interpro", "--score-hmm", "--score-thresholds",
+                         "--interproscan-cpu", "--use-supplementary",
+                         "--supplementary-only", "--supp-models",
+                         "--debug", "--skip-deps-check",
+                         "--run-pk", "--skip-pk"):
+            assert f"\n  {advanced}" not in help_text
 
-    def test_pk_flags_are_mutually_exclusive(self):
-        assert "[--run-pk | --skip-pk]" in itaknext.build_parser().format_help()
-        with pytest.raises(SystemExit):
-            parse(["-i", "input.fasta", "--run-pk", "--skip-pk"])
+    def test_help_all_lists_advanced_options(self):
+        help_text = itaknext.build_parser(show_advanced=True).format_help()
+        assert "Advanced / developer options" in help_text
+        for advanced in ("--test-mode", "--json-file", "--list-predict",
+                         "--classification-mode", "--predict-mode",
+                         "--score-interpro", "--score-hmm", "--score-thresholds",
+                         "--interproscan-cpu", "--use-supplementary",
+                         "--supplementary-only", "--supp-models",
+                         "--debug", "--skip-deps-check"):
+            assert f"\n  {advanced}" in help_text
+
+    def test_advanced_options_still_parse(self):
+        args = parse([
+            "--test-mode", "--json-file", "x.json", "--spechmm-file", "x.tbl",
+            "--classification-mode", "specific", "--predict-mode", "full",
+            "--debug", "--skip-deps-check",
+        ])
+        assert args.test_mode is True
+        assert args.json_file == "x.json"
+        assert args.spechmm_file == "x.tbl"
+        assert args.classification_mode == "specific"
+        assert args.predict_mode == "full"
+        assert args.debug is True
+        assert args.skip_deps_check is True
 
     def test_argument_abbreviation_disabled(self):
         with pytest.raises(SystemExit):
@@ -218,15 +241,14 @@ class TestValidateCliArgs:
         with pytest.raises(SystemExit):
             parse_and_validate(["-i", str(fasta), "--score-thresholds", str(tmp_path / "missing.json")])
 
-    def test_skip_pk_prints_deprecation_warning(self, tmp_path, capsys):
+    def test_deprecated_pk_switches_warn(self, tmp_path, capsys):
         fasta = make_fasta(tmp_path)
-        json_file = make_json(tmp_path)
-        args = parse_and_validate([
-            "--test-mode", "-i", str(fasta), "--json-file", str(json_file), "--skip-pk",
-        ])
-        assert args.skip_pk is True
-        captured = capsys.readouterr()
-        assert "--skip-pk is deprecated" in captured.err
+        for flag in ("--run-pk", "--skip-pk"):
+            capsys.readouterr()
+            args = parse_and_validate(["-i", str(fasta), flag])
+            captured = capsys.readouterr()
+            assert "--run-pk/--skip-pk are deprecated" in captured.err
+            assert getattr(args, flag.lstrip('-').replace('-', '_')) is True
 
     def test_supplementary_flags_warn_without_predict(self, tmp_path, capsys):
         fasta = make_fasta(tmp_path)

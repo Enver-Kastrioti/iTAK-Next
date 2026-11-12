@@ -16,13 +16,15 @@
 - Added combined result summary output: `result/all_match_tbl.txt`.
 
 ### Changed
-- CLI hardening: input/mode validation (including input existence, `--predict`/`--list-predict`/`--test-mode` exclusivity and Grad-CAM constraints) now runs before dependency checks, so invalid invocations no longer trigger a database download. `--cpu`/`--interproscan-cpu` require positive integers and `--score*` values must be non-negative. `--run-pk` and `--skip-pk` are now mutually exclusive, and `--skip-pk` is deprecated (PK is off by default). `--score-thresholds none` is now an explicit sentinel instead of relying on a missing file. Argument abbreviation is disabled, the deprecated single-dash aliases `-test`/`-json`/`-spechmm` are hidden from `--help` but still accepted with a warning, and the README parameter table is complete.
+- CLI hardening: input/mode validation (including input existence, `--predict`/`--list-predict`/`--test-mode` exclusivity and Grad-CAM constraints) now runs before dependency checks, so invalid invocations no longer trigger a database download. `--cpu`/`--interproscan-cpu` require positive integers and `--score*` values must be non-negative. `--score-thresholds none` is now an explicit sentinel instead of relying on a missing file. Argument abbreviation is disabled, the deprecated single-dash aliases `-test`/`-json`/`-spechmm` are hidden from `--help` but still accepted with a warning, and the README parameter table is complete.
+- Protein kinase (PK) analysis now runs by default: the `--run-pk`/`--skip-pk` switches were removed (old flags are accepted as deprecated no-ops with a warning), PK failures degrade to a warning instead of aborting TF/TR classification, and the PK smoke tests consequently work without extra flags.
+- `./itaknext --help` now shows only common user-facing options; advanced/developer options (test mode, fine-grained thresholds, supplementary models, debug, etc.) are hidden by default and listed by `--help-all` (they remain fully accepted by the parser).
 - Removed the stale `winnowtak.py` duplicate (identical to `itaknext.py` apart from help text); `itaknext.py` is now the single CLI implementation.
 - Renamed the project from WinnowTAK to iTAK Next: the CLI entry point `winnowtak.py` → `itaknext.py`, the protein kinase database `db/winnowtak_pk/` → `db/itaknext_pk/`, the generated wrapper `run_winnowtak_local.sh` → `run_itaknext_local.sh`, and the conda environment / package name `winnowtak` → `itaknext`. The GitLab repository is now `moilab/projects/iTAK-Next`.
 - Renamed the main CLI entry point from `itak3-v1.0.py` to `itaknext.py`; all scripts, tests and docs now reference the new name.
 - Unified the version number to `3.7` (iTAK Next v3.7): `__version__` and `pyproject.toml` no longer use the inconsistent `3.7.0`.
 - Integrated protein kinase analysis into both direct analysis mode and prediction mode.
-- Added `--skip-pk` to disable protein kinase analysis when needed.
+- Protein kinase analysis is enabled by default (previously gated behind a flag).
 - Aligned protein kinase outputs with TF/TR result style:
   - `protein_kinase/match_tbl.txt`
   - `protein_kinase/match.json` in `--debug` mode
