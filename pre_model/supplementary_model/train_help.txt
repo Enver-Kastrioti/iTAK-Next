@@ -2,7 +2,7 @@ train.py user guide (supplementary_model training script)
 The Lecrk_dataset.fasta / Lecrk_dataset.json / Lecrk_dataset.pth files in this directory are provided as examples only.
 
 1) Purpose
-- This supplementary-model training script is intended to extend iTAK3 by allowing users to train additional models on a custom dataset, thereby expanding the preclassification capability.
+- This supplementary-model training script is intended to extend iTAK Next by allowing users to train additional models on a custom dataset, thereby expanding the preclassification capability.
 - The architecture matches OneHotLightweightCNN used in the main prediction script (multi-branch 1D-CNN + attention + pooling + fully connected classifier).
 - Input is a JSON dataset (sequence + label). The script splits the dataset into train/validation/test sets with an 8:1:1 ratio.
 - The validation set is used for model selection (the best .pth is saved by validation accuracy). The test set is evaluated once at the end using the best checkpoint.

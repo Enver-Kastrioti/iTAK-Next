@@ -17,15 +17,9 @@ except ImportError:
     build_runtime_env = None
     resolve_helper_executable = None
 
-try:
-    from module.output_contracts import build_pk_match_record, write_pk_outputs
-except ImportError:
-    build_pk_match_record = None
-    write_pk_outputs = None
-
 
 SCRIPT_DIR = Path(__file__).resolve().parent.parent
-PK_DB_DIR = SCRIPT_DIR / "db" / "hmm_pk"
+PK_DB_DIR = SCRIPT_DIR / "db" / "winnowtak_pk"
 PK_IDENTIFY_DOMAINS = {"PF00069", "PF07714"}
 PPC_SUBCLASS_RULES = (
     ("PPC:4.1.5", "Pkinase_sub_WNK1.hmm", 30.0, "PPC:4.1.5.1"),
@@ -196,39 +190,56 @@ def _write_selected_fasta(source_fasta, selected_ids, output_fasta):
     return count
 
 
-def _build_pk_records(source_fasta, pkinase_id, plantsp_cat, shiu_cat, pk_desc):
+def _write_pk_outputs(output_dir, source_fasta, pkinase_id, plantsp_cat, shiu_cat, pk_desc, debug=False):
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    source_stem = Path(source_fasta).stem
+    pk_fasta = output_dir / "pk_sequence.fasta"
+    classified_pk_fasta = output_dir / f"{source_stem}_pk_classified.fasta"
+    match_tbl = output_dir / "match_tbl.txt"
+    combined_tsv = output_dir / "pk_classification.tsv"
+    shiu_tsv = output_dir / "shiu_classification.txt"
+    ppc_tsv = output_dir / "PPC_classification.txt"
+    match_json = output_dir / "match.json"
+
     sequences = {}
     with open(source_fasta, "r", encoding="utf-8") as handle:
         for record in SeqIO.parse(handle, "fasta"):
             sequences[record.id] = str(record.seq)
 
-    records = {}
-    for seq_id in sorted(pkinase_id.keys()):
-        shiu_class = shiu_cat.get(seq_id, "Group-other")
-        ppc_class = plantsp_cat.get(seq_id, "PPC:5.2.1")
-        ppc_desc = pk_desc.get(ppc_class, "NA")
-        sequence = sequences.get(seq_id, "")
-        if build_pk_match_record is not None:
-            records[seq_id] = build_pk_match_record(
-                sequence_id=seq_id,
-                shiu_class=shiu_class,
-                ppc_class=ppc_class,
-                ppc_description=ppc_desc,
-                sequence=sequence,
-            )
-        else:
-            records[seq_id] = {
+    json_result = {}
+
+    with open(pk_fasta, "w", encoding="utf-8") as fasta_handle, \
+         open(classified_pk_fasta, "w", encoding="utf-8") as classified_fasta_handle, \
+         open(match_tbl, "w", encoding="utf-8") as match_handle, \
+         open(combined_tsv, "w", encoding="utf-8") as combined_handle, \
+         open(shiu_tsv, "w", encoding="utf-8") as shiu_handle, \
+         open(ppc_tsv, "w", encoding="utf-8") as ppc_handle:
+        combined_handle.write("Sequence_ID\tShiu_Class\tPPC_Class\tPPC_Description\n")
+        for seq_id in sorted(pkinase_id.keys()):
+            shiu_class = shiu_cat.get(seq_id, "Group-other")
+            ppc_class = plantsp_cat.get(seq_id, "PPC:5.2.1")
+            ppc_desc = pk_desc.get(ppc_class, "NA")
+            sequence = sequences.get(seq_id, "")
+            header = f">{seq_id} | {ppc_class} | PK"
+            fasta_handle.write(f"{header}\n{sequence}\n")
+            classified_fasta_handle.write(f"{header}\n{sequence}\n")
+            match_handle.write(f"{seq_id}\t{ppc_class}\t{ppc_class}\tPK\t{ppc_desc}\tShiu:{shiu_class}\n")
+            combined_handle.write(f"{seq_id}\t{shiu_class}\t{ppc_class}\t{ppc_desc}\n")
+            shiu_handle.write(f"{seq_id}\t{shiu_class}\n")
+            ppc_handle.write(f"{seq_id}\t{ppc_class}\t{ppc_desc}\n")
+            json_result[seq_id] = {
                 "name": ppc_class,
                 "family": ppc_class,
                 "type": "PK",
                 "desc": [ppc_desc] if ppc_desc != "NA" else [],
                 "other_family": f"Shiu:{shiu_class}",
-                "pk_shiu_class": shiu_class,
-                "pk_ppc_class": ppc_class,
-                "pk_ppc_description": ppc_desc,
-                "sequence": sequence,
             }
-    return records
+
+    if debug:
+        with open(match_json, "w", encoding="utf-8") as handle:
+            json.dump(json_result, handle, indent=2, ensure_ascii=False)
 
 
 def _ensure_pk_database():
@@ -244,16 +255,14 @@ def _ensure_pk_database():
     missing = [name for name in required if not (PK_DB_DIR / name).exists()]
     if missing:
         raise FileNotFoundError(
-            "Missing protein kinase database files under db/hmm_pk: " + ", ".join(missing)
+            "Missing protein kinase database files under db/winnowtak_pk: " + ", ".join(missing)
         )
 
 
 def run_protein_kinase_pipeline(fasta_file, project_output, cpu=None, debug=False):
     _ensure_pk_database()
     hmmscan_bin = _resolve_hmmscan_executable()
-    available_cpu = max(1, os.cpu_count() or 1)
-    cpu = cpu or min(4, available_cpu)
-    cpu = max(1, min(cpu, available_cpu))
+    cpu = cpu or min(4, os.cpu_count() or 1)
 
     project_output = Path(project_output)
     pk_output_dir = project_output / "protein_kinase"
@@ -270,27 +279,25 @@ def run_protein_kinase_pipeline(fasta_file, project_output, cpu=None, debug=Fals
 
     if not pkinase_id:
         pk_output_dir.mkdir(parents=True, exist_ok=True)
-        if write_pk_outputs is not None:
-            write_pk_outputs({}, pk_output_dir, Path(fasta_file).stem, debug=debug)
-        else:
-            source_stem = Path(fasta_file).stem
-            for file_name in (
-                f"{source_stem}_pk_classified.fasta",
-                "shiu_classification.txt",
-                "PPC_classification.txt",
-            ):
-                (pk_output_dir / file_name).write_text("", encoding="utf-8")
-            (pk_output_dir / "pk_classification.tsv").write_text(
-                "Sequence_ID\tShiu_Class\tPPC_Class\tPPC_Description\n",
-                encoding="utf-8",
-            )
-            if debug:
-                (pk_output_dir / "match.json").write_text("{}\n", encoding="utf-8")
+        source_stem = Path(fasta_file).stem
+        for file_name in (
+            "pk_sequence.fasta",
+            f"{source_stem}_pk_classified.fasta",
+            "match_tbl.txt",
+            "shiu_classification.txt",
+            "PPC_classification.txt",
+        ):
+            (pk_output_dir / file_name).write_text("", encoding="utf-8")
+        (pk_output_dir / "pk_classification.tsv").write_text(
+            "Sequence_ID\tShiu_Class\tPPC_Class\tPPC_Description\n",
+            encoding="utf-8",
+        )
+        if debug:
+            (pk_output_dir / "match.json").write_text("{}\n", encoding="utf-8")
         return {
             "success": True,
             "count": 0,
             "output_dir": str(pk_output_dir),
-            "records": {},
         }
 
     pk_fasta = temp_dir / "pkinase_seq.fa"
@@ -318,13 +325,10 @@ def run_protein_kinase_pipeline(fasta_file, project_output, cpu=None, debug=Fals
             if hit.score >= cutoff:
                 plantsp_cat[hit.query_name] = refined_cat
 
-    pk_records = _build_pk_records(fasta_file, pkinase_id, plantsp_cat, shiu_cat, pk_desc)
-    if write_pk_outputs is not None:
-        write_pk_outputs(pk_records, pk_output_dir, Path(fasta_file).stem, debug=debug)
+    _write_pk_outputs(pk_output_dir, fasta_file, pkinase_id, plantsp_cat, shiu_cat, pk_desc, debug=debug)
 
     return {
         "success": True,
         "count": len(pkinase_id),
         "output_dir": str(pk_output_dir),
-        "records": pk_records,
     }

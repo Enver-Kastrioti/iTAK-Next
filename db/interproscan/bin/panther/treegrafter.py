@@ -9,12 +9,6 @@ import subprocess as sp
 import sys
 import tempfile
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-if sys.platform == "darwin":
-    bundled_bio = os.path.join(SCRIPT_DIR, "Bio")
-    if os.path.isdir(bundled_bio):
-        sys.path = [path for path in sys.path if os.path.abspath(path or ".") != SCRIPT_DIR]
-
 from Bio import Phylo
 from Bio.Phylo import NewickIO
 

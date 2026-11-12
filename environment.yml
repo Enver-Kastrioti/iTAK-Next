@@ -1,0 +1,20 @@
+name: winnowtak
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.7
+  - biopython>=1.83
+  - pandas>=1.5
+  - numpy>=1.23
+  - hmmer>=3.0
+  - openjdk>=11
+  - perl
+  # Optional (prediction / Grad-CAM):
+  # - pytorch>=2.0
+  # - torchvision>=0.15
+  # - torchaudio>=2.0
+  # - matplotlib>=3.5
+variables:
+  ITAK3_HOME: .

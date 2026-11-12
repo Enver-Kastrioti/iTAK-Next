@@ -11,7 +11,6 @@ __pycache__/
 stderr
 output/
 temp/
-manuscript/
 run_interproscan_local.sh
 run_itak2_local.sh
 run_itak3_local.sh
@@ -35,7 +34,5 @@ db/interproscan/data/prosite/**
 !db/interproscan/data/prosite/2025_01/
 db/interproscan/data/prosite/2025_01/**
 !db/interproscan/data/prosite/2025_01/skip_flagged_profiles.txt
-!db/hmm_pk/
-!db/hmm_pk/**
-!db/hmm_self_build/
-!db/hmm_self_build/**
+!db/itak3_pk/
+!db/itak3_pk/**

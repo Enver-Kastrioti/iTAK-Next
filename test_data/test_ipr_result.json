@@ -1,0 +1,4063 @@
+{
+ "interproscan-version": "5.75-106.0",
+"results": [ {
+  "sequence" : "TTIHKTDQKTPVFSLLVSSYCCYSSLFDLNQINLSSHCQSSKNRQRYHHQRHVEYPSPLVVVASPRLGTVVRGPMNHHGSNQASPLHKAFPYPLPLQQLLPGNAPYPVGTPPVADSNQTPLTSALEVGVTDTRWLHLASKLCPPCYSLEVLAGHASSRSYHAVSFQTDYALLQSGFSLNPNPFEMDLLPFFHLLILLPHLHYDSQCLEYSNAFSLKKVKDFRMGHRDYYPSQQKNIQLLFHSLGLFYMSPLILGKPFGYLAQKQQTREPYLQSLLQELWSETHLAGFEDSFLCHEGYYSSQKLQGVRNVKSPNACYLVVPASETDPDWFVGEDLLYHFHTENAIGNRYTATKKQQELIHCHPFFSETTGKQFGLPPYHSLARQQETTHHARNQSNIHQGRDDDSTMEQSHRLDSNPSLVMALTGSRPPSSLSHFQSLLKSLLVVEECSSIYLTDFELISDHFPTPAPQLHLQVEKGSCLEQIQALWAKAQTEA",
+  "md5" : "bd9f270cccb1303b0c300c95accae782",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-3",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-3"
+  } ]
+},{
+  "sequence" : "MNSFSHVPPGFRFHPTDEELVDYYLRKKVASKRIEIDFIKDIDLYKIEPWDLQELCKIGHEEQSDWYFFSHKDKKYPTGTRTNRATKAGFWKATGRDKAIYLRHSLIGMRKTLVFYKGRAPNGQKSDWIMHEYRLETDENGTPQEEGWVVCRVFKKRLAAVRRMGDYDSSPSHWYDDQLSFMASELETNGQRRILPNHHQQQQHEHQQHMPYGLNASAYALNNPNLQCKQELELHYNHLQSNIAHEEQLNQGNQNFSSLYMNSGNEQVMDQVTDWRVLDKFVASQLSNEEAATASASIQNNAKDTSNAEYQVDEEKDPKRASDMGEEYTASTSSSCQIDLWK",
+  "md5" : "7426a18d51b8f0113bd979a5fa36d528",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF02365",
+      "name" : "NAM",
+      "description" : "No apical meristem (NAM) protein",
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR003441",
+        "name" : "NAC-dom",
+        "description" : "NAC domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 8,
+      "end" : 135,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 122,
+      "hmmLength" : 122,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 1.9E-44,
+      "score" : 162.5,
+      "envelopeStart" : 8,
+      "envelopeEnd" : 135,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 8,
+        "end" : 135,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 9.7E-45,
+    "score" : 163.4,
+    "model-ac" : "PF02365"
+  }, {
+    "signature" : {
+      "accession" : "PS51005",
+      "name" : "NAC",
+      "description" : "NAC domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003441",
+        "name" : "NAC-dom",
+        "description" : "NAC domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 7,
+      "end" : 156,
+      "representative" : true,
+      "score" : 59.170567,
+      "alignment" : "VPPGFRFHPTDEELVDYYLRKKVAS-KRIEIDFIKDIDLYKIEPWDLQELCKIGheEQSDWYFFSHKDKKYPTGTRTNRATKAGFWKATGRDKAIYLR--HSLIGMRKTLVFYKGRAPNGQKSDWIMHEYRLETDEN-GTPQEEGWVVCRVFKK",
+      "location-fragments" : [ {
+        "start" : 7,
+        "end" : 156,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51005"
+  } ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+1",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+1"
+  } ]
+},{
+  "sequence" : "MEAESSTPQERIPKLRHGRTSGPARRSTRGQWTAEEDEILRKAVHSFKGKNWKKIAEYFKDRTDVQCLHRWQKVLNPELVKGPWTKEEDEMIVQLIEKYGPKKWSTIARFLPGRIGKQCRERWHNHLNPAINKEAWTQEEELLLIRAHQIYGNRWAELTKFLPGRSDNGIKNHWHSSVKKKLDSYMSSGLLDQYQAMPLAPYERSSTLQSTFMQSNIDGNGCLNGQAENEIDSRQNSSMVGCSLSARDFQNGTINIGHDFHPCGNSQENEQTAYHSEQFYYPELEDISVSISEVSYDMEDCSQFPDHNVSTSPSQDYQFDFQELSDISLEMRHNMSEIPMPYTKESKESTLGAPNSTLNIDVATYTNSANVLTPETECCRVLFPDQESEGHSVSRSLTQEPNEFNQVDRRDPILYSSASDRQISEATKSPTQSSSSRFTATAASGKGTLRPAPLIISPDKYSKKSSGLICHPFEVEPKCTTNGNGSFICIGDPSSSTCVDEGTNNSSEEDQSYHVNDPKKLVPVNDFASLAEDRPHSLPKHEPNMTNEQHHEDMGASSSLGFPSFDLPVFNCDLLQSKNDPLHDYSPLGIRKLLMSTMTCMSPLRLWESPTGKKTLVGAQSILRKRTRDLLTPLSEKRSDKKLEIDIAASLAKDFSRLDVMFDETENRQSNFGNSTGVIHGDRENHFHILNGDGEEWSGKPSSLFSHRMPEETMHIRKSLEKVDQICMEANVREKDDSEQDVENVEFFSGILSEHNTGKPVLSTPGQSVTKAEKAQVSTPRNQLQRTLMATSNKEHHSPSSVCLVINSPSRARNKEGHLVDNGTSNENFSIFCGTPFRRGLESPSAWKSPFYINSLLPSPRFDTDLTIEDMGYIFSPGERSYESIGVMTQINEHTSAFAAFADAMEVSISPTNDDARQKKELDKENNDPLLAERRVLDFNDCESPIKATEEVSSYLLKGCR",
+  "md5" : "a185d887aea40c247da6b56d03866f50",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "cd00167",
+      "name" : "SANT",
+      "description" : "SANT",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 135,
+      "end" : 175,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 9,
+        "siteLocations" : [ {
+          "start" : 166,
+          "end" : 166,
+          "residue" : "S"
+        }, {
+          "start" : 169,
+          "end" : 169,
+          "residue" : "G"
+        }, {
+          "start" : 168,
+          "end" : 168,
+          "residue" : "N"
+        }, {
+          "start" : 175,
+          "end" : 175,
+          "residue" : "H"
+        }, {
+          "start" : 136,
+          "end" : 136,
+          "residue" : "W"
+        }, {
+          "start" : 173,
+          "end" : 173,
+          "residue" : "H"
+        }, {
+          "start" : 171,
+          "end" : 171,
+          "residue" : "K"
+        }, {
+          "start" : 172,
+          "end" : 172,
+          "residue" : "N"
+        }, {
+          "start" : 165,
+          "end" : 165,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 1.11661E-13,
+      "score" : 57.2002,
+      "location-fragments" : [ {
+        "start" : 135,
+        "end" : 175,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00167"
+  }, {
+    "signature" : {
+      "accession" : "PF00249",
+      "name" : "Myb_DNA-binding",
+      "description" : "Myb-like DNA-binding domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 81,
+      "end" : 127,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 46,
+      "hmmLength" : 46,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 6.1E-16,
+      "score" : 69.6,
+      "envelopeStart" : 81,
+      "envelopeEnd" : 127,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 81,
+        "end" : 127,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    }, {
+      "start" : 133,
+      "end" : 175,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 43,
+      "hmmLength" : 46,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 5.7E-11,
+      "score" : 53.7,
+      "envelopeStart" : 133,
+      "envelopeEnd" : 177,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 133,
+        "end" : 175,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    }, {
+      "start" : 29,
+      "end" : 75,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 46,
+      "hmmLength" : 46,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 2.1E-12,
+      "score" : 58.2,
+      "envelopeStart" : 29,
+      "envelopeEnd" : 75,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 75,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 3.9E-48,
+    "score" : 172.6,
+    "model-ac" : "PF00249"
+  }, {
+    "signature" : {
+      "accession" : "PS50090",
+      "name" : "MYB_LIKE",
+      "description" : "Myb-like domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 24,
+      "end" : 75,
+      "representative" : true,
+      "score" : 10.893839,
+      "alignment" : "ARRSTRGQWTAEEDEILRKAVHSFKGKNWKKIAEYFKDRTDVQCLHRWQKVL",
+      "location-fragments" : [ {
+        "start" : 24,
+        "end" : 75,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50090"
+  }, {
+    "signature" : {
+      "accession" : "PS51294",
+      "name" : "HTH_MYB",
+      "description" : "Myb-type HTH DNA-binding domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017930",
+        "name" : "Myb_dom",
+        "description" : "Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 76,
+      "end" : 131,
+      "representative" : true,
+      "score" : 32.609085,
+      "alignment" : "NPELVKGPWTKEEDEMIVQLIEKYGPKK-WSTIARFLP--GRIGKQCRERWHNHLNPAI",
+      "location-fragments" : [ {
+        "start" : 76,
+        "end" : 131,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51294"
+  }, {
+    "signature" : {
+      "accession" : "cd00167",
+      "name" : "SANT",
+      "description" : "SANT",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 83,
+      "end" : 127,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 124,
+          "end" : 124,
+          "residue" : "H"
+        }, {
+          "start" : 125,
+          "end" : 125,
+          "residue" : "N"
+        }, {
+          "start" : 120,
+          "end" : 120,
+          "residue" : "R"
+        }, {
+          "start" : 121,
+          "end" : 121,
+          "residue" : "E"
+        }, {
+          "start" : 84,
+          "end" : 84,
+          "residue" : "W"
+        }, {
+          "start" : 118,
+          "end" : 118,
+          "residue" : "Q"
+        }, {
+          "start" : 117,
+          "end" : 117,
+          "residue" : "K"
+        }, {
+          "start" : 115,
+          "end" : 115,
+          "residue" : "I"
+        }, {
+          "start" : 126,
+          "end" : 126,
+          "residue" : "H"
+        }, {
+          "start" : 114,
+          "end" : 114,
+          "residue" : "R"
+        }, {
+          "start" : 122,
+          "end" : 122,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 3.40183E-20,
+      "score" : 75.6898,
+      "location-fragments" : [ {
+        "start" : 83,
+        "end" : 127,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00167"
+  }, {
+    "signature" : {
+      "accession" : "PS50090",
+      "name" : "MYB_LIKE",
+      "description" : "Myb-like domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 76,
+      "end" : 127,
+      "representative" : false,
+      "score" : 13.820164,
+      "alignment" : "NPELVKGPWTKEEDEMIVQLIEKYGPKKWSTIARFLPGRIGKQCRERWHNHL",
+      "location-fragments" : [ {
+        "start" : 76,
+        "end" : 127,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50090"
+  }, {
+    "signature" : {
+      "accession" : "PS50090",
+      "name" : "MYB_LIKE",
+      "description" : "Myb-like domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 128,
+      "end" : 178,
+      "representative" : false,
+      "score" : 10.231933,
+      "alignment" : "NPAINKEAWTQEEELLLIRAHQIYG-NRWAELTKFLPGRSDNGIKNHWHSSV",
+      "location-fragments" : [ {
+        "start" : 128,
+        "end" : 178,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50090"
+  }, {
+    "signature" : {
+      "accession" : "cd00167",
+      "name" : "SANT",
+      "description" : "SANT",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 32,
+      "end" : 75,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 72,
+          "end" : 72,
+          "residue" : "Q"
+        }, {
+          "start" : 65,
+          "end" : 65,
+          "residue" : "V"
+        }, {
+          "start" : 62,
+          "end" : 62,
+          "residue" : "R"
+        }, {
+          "start" : 70,
+          "end" : 70,
+          "residue" : "R"
+        }, {
+          "start" : 63,
+          "end" : 63,
+          "residue" : "T"
+        }, {
+          "start" : 74,
+          "end" : 74,
+          "residue" : "V"
+        }, {
+          "start" : 32,
+          "end" : 32,
+          "residue" : "W"
+        }, {
+          "start" : 69,
+          "end" : 69,
+          "residue" : "H"
+        }, {
+          "start" : 66,
+          "end" : 66,
+          "residue" : "Q"
+        }, {
+          "start" : 68,
+          "end" : 68,
+          "residue" : "L"
+        }, {
+          "start" : 73,
+          "end" : 73,
+          "residue" : "K"
+        } ]
+      } ],
+      "evalue" : 2.99111E-17,
+      "score" : 67.2154,
+      "location-fragments" : [ {
+        "start" : 32,
+        "end" : 75,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00167"
+  }, {
+    "signature" : {
+      "accession" : "PS51294",
+      "name" : "HTH_MYB",
+      "description" : "Myb-type HTH DNA-binding domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017930",
+        "name" : "Myb_dom",
+        "description" : "Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 75,
+      "representative" : false,
+      "score" : 21.500666,
+      "alignment" : "-----RGQWTAEEDEILRKAVHSFKGKN-WKKIAEYFK--DRTDVQCLHRWQKVL----",
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 75,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51294"
+  }, {
+    "signature" : {
+      "accession" : "SM00717",
+      "name" : "sant",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 80,
+      "end" : 129,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 53,
+      "hmmLength" : 53,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 3.5E-19,
+      "score" : 79.7,
+      "location-fragments" : [ {
+        "start" : 80,
+        "end" : 129,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    }, {
+      "start" : 132,
+      "end" : 180,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 53,
+      "hmmLength" : 53,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 1.4E-13,
+      "score" : 61.1,
+      "location-fragments" : [ {
+        "start" : 132,
+        "end" : 180,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    }, {
+      "start" : 28,
+      "end" : 77,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 53,
+      "hmmLength" : 53,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 1.2E-15,
+      "score" : 68.0,
+      "location-fragments" : [ {
+        "start" : 28,
+        "end" : 77,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 5.0E-58,
+    "score" : 208.8,
+    "model-ac" : "SM00717"
+  }, {
+    "signature" : {
+      "accession" : "PS51294",
+      "name" : "HTH_MYB",
+      "description" : "Myb-type HTH DNA-binding domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017930",
+        "name" : "Myb_dom",
+        "description" : "Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 132,
+      "end" : 182,
+      "representative" : true,
+      "score" : 20.332691,
+      "alignment" : "----NKEAWTQEEELLLIRAHQIYG-NR-WAELTKFLP--GRSDNGIKNHWHSSVKKKL",
+      "location-fragments" : [ {
+        "start" : 132,
+        "end" : 182,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51294"
+  } ],
+  "xref" : [ {
+    "name" : "AT5G11510.1",
+    "id" : "AT5G11510.1"
+  } ]
+},{
+  "sequence" : "MKILSLSLLLLLAATVSASVPGLIELVDSKTIFGNVAELLEKEKLSINYANCRSWHLGVETSNIIDFDTVPANCKDYVEDYLITSKQYQYDSKTVCKEAYFYAKGLALKNDTVNVWIFDLDDTLLSSIPYYAKYGYGTEKTDPGAYWLWLGTGASTPGLPEALHLYQNIIELGIEPIILSDRWKLWKNVTLDNLEAAGVTYWKHLILKPNGSNLRQVVYKSKVRKSLVKKGYNIVGNIGDQWADLVEDTPGRVFKLPNPLYYVPS",
+  "md5" : "fc246765a03ec03855a3bc4ffd9188ec",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT5G24770.1",
+    "id" : "AT5G24770.1"
+  } ]
+},{
+  "sequence" : "MDWNFKLSSGYLSGFDQEPDLSPMDGSISFGGSSQSKADFSFDLKLGRNIGNSSSVFGDTEQVISLSKWKDSALAKPEGSRSSSSKRTRGNGVGTNQMPICLVDGCDSDFSNCREYHKRHKVCDVHSKTPVVTINGHKQRFCQQCSRFHALEEFDEGKRSCRKRLDGHNRRRRKPQPEHIGRPANFFTGFQGSKLLEFSGGSHVFPTTSVLNPSWGNSLVSVAVAANGSSYGQSQSYVVGSSPAKTGIMFPISSSPNSTRSIAKQFPFLQEEESSRTASLCERMTSCIHDSDCALSLLSSSSSSVPHLLQPPLSLSQEAVETVFYGSGLFENASAVSDGSVISGNEAVRLPQTFPFHWE",
+  "md5" : "c71ee8769afd6a43c6facdc4734177dc",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF03110",
+      "name" : "SBP",
+      "description" : "SBP domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR004333",
+        "name" : "SBP_dom",
+        "description" : "SBP domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 101,
+      "end" : 174,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 74,
+      "hmmLength" : 75,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 1.9E-27,
+      "score" : 106.7,
+      "envelopeStart" : 101,
+      "envelopeEnd" : 175,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 101,
+        "end" : 174,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.2E-27,
+    "score" : 107.3,
+    "model-ac" : "PF03110"
+  }, {
+    "signature" : {
+      "accession" : "PS51141",
+      "name" : "ZF_SBP",
+      "description" : "Zinc finger SBP-type profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR004333",
+        "name" : "SBP_dom",
+        "description" : "SBP domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 98,
+      "end" : 175,
+      "representative" : true,
+      "score" : 31.914885,
+      "alignment" : "MPICLVDGCDSDFSNCREYHKRHKVCDVHSKTPVVTINGHKQRFCQQCSRFHALEEFDEGKRSCRKRLDGHNRRRRKP",
+      "location-fragments" : [ {
+        "start" : 98,
+        "end" : 175,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51141"
+  } ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+1",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+1"
+  } ]
+},{
+  "sequence" : "MTDQGLEGSNPVDLSKHPSGIVPTLQNIVSTVNLDCKLDLKAIALQARNAEYNPKRFAAVIMRIREPKTTALIFASGKMVCTGAKSEDFSKMAARKYARIVQKLGFPAKFKDFKIQNIVGSCDVKFPIRLEGLAYSHAAFSSYEPELFPGLIYRMKVPKIVLLIFVSGKIVITGAKMRDETYKAFENIYPVLSEFRKIQQ",
+  "md5" : "259a2b7b4611b7d9fe583b57bde9d216",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PTHR10126",
+      "name" : "TATA-BOX BINDING PROTEIN",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR000814",
+        "name" : "TBP",
+        "description" : "TATA-box binding protein",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 3,
+      "end" : 197,
+      "representative" : true,
+      "hmmStart" : 15,
+      "hmmEnd" : 208,
+      "hmmLength" : 0,
+      "hmmBounds" : "INCOMPLETE",
+      "envelopeStart" : 1,
+      "envelopeEnd" : 200,
+      "location-fragments" : [ {
+        "start" : 3,
+        "end" : 197,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR10126",
+    "name" : "TATA-BOX BINDING PROTEIN",
+    "evalue" : 1.9E-103,
+    "score" : 355.8,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR10126"
+  }, {
+    "signature" : {
+      "accession" : "PS00351",
+      "name" : "TFIID",
+      "description" : "Transcription factor TFIID repeat signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR030491",
+        "name" : "TBP_CS",
+        "description" : "TATA-box binding protein, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 143,
+      "end" : 192,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "1M1I1M2I1M2I2M1I1M3I2M3I3M1I4M3I3M7I1M7I1M",
+      "alignment" : "YePelFpgLIyRmkvPKivlLIFvSGKIvitGAKmrdetykAfeniypvL",
+      "location-fragments" : [ {
+        "start" : 143,
+        "end" : 192,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00351"
+  }, {
+    "signature" : {
+      "accession" : "PS00351",
+      "name" : "TFIID",
+      "description" : "Transcription factor TFIID repeat signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR030491",
+        "name" : "TBP_CS",
+        "description" : "TATA-box binding protein, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 52,
+      "end" : 101,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "1M1I1M2I1M2I2M1I1M3I2M3I3M1I4M3I3M7I1M7I1M",
+      "alignment" : "YnPkrFaaVImRirePKttaLIFaSGKMvctGAKsedfskmAarkyariV",
+      "location-fragments" : [ {
+        "start" : 52,
+        "end" : 101,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00351"
+  }, {
+    "signature" : {
+      "accession" : "PF00352",
+      "name" : "TBP",
+      "description" : "Transcription factor TFIID (or TATA-binding protein, TBP)",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR000814",
+        "name" : "TBP",
+        "description" : "TATA-box binding protein",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 23,
+      "end" : 104,
+      "representative" : true,
+      "hmmStart" : 2,
+      "hmmEnd" : 85,
+      "hmmLength" : 85,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "evalue" : 1.0E-29,
+      "score" : 113.5,
+      "envelopeStart" : 22,
+      "envelopeEnd" : 104,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 23,
+        "end" : 104,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    }, {
+      "start" : 112,
+      "end" : 195,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 85,
+      "hmmLength" : 85,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 3.3E-30,
+      "score" : 115.1,
+      "envelopeStart" : 112,
+      "envelopeEnd" : 195,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 112,
+        "end" : 195,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.2E-66,
+    "score" : 230.1,
+    "model-ac" : "PF00352"
+  } ],
+  "xref" : [ {
+    "name" : "AT3G13445.1",
+    "id" : "AT3G13445.1"
+  } ]
+},{
+  "sequence" : "YSQNGNVCGRRTASLPDITDPSETALAFSNNPDPKTVSTASWDKESGGSKGTDDEEDDRRERAQSESWMQLVILSHNDAVLELSSSCKKGNCFAMLLVLFGEEEIGNIIPVFAGEEPTTLWLCPLEPLAATATLTRLFPQLGFNTDVVGNTCEPPENSSNLLPKPVKKLAGRPICSGCGFRRLRLCPSRRFLQLLFPSSNSSKANLLHCQNLCLPLIVTTGVFETSQTLCLLYSLQLLKSESHPSTRQIGIWLVPTPFPLVLFELELLEPSGLAKALSFHLLRLITCSVSPKTEEEFPMFLPSFRSNEKSAFDCDDPPNEIEPSIGDKSGSSNPDKPELSLKFQS",
+  "md5" : "3745647ab5a5df86a9512b522c08be35",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-2",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-2"
+  } ]
+},{
+  "sequence" : "MADFLLKHLGDGNESPKLFPSSLLDNTKDYQVKKRLGNGSQYKEITWLGESFALRHFFGDIDALLPQITPLLSLSHPNIVYYLCGFTDEEKKECFLVMELMRKTLGMHIKEVCGPRKKNTLSLPVAVDLMLQIALGMEYLHSKRIYHGELNPSNILVKPRSNQSGDGYLLGKIFGFGLNSVKGFSSKSASLTSQNENFPFIWYSPEVLEEQEQSGTAGSLKYSDKSDVYSFGMVSFELLTGKVPFEDSHLQGDKMSRNIRAGERPLFPFNSPKFITNLTKRCWHADPNQRPTFSSISRILRYIKRFLALNPECYSSSQQDPSIAPTVDYCEIETKLLQKLSWESTELTKVSQVPFQMFAYRVVERAKTCEKDNLREPSESGSEWASCSEDEGGAGSDEQLSYAKERRLSCSSNDVGMSKKQVSNLLKRASSLKPIQKPGEIIISQYIYIYIGSLTNMNLVTCTNFFVLCH",
+  "md5" : "e0a4df7872bf45bebe3ce7b2461846ee",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT1G01450.1",
+    "id" : "AT1G01450.1"
+  } ]
+},{
+  "sequence" : "MLKIKRVPTVVSNYQKDDGAEDPVGCGRNCLGACCLNGARLPLYACKNLVKSGEKLVISHEAIEPPVAFLESLVLGEWEDRFQRGLFRYDVTACETKVIPGKYGFVAQLNEGRHLKKRPTEFRVDKVLQSFDGSKFNFTKVGQEELLFQFEAGEDAQVQFFPCMPIDPENSPSVVAINVSPIEYGHVLLIPRVLDCLPQRIDHKSLLLAVHMAAEAANPYFRLGYNSLGAFATINHLHFQAYYLAMPFPLEKAPTKKITTTVSGVKISELLSYPVRSLLFEGGSSMQELSDTVSDCCVCLQNNNIPFNILISDCGRQIFLMPQCYAEKQALGEVSPEVLETQVNPAVWEISGHMVLKRKEDYEGASEDNAWRLLAEASLSEERFKEVTALAFEAIGCSNQEEDLEGTIVHQQNSSGNVNQKSNRTHGGPITNGTAAECLVLQ",
+  "md5" : "532b059748db0acbd94e31c6ea953223",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT4G26850.1",
+    "id" : "AT4G26850.1"
+  } ]
+},{
+  "sequence" : "GLEFQTLWLFIWIRSRTRFITNGWFDLVWWVVTVKSGFFISKTWKKHWKLFLCFWYRASDSVERCFSTRRFKKLEFKENKREWCWNQPDADLSCWMFFLRVSETSLCSFKNSCGYYWSTEVLSTMQQVSCFGGVREEKLETSWTSKTTEAAATYRSSCQLLYGFSRQIARVFWWFTCVSNYICVEPELGKSCKRCCSRQWFELWAEPELCCWFFSCKDRDNVSNLFFSKQYQKHSKTIPFLARRRKLENRIVVENDELHPLLCSLSSVILLVVSPSFASTTTFFVPRSSDSFLRVGIVECECSLWIGYIRRGCPSSADIPVSLGV",
+  "md5" : "9611dce8bad245138931dfd3318bf0de",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+3",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+3"
+  } ]
+},{
+  "sequence" : "HDDPQNSEDPCFLFIGFKLLLLFVVVSLEPDKSLVEPLPIVEEPAKIPPPETRGIPIATGCCCIPETWNCGPWLTDEPPRLKSGKPIAGIPIPIAIAAAAAGCPIPGGNITAGGRPDAIDMICTSWSDLRYSMASSSIEALSTLLQFGMSSCRARIFSLILSRRLLSDRLCTSAERLLFEPKPVRDGPASFLPSPDSSSTSSLQSMSIFECFLFKESEGLSDGPSRLLPEPTEEHTTAFSLSWSFLHESSDIRQAFWLSLGVAEATDSLRTLSSESLAPRTLVNTFGGLGLFSLVSRLLLVVFAKVAGRKKCEKLTKLGLLLVISGSCVVNRSGLVCWLGRSLALSLPYRECDWKPLYCDEEAAGADSLPSFLLNNGKAVWFTAISLSCSLTVTGDDTSRKKSEQYPSREGFNHGTKSSSLKPVISDGTDIGISSTIVVFEPFPISLALEEFACGGGMFLDLLDLVDIPFSHTSSTTSSTGGEGFLSADSSLALVSLKSSNRG",
+  "md5" : "d2d3fc18492f8e36ae994230f7db7e3c",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-2",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-2"
+  } ]
+},{
+  "sequence" : "EFIFPRPSGFISPDRRTCRLLPEEKSRIEENRNFHKGHSLQDAMGPSRVVQNWARAELVLLPRQEVSHRDSNQSNKSRVLESHRKRGYLFEASNWHEENTCVLQGKSPKWTKVLDHARIPLRNRKRNSSGRRMGCVGFQEEIGCSTNGRLRLIPFTLVRSTFFYGLRARDKRSTTDSPQSSSAAAARAPTTYAIWPQCICLRSQQPLAMQARARTTLQPPAIKYRAGTIESRKSELQLSIHEQRQRASDGPSHRLESSRICCFSAKQRGGCHSFCIYTECQGHKQCVPSRKRSEKGFRHGRRIYCFYFFELSDSMEV",
+  "md5" : "cfef76c830a3a5328602a18c3e578890",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+3",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+3"
+  } ]
+},{
+  "sequence" : "MPLFELFRLTKAKLESAQDRNPSPPVDEVVELVWENGQISTQSQSSRSRNIPPPQANSSRAREIGNGSKTTMVDEIPMSVPSLMTGLSQDDDFVPWLNHHPSLDGYCSDFLRDVSSPVTVNEQESDMAVNQTAFPLFQRRKDGNESAPAASSSQYNGFQSHSLYGSDRARDLPSQQTNPDRFTQTQEPLITSNKPSLVNFSHFLRPATFAKTTNNNLHDTKEKSPQSPPNVFQTRVLGAKDSEDKVLNESVASATPKDNQKACLISEDSCRKDQESEKAVVCSSVGSGNSLDGPSESPSLSLKRKHSNIQDIDCHSEDVEEESGDGRKEAGPSRTGLGSKRSRSAEVHNLSERRRRDRINEKMRALQELIPNCNKVDKASMLDEAIEYLKSLQLQVQIMSMASGYYLPPAVMFPPGMGHYPAAAAAMAMGMGMPYAMGLPDLSRGGSSVNHGPQFQVSGMQQQPVAMGIPRVSGGGIFAGSSTIGNGSTRDLSGSKDQTTTNNNSNLKPIKRKQGSSDQFCGSS",
+  "md5" : "8195660798c85baf9e761120bcdf55d0",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF00010",
+      "name" : "HLH",
+      "description" : "Helix-loop-helix DNA-binding domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR011598",
+        "name" : "bHLH_dom",
+        "description" : "Myc-type, basic helix-loop-helix (bHLH) domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 346,
+      "end" : 393,
+      "representative" : false,
+      "hmmStart" : 3,
+      "hmmEnd" : 53,
+      "hmmLength" : 53,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "evalue" : 1.0E-10,
+      "score" : 52.6,
+      "envelopeStart" : 344,
+      "envelopeEnd" : 393,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 346,
+        "end" : 393,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 5.8E-11,
+    "score" : 53.3,
+    "model-ac" : "PF00010"
+  }, {
+    "signature" : {
+      "accession" : "SM00353",
+      "name" : "finulus",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR011598",
+        "name" : "bHLH_dom",
+        "description" : "Myc-type, basic helix-loop-helix (bHLH) domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 349,
+      "end" : 398,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 61,
+      "hmmLength" : 61,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 4.9E-18,
+      "score" : 75.9,
+      "location-fragments" : [ {
+        "start" : 349,
+        "end" : 398,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.9E-18,
+    "score" : 75.9,
+    "model-ac" : "SM00353"
+  }, {
+    "signature" : {
+      "accession" : "PS50888",
+      "name" : "BHLH",
+      "description" : "Myc-type, basic helix-loop-helix (bHLH) domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR011598",
+        "name" : "bHLH_dom",
+        "description" : "Myc-type, basic helix-loop-helix (bHLH) domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 343,
+      "end" : 392,
+      "representative" : false,
+      "score" : 18.583929,
+      "alignment" : "RSAEVHNLSERRRRDRINEKMRALQELIPNC---NKVDKASMLDEAIEYLKSL",
+      "location-fragments" : [ {
+        "start" : 343,
+        "end" : 392,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50888"
+  }, {
+    "signature" : {
+      "accession" : "cd11445",
+      "name" : "bHLH_AtPIF_like",
+      "description" : "bHLH_AtPIF_like",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR047265",
+        "name" : "PIF1-like_bHLH",
+        "description" : "Transcription factor PIF1-like, basic helix-loop-helix domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 343,
+      "end" : 405,
+      "representative" : true,
+      "sites" : [ {
+        "description" : "putative dimer interface",
+        "numLocations" : 19,
+        "siteLocations" : [ {
+          "start" : 403,
+          "end" : 403,
+          "residue" : "S"
+        }, {
+          "start" : 359,
+          "end" : 359,
+          "residue" : "I"
+        }, {
+          "start" : 379,
+          "end" : 379,
+          "residue" : "A"
+        }, {
+          "start" : 358,
+          "end" : 358,
+          "residue" : "R"
+        }, {
+          "start" : 389,
+          "end" : 389,
+          "residue" : "L"
+        }, {
+          "start" : 396,
+          "end" : 396,
+          "residue" : "V"
+        }, {
+          "start" : 393,
+          "end" : 393,
+          "residue" : "Q"
+        }, {
+          "start" : 386,
+          "end" : 386,
+          "residue" : "I"
+        }, {
+          "start" : 366,
+          "end" : 366,
+          "residue" : "L"
+        }, {
+          "start" : 382,
+          "end" : 382,
+          "residue" : "L"
+        }, {
+          "start" : 362,
+          "end" : 362,
+          "residue" : "K"
+        }, {
+          "start" : 378,
+          "end" : 378,
+          "residue" : "K"
+        }, {
+          "start" : 392,
+          "end" : 392,
+          "residue" : "L"
+        }, {
+          "start" : 383,
+          "end" : 383,
+          "residue" : "D"
+        }, {
+          "start" : 365,
+          "end" : 365,
+          "residue" : "A"
+        }, {
+          "start" : 369,
+          "end" : 369,
+          "residue" : "L"
+        }, {
+          "start" : 399,
+          "end" : 399,
+          "residue" : "M"
+        }, {
+          "start" : 400,
+          "end" : 400,
+          "residue" : "S"
+        }, {
+          "start" : 402,
+          "end" : 402,
+          "residue" : "A"
+        } ]
+      }, {
+        "description" : "putative DNA binding site",
+        "numLocations" : 9,
+        "siteLocations" : [ {
+          "start" : 348,
+          "end" : 348,
+          "residue" : "H"
+        }, {
+          "start" : 378,
+          "end" : 378,
+          "residue" : "K"
+        }, {
+          "start" : 349,
+          "end" : 349,
+          "residue" : "N"
+        }, {
+          "start" : 355,
+          "end" : 355,
+          "residue" : "R"
+        }, {
+          "start" : 360,
+          "end" : 360,
+          "residue" : "N"
+        }, {
+          "start" : 377,
+          "end" : 377,
+          "residue" : "D"
+        }, {
+          "start" : 353,
+          "end" : 353,
+          "residue" : "R"
+        }, {
+          "start" : 356,
+          "end" : 356,
+          "residue" : "R"
+        }, {
+          "start" : 352,
+          "end" : 352,
+          "residue" : "E"
+        } ]
+      } ],
+      "evalue" : 4.21337E-41,
+      "score" : 133.651,
+      "location-fragments" : [ {
+        "start" : 343,
+        "end" : 405,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd11445"
+  } ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+1",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+1"
+  } ]
+},{
+  "sequence" : "SRRSTKLIRRPLFSLYWFQVTVVIRRCLIFRTRISSRAIANRRRTGKDTTTRDTWNTHRHWLLLHPRDLELWSVVNRTTTAQIRQAHCIRHSHTHCHCSSCCRVMPHTRWEHNRRWQIVTRRHHDLHLKLELEILDGFIHRSFVHLVTVWNEFLQGTHLLVDPITPSPFRQIMHFCRAASLTQTRSRWTCFLSSISFFFHIFTMTVNVLNIRMLSLRKRTFGWAIETITRANRRTYNCFFTLLVFSTVLYASLLVIFRRSRSNRLVKNLIFRVFSSKNSGLKHIWRALRTLFFSVMKVIISSLRKSCRAEMKVDQTRLVTSNWFLRLSKPIRIGLLARKISSSITSIQRMRLETVILRRRSSRSFIAILSSLKQRESSLVYRHITLLLVDSNRRRHITQEIRAISIKGGMMIQPWNKVIVLTQTRHWHHRDLVHHSRLAISNLSSSRRVCLWWRNVPRSTLTLSYLTIFPHQLHNFIYRWRRVPVLSRFKLSFGEPEKLKQRH",
+  "md5" : "d301ec97bedcb486c6031381b345cafb",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-1",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=-1"
+  } ]
+},{
+  "sequence" : "MSVYDAAFLNTELSKPTSIFGLRLWVVIGILLGSLIVIALFLLSLCLTSRRKNRKPRADFASAAIATPPISKEIKEIVPAQNQSVPAEIQVDIGKIEHRVVFSDRVSSGESRGTASASETASYSGSGNCGPEVSHLGWGRWYTLRELEAATNGLCEENVIGEGGYGIVYRGILTDGTKVAVKNLLNNRGQAEKEFKVEVEVIGRVRHKNLVRLLGYCVEGAYRMLVYDFVDNGNLEQWIHGDVGDVSPLTWDIRMNIILGMAKGLAYLHEGLEPKVVHRDIKSSNILLDRQWNAKVSDFGLAKLLGSESSYVTTRVMGTFGYVAPEYACTGMLNEKSDIYSFGILIMEIITGRNPVDYSRPQGEVFDKHIQSSLCFCKWSYYVSWL",
+  "md5" : "784c82f5512dcf4169b3bea5db8fb9dc",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS00108",
+      "name" : "PROTEIN_KINASE_ST",
+      "description" : "Serine/Threonine protein kinases active-site signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR008271",
+        "name" : "Ser/Thr_kinase_AS",
+        "description" : "Serine/threonine-protein kinase, active site",
+        "type" : "ACTIVE_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 276,
+      "end" : 288,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "1M1I1M1I3M2I4M",
+      "alignment" : "VvHrDIKssNILL",
+      "location-fragments" : [ {
+        "start" : 276,
+        "end" : 288,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00108"
+  }, {
+    "signature" : {
+      "accession" : "PS00107",
+      "name" : "PROTEIN_KINASE_ATP",
+      "description" : "Protein kinases ATP-binding region signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017441",
+        "name" : "Protein_kinase_ATP_BS",
+        "description" : "Protein kinase, ATP binding site",
+        "type" : "BINDING_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 160,
+      "end" : 182,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "10M1I1M7I4M",
+      "alignment" : "IGEGGYGIVYrGiltdgtkVAVK",
+      "location-fragments" : [ {
+        "start" : 160,
+        "end" : 182,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00107"
+  } ],
+  "xref" : [ {
+    "name" : "AT1G01540.1",
+    "id" : "AT1G01540.1"
+  } ]
+},{
+  "sequence" : "MADSDNDSGGHKDGGNASTREQDRFLPIANVSRIMKKALPANAKISKDAKETVQECVSEFISFITGEASDKCQREKRKTINGDDLLWAMTTLGFEDYVEPLKVYLQKYREVEGEKTTTAGRQGDKEGGGGGGGAGSGSGGAPMYGGGMVTTMGHQFSHHFS",
+  "md5" : "1300a4bea27eecf401c7a477d0fab6ec",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS00685",
+      "name" : "NFYB_HAP3",
+      "description" : "NF-YB/HAP3 subunit signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003956",
+        "name" : "Transcrpt_fac_NFYB/HAP3_CS",
+        "description" : "Transcription factor, NFYB/HAP3, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 56,
+      "end" : 72,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "4M1I12M",
+      "alignment" : "CVSEfISFITGEASDKC",
+      "location-fragments" : [ {
+        "start" : 56,
+        "end" : 72,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00685"
+  } ],
+  "xref" : [ {
+    "name" : "AT4G14540.1",
+    "id" : "AT4G14540.1"
+  } ]
+},{
+  "sequence" : "MNNDDIILAEMRPKKRAGRRVFKETRHPVYRGIRRRNGDKWVCEVREPTHQRRIWLGTYPTADMAARAHDVAVLALRGRSACLNFADSAWRLPVPESNDPDVIRRVAAEAAEMFRPVDLESGITVLPCAGDDVDLGFGSGSGSGSGSEERNSSSYGFGDYEEVSTTMMRLAEGPLMSPPRSYMEDMTPTNVYTEEEMCYEDMSLWSYRY",
+  "md5" : "a46f80c06ed5dce79318f4439e3d61f5",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PTHR31839",
+      "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045277",
+        "name" : "DRE1A-I",
+        "description" : "Dehydration-responsive element-binding protein 1A-I",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 5,
+      "end" : 207,
+      "representative" : true,
+      "hmmStart" : 32,
+      "hmmEnd" : 211,
+      "hmmLength" : 0,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "envelopeStart" : 1,
+      "envelopeEnd" : 207,
+      "location-fragments" : [ {
+        "start" : 5,
+        "end" : 207,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR31839",
+    "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+    "evalue" : 2.8E-64,
+    "score" : 228.9,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR31839"
+  }, {
+    "signature" : {
+      "accession" : "cd00018",
+      "name" : "AP2",
+      "description" : "AP2",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 30,
+      "end" : 88,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 55,
+          "end" : 55,
+          "residue" : "W"
+        }, {
+          "start" : 40,
+          "end" : 40,
+          "residue" : "K"
+        }, {
+          "start" : 46,
+          "end" : 46,
+          "residue" : "R"
+        }, {
+          "start" : 44,
+          "end" : 44,
+          "residue" : "E"
+        }, {
+          "start" : 32,
+          "end" : 32,
+          "residue" : "G"
+        }, {
+          "start" : 36,
+          "end" : 36,
+          "residue" : "R"
+        }, {
+          "start" : 31,
+          "end" : 31,
+          "residue" : "R"
+        }, {
+          "start" : 58,
+          "end" : 58,
+          "residue" : "T"
+        }, {
+          "start" : 34,
+          "end" : 34,
+          "residue" : "R"
+        }, {
+          "start" : 38,
+          "end" : 38,
+          "residue" : "G"
+        }, {
+          "start" : 53,
+          "end" : 53,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 2.08807E-28,
+      "score" : 93.4902,
+      "location-fragments" : [ {
+        "start" : 30,
+        "end" : 88,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00018"
+  }, {
+    "signature" : {
+      "accession" : "PS51032",
+      "name" : "AP2_ERF",
+      "description" : "AP2/ERF domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 86,
+      "representative" : false,
+      "score" : 21.561787,
+      "alignment" : "VYRGIRRRNGDKWVCEVREP-THQRRIWLGTYPTADMAARAHDVAVLALRGRSACLNFA",
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 86,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51032"
+  }, {
+    "signature" : {
+      "accession" : "SM00380",
+      "name" : "rav1_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 92,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 66,
+      "hmmLength" : 66,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 6.5E-23,
+      "score" : 92.1,
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 92,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 6.5E-23,
+    "score" : 92.1,
+    "model-ac" : "SM00380"
+  }, {
+    "signature" : {
+      "accession" : "PF00847",
+      "name" : "AP2",
+      "description" : "AP2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 28,
+      "end" : 78,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 53,
+      "hmmLength" : 54,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 6.2E-9,
+      "score" : 47.3,
+      "envelopeStart" : 28,
+      "envelopeEnd" : 79,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 28,
+        "end" : 78,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 6.2E-9,
+    "score" : 47.3,
+    "model-ac" : "PF00847"
+  } ],
+  "xref" : [ {
+    "name" : "AT1G12610.1",
+    "id" : "AT1G12610.1"
+  } ]
+},{
+  "sequence" : "MRVLAVDDNPTCLRKLEELLLRCKYHVTKTMESRKALEMLRENSNMFDLVISDVEMPDTDGFKLLEIGLEMDLPVIMLSAHSDYDSVMKGIIHGACDYLVKPVGLKELQNIWHHVVKKNIKSYAKLLPPSESDSVPSASRKRKDKVNDSGDEDDSDREEDDGEGSEQDGDGSGTRKKPRVVWSQELHQKFVSAVQQLGLDKAVPKKILDLMSIEGLTRENVASHLQKYRLYLKKIDEGQQQNMTPDAFGTRDSSYFQMAQLDGLRDFTAARQIPSSGLLSRSHLTKLQPPMYSSINLQGMNSSSFIQQGHHQNSSNSANPFGTYHSTLSPRIQNVNLFQRTSSPLEPLQFPRSKSYIGDFKGLGDRAIGGSFLDTCMPFGSSSTSLPSASTNPLMLQANYTQPLHIASDGIQPCIEGTPSNSASPNISFQGLSRFPGHSWQGNLNTTRFPPSSLPLNLAFLPDQVTCAGNNLGDCTSLVSAENPGGEMQCDPQLLGGFMQNVNPLGGQKWEQQNCTMLNNPFGNIEYPLPADNMVFRDNNSTRSKGLDESLMNPIDNSQEYVGKATTMLDPEMKSGKPENDNQHDVFDDIMNEMMKQEENNGMVPVATRFGFDSFPPP",
+  "md5" : "3ed611e1e1fe2d0fecc800361830cae9",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PTHR43874",
+      "name" : "TWO-COMPONENT RESPONSE REGULATOR",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045279",
+        "name" : "ARR-like",
+        "description" : "Two-component response regulator ARR-like",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 1,
+      "end" : 316,
+      "representative" : true,
+      "hmmStart" : 3,
+      "hmmEnd" : 210,
+      "hmmLength" : 0,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "envelopeStart" : 1,
+      "envelopeEnd" : 457,
+      "location-fragments" : [ {
+        "start" : 1,
+        "end" : 316,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR43874",
+    "name" : "TWO-COMPONENT RESPONSE REGULATOR",
+    "evalue" : 2.2E-74,
+    "score" : 261.6,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR43874"
+  }, {
+    "signature" : {
+      "accession" : "SM00448",
+      "name" : "REC_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 1,
+      "end" : 112,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 150,
+      "hmmLength" : 150,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 1.4E-26,
+      "score" : 104.3,
+      "location-fragments" : [ {
+        "start" : 1,
+        "end" : 112,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.4E-26,
+    "score" : 104.3,
+    "model-ac" : "SM00448"
+  }, {
+    "signature" : {
+      "accession" : "PS50110",
+      "name" : "RESPONSE_REGULATORY",
+      "description" : "Response regulatory domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 2,
+      "end" : 116,
+      "representative" : true,
+      "score" : 37.834045,
+      "alignment" : "RVLAVDDNPTCLRKLEELLLRCKYHVTKTMESRKALEMLRENSnmFDLVISDVEMPDTDGFKLLEIGL--EMDLPVIMLSAHSDYDSVMKGIIHGACDYLVKPVGLKELQNIWHHVV",
+      "location-fragments" : [ {
+        "start" : 2,
+        "end" : 116,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50110"
+  }, {
+    "signature" : {
+      "accession" : "PF00249",
+      "name" : "Myb_DNA-binding",
+      "description" : "Myb-like DNA-binding domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 179,
+      "end" : 229,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 46,
+      "hmmLength" : 46,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 8.1E-6,
+      "score" : 37.2,
+      "envelopeStart" : 179,
+      "envelopeEnd" : 229,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 179,
+        "end" : 229,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.4E-6,
+    "score" : 38.0,
+    "model-ac" : "PF00249"
+  }, {
+    "signature" : {
+      "accession" : "PS51294",
+      "name" : "HTH_MYB",
+      "description" : "Myb-type HTH DNA-binding domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017930",
+        "name" : "Myb_dom",
+        "description" : "Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 174,
+      "end" : 233,
+      "representative" : true,
+      "score" : 11.611636,
+      "alignment" : "TRKKPRVVWSQELHQKFVSAVQQLG-LDkAvPKKILDLMSIEGLTRENVASHLQKYRLYLK",
+      "location-fragments" : [ {
+        "start" : 174,
+        "end" : 233,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51294"
+  }, {
+    "signature" : {
+      "accession" : "PF00072",
+      "name" : "Response_reg",
+      "description" : "Response regulator receiver domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 3,
+      "end" : 110,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 108,
+      "hmmLength" : 111,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 7.2E-18,
+      "score" : 76.1,
+      "envelopeStart" : 3,
+      "envelopeEnd" : 113,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 3,
+        "end" : 110,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 3.5E-18,
+    "score" : 77.2,
+    "model-ac" : "PF00072"
+  } ],
+  "xref" : [ {
+    "name" : "AT5G58080.1",
+    "id" : "AT5G58080.1"
+  } ]
+},{
+  "sequence" : "MTKRAPKSGPLSPSCSGGSSRNLELAVKSSEGARRSTRLRLQPLRKPKTSPKKKPVKLQTKMPKKPATAFFFFLDDFRKQYQEENPDVKSMREIGKTCGEKWKTMTYEEKVKYYDIATEKREEFHRAMTEYTKRMESGAHDESETDSDYSE",
+  "md5" : "995e30f5f5877e3351e45d2ae9195dfe",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF09011",
+      "name" : "HMG_box_2",
+      "description" : "HMG-box domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR009071",
+        "name" : "HMG_box_dom",
+        "description" : "High mobility group box domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 61,
+      "end" : 131,
+      "representative" : false,
+      "hmmStart" : 2,
+      "hmmEnd" : 71,
+      "hmmLength" : 72,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 2.4E-12,
+      "score" : 58.7,
+      "envelopeStart" : 60,
+      "envelopeEnd" : 132,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 61,
+        "end" : 131,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.6E-12,
+    "score" : 59.3,
+    "model-ac" : "PF09011"
+  }, {
+    "signature" : {
+      "accession" : "PF00505",
+      "name" : "HMG_box",
+      "description" : "HMG (high mobility group) box",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR009071",
+        "name" : "HMG_box_dom",
+        "description" : "High mobility group box domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 63,
+      "end" : 131,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 68,
+      "hmmLength" : 69,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 2.8E-15,
+      "score" : 67.8,
+      "envelopeStart" : 63,
+      "envelopeEnd" : 132,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 63,
+        "end" : 131,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 2.0E-15,
+    "score" : 68.3,
+    "model-ac" : "PF00505"
+  }, {
+    "signature" : {
+      "accession" : "SM00398",
+      "name" : "hmgende2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR009071",
+        "name" : "HMG_box_dom",
+        "description" : "High mobility group box domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 62,
+      "end" : 133,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 71,
+      "hmmLength" : 71,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 3.4E-21,
+      "score" : 86.4,
+      "location-fragments" : [ {
+        "start" : 62,
+        "end" : 133,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 3.4E-21,
+    "score" : 86.4,
+    "model-ac" : "SM00398"
+  }, {
+    "signature" : {
+      "accession" : "PS50118",
+      "name" : "HMG_BOX_2",
+      "description" : "HMG boxes A and B DNA-binding domains profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR009071",
+        "name" : "HMG_box_dom",
+        "description" : "High mobility group box domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 63,
+      "end" : 132,
+      "representative" : false,
+      "score" : 17.88023,
+      "alignment" : "PKKPATAFFFFLDDFRKQYQEENPdVKSMREIGKTCGEKWKTMTYEEKVKYYDIATEKREEFHRAMTEYT",
+      "location-fragments" : [ {
+        "start" : 63,
+        "end" : 132,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50118"
+  } ],
+  "xref" : [ {
+    "name" : "AT2G34450.1",
+    "id" : "AT2G34450.1"
+  } ]
+},{
+  "sequence" : "MTMISDLSKDLVEEILSKAPITSLGAVRSTHKQWNALSKGRLLYKAEAKDQFLGFMVMDHRFLSMIFHLNGILKGDGEGFDRPSIREVGDIVNQIDISKVFQCDGLVLCVPSDNSSVVVWNPYLGQTKWIEAREPHDESDMFALGYDKDKNHKILRLYDECYYYYEVYNFKTESWGEEDHLPGWDIDSYNRGVSLNGNTYFLTQEQRAKDKYRVFLLCFNFTTEKFENFIAMPFKYHRKYVGTLSCVGNEKLAALYQRWDTGEMAIWVTTKIESNEVLWSNLFKVDMKPLVRFGFQQCKDEAGSFFIDEEKKLAVVFNLDKKRGKRNNKTRCYHTAYIIGEKGYLKKEVLGEAVEVRKDVYRSALVCSSSYVPSLEKINQIEEEEEDKCKSIKMVDTKRQRKKRKRKSKR",
+  "md5" : "d77b6b9681a6aeabda820a868b653463",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT3G19890.1",
+    "id" : "AT3G19890.1"
+  } ]
+},{
+  "sequence" : "MERGGFHGYRKLSVNNTTPSPPGLAANFLMAEGSMRPPEFNQPNKTSNGGEEECTVREQDRFMPIANVIRIMRRILPAHAKISDDSKETIQECVSEYISFITGEANERCQREQRKTITAEDVLWAMSKLGFDDYIEPLTLYLHRYRELEGERGVSCSAGSVSMTNGLVVKRPNGTMTEYGAYGPVPGIHMAQYHYRHQNGFVFSGNEPNSKMSGSSSGASGARVEVFPTQQHKY",
+  "md5" : "91acb4e76cd9c8fd5e1ca8f92aaaef80",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS00685",
+      "name" : "NFYB_HAP3",
+      "description" : "NF-YB/HAP3 subunit signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003956",
+        "name" : "Transcrpt_fac_NFYB/HAP3_CS",
+        "description" : "Transcription factor, NFYB/HAP3, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 93,
+      "end" : 109,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "4M1I12M",
+      "alignment" : "CVSEyISFITGEANERC",
+      "location-fragments" : [ {
+        "start" : 93,
+        "end" : 109,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00685"
+  }, {
+    "signature" : {
+      "accession" : "PF00125",
+      "name" : "Histone",
+      "description" : "Core histone H2A/H2B/H3/H4",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR007125",
+        "name" : "Histone_H2A/H2B/H3",
+        "description" : "Histone H2A/H2B/H3",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 44,
+      "end" : 126,
+      "representative" : true,
+      "hmmStart" : 34,
+      "hmmEnd" : 119,
+      "hmmLength" : 122,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 0.0036,
+      "score" : 28.9,
+      "envelopeStart" : 11,
+      "envelopeEnd" : 129,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 44,
+        "end" : 126,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 0.0027,
+    "score" : 29.3,
+    "model-ac" : "PF00125"
+  } ],
+  "xref" : [ {
+    "name" : "AT5G47670.1",
+    "id" : "AT5G47670.1"
+  } ]
+},{
+  "sequence" : "MSSIEPKVMMVGANKKQRTVQASSRKGCMRGKGGPDNASCTYKGVRQRTWGKWVAEIREPNRGARLWLGTFDTSREAALAYDSAARKLYGPEAHLNLPESLRSYPKTASSPASQTTPSSNTGGKSSSDSESPCSSNEMSSCGRVTEEISWEHINVDLPVMDDSSIWEEATMSLGFPWVHEGDNDISRFDTCISGGYSNWDSFHSPL",
+  "md5" : "1df43a61cd7548f289fb2359c9e93ae6",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF00847",
+      "name" : "AP2",
+      "description" : "AP2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 42,
+      "end" : 90,
+      "representative" : false,
+      "hmmStart" : 3,
+      "hmmEnd" : 53,
+      "hmmLength" : 54,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 5.0E-12,
+      "score" : 57.2,
+      "envelopeStart" : 40,
+      "envelopeEnd" : 91,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 42,
+        "end" : 90,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 3.2E-12,
+    "score" : 57.9,
+    "model-ac" : "PF00847"
+  }, {
+    "signature" : {
+      "accession" : "SM00380",
+      "name" : "rav1_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 41,
+      "end" : 104,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 66,
+      "hmmLength" : 66,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 2.0E-34,
+      "score" : 130.4,
+      "location-fragments" : [ {
+        "start" : 41,
+        "end" : 104,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 2.0E-34,
+    "score" : 130.4,
+    "model-ac" : "SM00380"
+  }, {
+    "signature" : {
+      "accession" : "cd00018",
+      "name" : "AP2",
+      "description" : "AP2",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 40,
+      "end" : 100,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 44,
+          "end" : 44,
+          "residue" : "G"
+        }, {
+          "start" : 48,
+          "end" : 48,
+          "residue" : "R"
+        }, {
+          "start" : 70,
+          "end" : 70,
+          "residue" : "T"
+        }, {
+          "start" : 46,
+          "end" : 46,
+          "residue" : "R"
+        }, {
+          "start" : 50,
+          "end" : 50,
+          "residue" : "W"
+        }, {
+          "start" : 65,
+          "end" : 65,
+          "residue" : "R"
+        }, {
+          "start" : 43,
+          "end" : 43,
+          "residue" : "K"
+        }, {
+          "start" : 67,
+          "end" : 67,
+          "residue" : "W"
+        }, {
+          "start" : 52,
+          "end" : 52,
+          "residue" : "K"
+        }, {
+          "start" : 58,
+          "end" : 58,
+          "residue" : "R"
+        }, {
+          "start" : 56,
+          "end" : 56,
+          "residue" : "E"
+        } ]
+      } ],
+      "evalue" : 3.36462E-34,
+      "score" : 108.128,
+      "location-fragments" : [ {
+        "start" : 40,
+        "end" : 100,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00018"
+  }, {
+    "signature" : {
+      "accession" : "PTHR31839",
+      "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045277",
+        "name" : "DRE1A-I",
+        "description" : "Dehydration-responsive element-binding protein 1A-I",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 39,
+      "end" : 113,
+      "representative" : true,
+      "hmmStart" : 54,
+      "hmmEnd" : 128,
+      "hmmLength" : 0,
+      "hmmBounds" : "INCOMPLETE",
+      "envelopeStart" : 2,
+      "envelopeEnd" : 151,
+      "location-fragments" : [ {
+        "start" : 39,
+        "end" : 113,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR31839",
+    "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+    "evalue" : 1.9E-20,
+    "score" : 85.6,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR31839"
+  }, {
+    "signature" : {
+      "accession" : "PS51032",
+      "name" : "AP2_ERF",
+      "description" : "AP2/ERF domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 41,
+      "end" : 98,
+      "representative" : false,
+      "score" : 21.983412,
+      "alignment" : "TYKGVRQRTWGKWVAEIREPN-RGARLWLGTFDTSREAALAYDSAARKLYGPEAHLNLP",
+      "location-fragments" : [ {
+        "start" : 41,
+        "end" : 98,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51032"
+  } ],
+  "xref" : [ {
+    "name" : "AT1G75490.1",
+    "id" : "AT1G75490.1"
+  } ]
+},{
+  "sequence" : "SLPINLTTRRSRSSIFFSHVSPFRIFFFINLVLSIACVLGIILYRCRSCGSLLVALRSNKFIENSPVCDLVHHLLVAAVHVRAEVLISLIQLFLMRDILQVVVVFLLLALQVRVVESVSRCIEAIWHMLLVLVLLLLMMIGENPSLTVCLELGGHKRKLIIVPMRGVVISHSSNCSQSLLENPTHNPSFFLRSSVFIGFAVFVHDPIRLLSIWGSSLVKHKCFPHANTMPQIDSLISSGGFPKPCFCCSIGSSPCGILLVFMAKEVPITLLFMPNFAQLLKVPWLNLVKINVLYEINFYSLRCDFFPQVVVYKFFICRVKSKTRRDVGKIH",
+  "md5" : "4b6c1f42d25294fed483055e9594f019",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-1",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-1"
+  } ]
+},{
+  "sequence" : "MDSDSERASLESIKDNSECVHVSNEPNLTATCVDSSVGEEGVTDVNSSAAVSELVPPEQGEGALLNSVPEISERGIPVDVVSSVDGGGEENAAFNIQEIDSVGGDAAAVEEVPLKSSSVVGEGREEEAGASIVKEEDFVAEANLSGDRLEENKEVSMEEEPSSHELSVCEVNGVDSLNDEENREVGEQIVCGSMGGEEIESDLESKKEKVDVIEEETTAQAASLVNAIEIPDDKEVACVAGFTEISSQDKGLDESGNGFLDEEPVKELQIGEGAKDLTDGDAKEGVDVTEDEMDIQVLKKSKEEEKVDSTTELEIETMRLEVHDVATEMSDKTVISSAVVTQFTGETSNDKETVMDDVKEDVDKDSEAGKSLDIHVPEATEEVDTDVNYGVGIEKEGDGVGGAEEAGQTVDLEEIREENQELSKELAQVDETKISEMSEVTETMIKDEDQEKDDNMTDLAEDVENHRDSSVADIEEGREDHEDMGVTETQKETVLGKVDRTKIAEVSEETDTRIEDEDQEKDDEMTDVAEDVKTHGDSSVADIEEGRESQEEMTETQEDSVMADEEPEEVEEENKSAGGKRKRGRNTKTVKGTGKKKEEDVCFMCFDGGDLVLCDRRGCTKAYHPSCVDRDEAFFQTKGKWNCGWHLCSKCEKTATYLCYTCMFSLCKGCAKDAVFFCIRGNKGLCETCMETVKLIERKQQEKEPAQLDFNDKTSWEYLFKDYWIDLKTQLSLSPEELDQAKRPLKGHETNASKQGTASETDYVTDGGSDSDSSPKKRKTRSRSKSGSAEKILSSGDKNLSDETMEWASKELLDLVVHMRRGDRSFLPMLEVQTLLLAYIKRYNLRDPRRKSQVICDSRLQNLFGKSHVGHFEMLNLLDSHFLKKEQNQADDIQGDIVDTEEPNHVDVDENLDHPVKSGKDKKRKTRKKNVRKGRQSNLDDFAAVDMHNINLIYLRRSLVEDLLEDSTAFEEKVASAFVRLRISGNQKQDLYRLVQVVGTSKAPEPYKVGKKTTDYVLEILNLDKTEVISIDIISNQDFTEDECKRLKQSIKCGLINRLTVGDIQEKAIALQEVRVKNLLEAEILRFSHLRDRASDMGRRKEYPYLLKLSNSLTMLTLRECVEKLQLLKSPEERQRRLEEIPEIHADPKMDPDCESEDEDEKEEKEKEKQLRPRSSSFNRRGRDPISPRKGGFSSNESWTGTSNYSNTSANRELSRSYSGRGSTGRGDYLGSSDDKVSDSMWTSAREREVQPSLGSEKPRSVSIPETPARSSRAIAPPELSPRIASEISMAPPAVVSQPVPKSNDSEKIWHYKDPSGKVQGPFSMAQLRKWNNTGYFPAKLEIWKANESPLDSVLLTDALAGLFQKQTQAVDNSYMKAQVAAFSGQSSQSEPNLGFAARIAPTTIEIPRNSQDTWSQGGSLPSPTPNQITTPTAKRRNFESRWSPTKPSPQSANQSMNYSVAQSGQSQTSRIDIPVVVNSAGALQPQTYPIPTPDPINVSVNHSATLHSPTPAGGKQSWGSMQTDHGGSNTPSSQNNSTSYGTPSPSVLPSQSQPGFPPSDSWKVAVPSQPNAQAQAQWGMNMVNNNQNSAQPQAPANQNSSWGQGTVNPNMGWVGPAQTGVNVNWGGSSVPSTVQGITHSGWVAPVQGQTQAYPNPGWGPTGHPQSQSQSQVQAQAGTTGSGWMQPGQGIQSGNSNQNWGTQNQTAIPSGGSGGNQAGYWGNQQQSQNGDSGYGWNRQSGGQQNNFKGQRVCKFFRENGHCRKGASCNYLHN",
+  "md5" : "463bfdcc50f3b7be4d48cb7f06eece54",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "SM00151",
+      "name" : "swib_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR019835",
+        "name" : "SWIB_domain",
+        "description" : "SWIB domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 816,
+      "end" : 887,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 83,
+      "hmmLength" : 83,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 0.0096,
+      "score" : 9.9,
+      "location-fragments" : [ {
+        "start" : 816,
+        "end" : 887,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 0.0096,
+    "score" : 9.9,
+    "model-ac" : "SM00151"
+  }, {
+    "signature" : {
+      "accession" : "SM00249",
+      "name" : "PHD_3",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001965",
+        "name" : "Znf_PHD",
+        "description" : "Zinc finger, PHD-type",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 601,
+      "end" : 647,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 39,
+      "hmmLength" : 39,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 1.4E-6,
+      "score" : 37.9,
+      "location-fragments" : [ {
+        "start" : 601,
+        "end" : 647,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.4E-6,
+    "score" : 37.9,
+    "model-ac" : "SM00249"
+  }, {
+    "signature" : {
+      "accession" : "PF00642",
+      "name" : "zf-CCCH",
+      "description" : "Zinc finger C-x8-C-x5-C-x3-H type (and similar)",
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR000571",
+        "name" : "Znf_CCCH",
+        "description" : "Zinc finger, CCCH-type",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 1749,
+      "end" : 1773,
+      "representative" : true,
+      "hmmStart" : 2,
+      "hmmEnd" : 26,
+      "hmmLength" : 27,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 0.052,
+      "score" : 24.7,
+      "envelopeStart" : 1748,
+      "envelopeEnd" : 1773,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 1749,
+        "end" : 1773,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 0.023,
+    "score" : 25.9,
+    "model-ac" : "PF00642"
+  }, {
+    "signature" : {
+      "accession" : "PS01359",
+      "name" : "ZF_PHD_1",
+      "description" : "Zinc finger PHD-type signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR019786",
+        "name" : "Zinc_finger_PHD-type_CS",
+        "description" : "Zinc finger, PHD-type, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 602,
+      "end" : 662,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "1M2I1M6I1M1I1M4I1M3I2M2I1M29I1M1I1M2I1M",
+      "alignment" : "CfmCfdggdlVlCdrrgCtkaYHpsCvdrdeaffqtkgkwncgwhlcskcektatYlCytC",
+      "location-fragments" : [ {
+        "start" : 602,
+        "end" : 662,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS01359"
+  }, {
+    "signature" : {
+      "accession" : "PS50103",
+      "name" : "ZF_C3H1",
+      "description" : "Zinc finger C3H1-type profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR000571",
+        "name" : "Znf_CCCH",
+        "description" : "Zinc finger, CCCH-type",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 1747,
+      "end" : 1773,
+      "representative" : true,
+      "score" : 14.661644,
+      "alignment" : "FKGQRVCKFFReNGHCRKGASCNYLHN--",
+      "location-fragments" : [ {
+        "start" : 1747,
+        "end" : 1773,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50103"
+  }, {
+    "signature" : {
+      "accession" : "PS51925",
+      "name" : "SWIB_MDM2",
+      "description" : "SWIB/MDM2 domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003121",
+        "name" : "SWIB_MDM2_domain",
+        "description" : "SWIB/MDM2 domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 801,
+      "end" : 884,
+      "representative" : true,
+      "score" : 20.325098,
+      "alignment" : "SDETMEWASKELLDLVVHmrrgDRSFLPMLEVQTLLLAYIKRYNLRDPRRKSQVICDSRLQNLFGK---SHVGHFEMLNLLDSHFLK",
+      "location-fragments" : [ {
+        "start" : 801,
+        "end" : 884,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51925"
+  }, {
+    "signature" : {
+      "accession" : "PS50016",
+      "name" : "ZF_PHD_2",
+      "description" : "Zinc finger PHD-type profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR019787",
+        "name" : "Znf_PHD-finger",
+        "description" : "Zinc finger, PHD-finger",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 599,
+      "end" : 665,
+      "representative" : true,
+      "score" : 8.6178,
+      "alignment" : "EDVCFMCFD----GGDLVLCDrrGCTKAYHPSCVDRDEAffqtkgkwncgwhlcSKCEKTATYLCYTCMFS",
+      "location-fragments" : [ {
+        "start" : 599,
+        "end" : 665,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50016"
+  }, {
+    "signature" : {
+      "accession" : "PF02201",
+      "name" : "SWIB",
+      "description" : "SWIB/MDM2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR003121",
+        "name" : "SWIB_MDM2_domain",
+        "description" : "SWIB/MDM2 domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 827,
+      "end" : 882,
+      "representative" : false,
+      "hmmStart" : 18,
+      "hmmEnd" : 74,
+      "hmmLength" : 74,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "evalue" : 6.6E-9,
+      "score" : 46.7,
+      "envelopeStart" : 808,
+      "envelopeEnd" : 882,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 827,
+        "end" : 882,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.7E-9,
+    "score" : 48.6,
+    "model-ac" : "PF02201"
+  } ],
+  "xref" : [ {
+    "name" : "AT2G16485.1",
+    "id" : "AT2G16485.1"
+  } ]
+},{
+  "sequence" : "LLPMKRECLRKTDSLVTGYNRSIRDCTRILKQSRPVKNCLNCFLGQRKWWLKQMRDRRGGQKRESTIRVMDATRHSLTQRCGSRAFFFLQERELFCYASGTVWRRRDWKHYPCLCRRRTNNIALALPITRTIGGYSNAYKTISPARVQHRCSWKHMTTRKLQFATLKTRKEVGRTTDMFRLRLPSSSIMSIKTFPTTSLPFIKLLQSMKPAALLTKPLFMTINSNHRSFMNITNFMSLMILSTITKIRITSINKTNRHLVGSNTIPSCSLTRASTFWFSSTIFPLTKTNHLLCITKNRGRVSNVSSKFIKKIRFLRPTKRDRTIHWIWFLIESRITRAKFEIPVH",
+  "md5" : "80d0ba75e03d479476f8d457723d93e8",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-1",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-1"
+  } ]
+},{
+  "sequence" : "CLCLSFSGSPKLSLNLLKTGTLLHLMKLWSWCGKMVRYQLKVSQVDRGTFLHHKQTLLELERLEMAQRRLWWTRSLCQCHHRVVKTMTLFHGIIIPPLMDIALISCVMCRLLLLSTSKRVIWRTKLLSRCFREERMAMNQLLLLLRRSITVSNRILCMEVIELEIFLANKPIRIGLLRRRNHLLVTSLVWSTFHISYALQLLRRLLIITFMTLKKRVLKARQMCFRPEFLELKTLKIRFLTSLLLLLRLKITKRLAYQRTHVEKTKRVKKQLYVLLLARVIVSMAHPKVLHFLRESIRIFKTLTVIVKMWKKNQEMEERKQVHLERVWVQREAALQKCIICLKGDGVIGSTRRCVPCKNSFQTVTRWTKLRCMKPSSISSHSNFKCRSCQWRLVTICHRRLCSHRVWGITRQQLLQWQWVWECLMQWACLIAVVVHRLTTDHSSKSRGCNNNQWRWVFHVSLVVVSLPVLRRLAMARLEIYLVLKIKQRRITTVTNQRENRGLLISFVDRR",
+  "md5" : "690b20d7c6d3deb875ac189d8a1515d2",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+2",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+2"
+  } ]
+},{
+  "sequence" : "MNFEDQEEDMEMSGVNPPCGYDSLSGEGATSSGGGGVGRSKGVGAKIRYRECLKNHAVNIGGHAVDGCCEFMPSGEDGTLDALKCAACGCHRNFHRKETESIGGRAHRVPTYYNRPPQPHQPPGYLHLTSPAAPYRPPAASGDEEDTSNPSSSGGTTKRFRTKFTAEQKEKMLAFAERLGWRIQKHDDVAVEQFCAETGVRRQVLKIWMHNNKNSLGKKP",
+  "md5" : "813579df1588a157c023cca5ba1f4148",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS51523",
+      "name" : "ZF_HD_DIMER",
+      "description" : "Zinc-finger ZF-HD dimerization-type profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR006456",
+        "name" : "ZF_HD_homeobox_Cys/His_dimer",
+        "description" : "ZF-HD homeobox protein, Cys/His-rich dimerisation domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 49,
+      "end" : 98,
+      "representative" : true,
+      "score" : 27.365578,
+      "alignment" : "YRECLKNHAVNIGGHAVDGCCEFMPSGEDGTLDALKCAACGCHRNFHRKE",
+      "location-fragments" : [ {
+        "start" : 49,
+        "end" : 98,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51523"
+  }, {
+    "signature" : {
+      "accession" : "PF04770",
+      "name" : "ZF-HD_dimer",
+      "description" : "ZF-HD protein dimerisation region",
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR006456",
+        "name" : "ZF_HD_homeobox_Cys/His_dimer",
+        "description" : "ZF-HD homeobox protein, Cys/His-rich dimerisation domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 47,
+      "end" : 99,
+      "representative" : true,
+      "hmmStart" : 2,
+      "hmmEnd" : 54,
+      "hmmLength" : 55,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 1.2E-27,
+      "score" : 107.3,
+      "envelopeStart" : 46,
+      "envelopeEnd" : 100,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 47,
+        "end" : 99,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 6.6E-28,
+    "score" : 108.1,
+    "model-ac" : "PF04770"
+  } ],
+  "xref" : [ {
+    "name" : "AT4G24660.1",
+    "id" : "AT4G24660.1"
+  } ]
+},{
+  "sequence" : "MENDDITVAEMKPKKRAGRRIFKETRHPIYRGVRRRDGDKWVCEVREPIHQRRVWLGTYPTADMAARAHDVAVLALRGRSACLNFSDSAWRLPVPASTDPDTIRRTAAEAAEMFRPPEFSTGITVLPSASEFDTSDEGVAGMMMRLAEEPLMSPPRSYIDMNTSVYVDEEMCYEDLSLWSY",
+  "md5" : "cfcfc3e4183b650043b76e5f1ed06680",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PF00847",
+      "name" : "AP2",
+      "description" : "AP2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 78,
+      "representative" : false,
+      "hmmStart" : 2,
+      "hmmEnd" : 53,
+      "hmmLength" : 54,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 3.8E-9,
+      "score" : 48.0,
+      "envelopeStart" : 28,
+      "envelopeEnd" : 79,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 78,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 3.8E-9,
+    "score" : 48.0,
+    "model-ac" : "PF00847"
+  }, {
+    "signature" : {
+      "accession" : "cd00018",
+      "name" : "AP2",
+      "description" : "AP2",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 28,
+      "end" : 88,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 55,
+          "end" : 55,
+          "residue" : "W"
+        }, {
+          "start" : 40,
+          "end" : 40,
+          "residue" : "K"
+        }, {
+          "start" : 46,
+          "end" : 46,
+          "residue" : "R"
+        }, {
+          "start" : 44,
+          "end" : 44,
+          "residue" : "E"
+        }, {
+          "start" : 32,
+          "end" : 32,
+          "residue" : "G"
+        }, {
+          "start" : 36,
+          "end" : 36,
+          "residue" : "R"
+        }, {
+          "start" : 31,
+          "end" : 31,
+          "residue" : "R"
+        }, {
+          "start" : 58,
+          "end" : 58,
+          "residue" : "T"
+        }, {
+          "start" : 34,
+          "end" : 34,
+          "residue" : "R"
+        }, {
+          "start" : 38,
+          "end" : 38,
+          "residue" : "G"
+        }, {
+          "start" : 53,
+          "end" : 53,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 1.05398E-28,
+      "score" : 93.4902,
+      "location-fragments" : [ {
+        "start" : 28,
+        "end" : 88,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00018"
+  }, {
+    "signature" : {
+      "accession" : "PTHR31839",
+      "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045277",
+        "name" : "DRE1A-I",
+        "description" : "Dehydration-responsive element-binding protein 1A-I",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 5,
+      "end" : 181,
+      "representative" : true,
+      "hmmStart" : 32,
+      "hmmEnd" : 211,
+      "hmmLength" : 0,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "envelopeStart" : 1,
+      "envelopeEnd" : 181,
+      "location-fragments" : [ {
+        "start" : 5,
+        "end" : 181,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR31839",
+    "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+    "evalue" : 1.9E-62,
+    "score" : 222.9,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR31839"
+  }, {
+    "signature" : {
+      "accession" : "PS51032",
+      "name" : "AP2_ERF",
+      "description" : "AP2/ERF domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 86,
+      "representative" : false,
+      "score" : 21.891182,
+      "alignment" : "IYRGVRRRDGDKWVCEVREPI-HQRRVWLGTYPTADMAARAHDVAVLALRGRSACLNFS",
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 86,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51032"
+  }, {
+    "signature" : {
+      "accession" : "SM00380",
+      "name" : "rav1_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 29,
+      "end" : 92,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 66,
+      "hmmLength" : 66,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 4.5E-24,
+      "score" : 96.0,
+      "location-fragments" : [ {
+        "start" : 29,
+        "end" : 92,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.5E-24,
+    "score" : 96.0,
+    "model-ac" : "SM00380"
+  } ],
+  "xref" : [ {
+    "name" : "AT1G63030.1",
+    "id" : "AT1G63030.1"
+  } ]
+},{
+  "sequence" : "MPFKTVIEVEPPSLLRYLIGSAVMMIGVVLPVGYMMFRNKRVPFSSSYSKQT",
+  "md5" : "ebb9785cacc0f620eef27403e87e67af",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT4G16695.2",
+    "id" : "AT4G16695.2"
+  } ]
+},{
+  "sequence" : "MEDGELDFSNQEVFSSSEMGELPPSNCSMDSFFDGLLMDTNAACTHTHTCNPTGPENTHTHTCFHVHTKILPDESDEKVSTDDTAESCGKKGEKRPLGNREAVRKYREKKKAKAASLEDEVARLRAVNQQLVKRLQNQATLEAEVSRLKCLLVDLRGRIDGEIGSFPYQKPMAANIPSFSHMMNPCNVQCDDEVYCPQNVFGVNSQEGASINDQGLSGCDFDQLQCMANQNLNGNGNGSFSNVNTSVSNKRKGGHRASRAV",
+  "md5" : "cd9505344c503945b25c8d3da8698fc3",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS50217",
+      "name" : "BZIP",
+      "description" : "Basic-leucine zipper (bZIP) domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR004827",
+        "name" : "bZIP",
+        "description" : "Basic-leucine zipper domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 89,
+      "end" : 155,
+      "representative" : false,
+      "score" : 8.863866,
+      "alignment" : "GKKGEKRPLGNREAVRKYREKKKAKAASLEDEVARLRAVNQQLVKRLQNQatlEAEVSRLKCLLVDL",
+      "location-fragments" : [ {
+        "start" : 89,
+        "end" : 155,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50217"
+  }, {
+    "signature" : {
+      "accession" : "SM00338",
+      "name" : "brlzneu",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR004827",
+        "name" : "bZIP",
+        "description" : "Basic-leucine zipper domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 87,
+      "end" : 154,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 65,
+      "hmmLength" : 65,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 4.4E-11,
+      "score" : 52.8,
+      "location-fragments" : [ {
+        "start" : 87,
+        "end" : 154,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.4E-11,
+    "score" : 52.8,
+    "model-ac" : "SM00338"
+  }, {
+    "signature" : {
+      "accession" : "PF07716",
+      "name" : "bZIP_2",
+      "description" : "Basic region leucine zipper",
+      "type" : "COILED_COIL",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR004827",
+        "name" : "bZIP",
+        "description" : "Basic-leucine zipper domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 91,
+      "end" : 144,
+      "representative" : false,
+      "hmmStart" : 5,
+      "hmmEnd" : 54,
+      "hmmLength" : 54,
+      "hmmBounds" : "C_TERMINAL_COMPLETE",
+      "evalue" : 3.6E-9,
+      "score" : 47.9,
+      "envelopeStart" : 89,
+      "envelopeEnd" : 159,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 91,
+        "end" : 144,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.7E-9,
+    "score" : 48.9,
+    "model-ac" : "PF07716"
+  } ],
+  "xref" : [ {
+    "name" : "AT4G35040.1",
+    "id" : "AT4G35040.1"
+  } ]
+},{
+  "sequence" : "IHFPTSLRVLDFTRQMKNLTTTGKKSHRREKLISRTLIFTRLSHGTFKSCAKLGMKSRVIGTSLAIKTRSIPQGLEPIEQQKQGFGKPPEEIRLSIGIVLAGKHLCFTREEPQMDKSLIGSCTNTAKPMKTELLRKKDGLCVGFSRRDWLQLDEWEITTHPLHIGTMINFLLWPPSSRQTVNDGFSPIIISSSSTSTNNICHMASMHLLTLSTTLTCNASKSNYTTTTCNQISRMRNNIKEIRTSALYTTAATSKWTKSQTGEFSINLLLLSATRRLPQLLHLYRIMPRTQAMLSTKLMKKKIRKGLQTWEKNILLLLLRVVRLIYGS",
+  "md5" : "90792d184cb90501d5bb3ac30336d7a2",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+2",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=+2"
+  } ]
+},{
+  "sequence" : "ASVAFQAHQSAICSRQEPFSTCRSCGAGVGKWSDINSKSVKIEEHSSTTSKLFSRDWKWLKDDYGGRDPYVSAITNDGFESRRLCSMVESSSLPWILLFLACVVSCYCQRAREYGGKPNCFPVVSEKKGWQISSCCFFVAVRFPIAFSVWKSRSSPTNQSGSVYSDAGTTNYQAFGQLFTFLTPCNFCEDYPSHRKESSKPAKCVSDQSSWSRLRGSRVCCFCYARPKGLPNIRGLMKRPREKSSCMFFCWLGSRWPIRKSFTFFKEKAFEYSRHLSRCGRRIRRWKKGSRSISNGFGFKEKPLCRSASVKETADQREDACPARTHSKLQGGQSFDARSHRVSQVTPTSSADHVNGVWLLSATGGYVPTGYGALPGSSCCNGNGYGNALCNGLAFEPWWFIGPRTTVPSLGDATTTSGDGYSTCLWWWYLCRFFDDWQWLDRFIWFRSNNDEQQLETNKEKTGVFSVLWIVV",
+  "md5" : "8c2897ee717e616001abdd34a52c6c8b",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+3",
+    "id" : "lcl|CP002684.1_cds_AEE28458.1_1793|frame=+3"
+  } ]
+},{
+  "sequence" : "HFHRSIQLEEVEAVYSSPMSEALFGSFSSSTWYSALLVSLALFCIDAEAVAASSLLSEATNLSRTLQSVTWSITCSLPLFMYRELKFFPFNCSSCAIFDCRWLCSSSSCLHCKLGLLRAADALRPYGICCWCSCCCCLGRIRRPFVSSSEAIKESSSYQCEGDESSPIRLTAANLFLKTLHTTHPSSGVPFSSVSKRYSCMIQSDFCPFGALPLNTSVFLMPIRLCLKIALSLPVAFQNPAFVALLVRVPVGYFLSLWLKKYQSLCSSCPILHNSRSHGSILRSMSFMKSISILFDATFFLRSTSSSSVGNLKPGGTWENEF",
+  "md5" : "79b9e90d6d808b9ceaf76b7bb96e2b95",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-2",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-2"
+  } ]
+},{
+  "sequence" : "WTGISNLALVIYLDSIKNQIYHQWMVRSRLVGRHSQKRIFHLINLEETLETLPLFLVIQSKLVLVSGKIVLLNQKVQEARVQREQEGMVLEPTRCRFVLLMDVILILVIVESIIRDIKFVMFIQKLLWLLLMVINRGFVNNAAGFMLWRSLMKGREVVGNVLMDIIEDDGSRSLNISVVLPTSLRVFKVANCSFLVVHMCFQLHLCTRAGEIVLALLPPMVRVMGRARAMLLVLLLQRQGCFQSLLLQTVPEAQNNSLSCKKKKAREPHRCVRERVASMTLIVLSLFCHPPRRQSLICFNHHFLCPKKQLRQFFTGRDCLRMRVQSLMDRLYPVTRLSVFRRHSRFIGS",
+  "md5" : "07081bdae22d0e6255238cc501753c22",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+2",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=+2"
+  } ]
+},{
+  "sequence" : "TPNETGMSAEDGQPRYRIPIHQRLHSHSQTIPTRKKLSQLLLGTKKVVVEANEGLTTRRMTEEREHNQSHGCNSSFSHTTMRFSSFLLLARKGIVLLCFWYCLEKKRLETLSLSLQEKNQQHSSGSAHNSNHWRLQQRLQDYFPSSGSTQMLETHVNHQKTLAICYLENPRSWQDDRYVQAAASVVFDYVHQDVSYNFSSLHQTPPKHETCCIVDKTSVYDHPQEFLNEHHKLYVSYDTLYNYNQNHIHQQDKSASGWFQHHSLLFSLNSSFLNLLVLKHYLSTYDSLALYHQKQRKSFQCFFQVLDQMKNPLLTVTTHQTRSNHPLVINLVLDRIQINNQSVNSSP",
+  "md5" : "65fc3ef0ba84a47f517e2e7d6aa047e5",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-3",
+    "id" : "lcl|CP002688.1_cds_ANM70663.1_44919|frame=-3"
+  } ]
+},{
+  "sequence" : "MNPFYSTFPDSFLSISDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPETTCPKEIQKAASEAAMAFQNETTTEGSKTAAEAEEAAGEGVREGERRAEEQNGGVFYMDDEALLGMPNFFENMAEGMLLPPPEVGWNHNDFDGVGDVSLWSFDE",
+  "md5" : "8d7077cbfdabe479a6d08c1e19f46f51",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "cd00018",
+      "name" : "AP2",
+      "description" : "AP2",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 52,
+      "end" : 112,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 62,
+          "end" : 62,
+          "residue" : "S"
+        }, {
+          "start" : 79,
+          "end" : 79,
+          "residue" : "W"
+        }, {
+          "start" : 64,
+          "end" : 64,
+          "residue" : "K"
+        }, {
+          "start" : 70,
+          "end" : 70,
+          "residue" : "R"
+        }, {
+          "start" : 68,
+          "end" : 68,
+          "residue" : "E"
+        }, {
+          "start" : 56,
+          "end" : 56,
+          "residue" : "G"
+        }, {
+          "start" : 60,
+          "end" : 60,
+          "residue" : "R"
+        }, {
+          "start" : 55,
+          "end" : 55,
+          "residue" : "R"
+        }, {
+          "start" : 82,
+          "end" : 82,
+          "residue" : "T"
+        }, {
+          "start" : 58,
+          "end" : 58,
+          "residue" : "R"
+        }, {
+          "start" : 77,
+          "end" : 77,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 1.85811E-34,
+      "score" : 109.283,
+      "location-fragments" : [ {
+        "start" : 52,
+        "end" : 112,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00018"
+  }, {
+    "signature" : {
+      "accession" : "PS51032",
+      "name" : "AP2_ERF",
+      "description" : "AP2/ERF domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 53,
+      "end" : 110,
+      "representative" : false,
+      "score" : 22.246929,
+      "alignment" : "IYRGVRQRNSGKWVCEVREPN-KKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFA",
+      "location-fragments" : [ {
+        "start" : 53,
+        "end" : 110,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51032"
+  }, {
+    "signature" : {
+      "accession" : "PTHR31839",
+      "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045277",
+        "name" : "DRE1A-I",
+        "description" : "Dehydration-responsive element-binding protein 1A-I",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 17,
+      "end" : 221,
+      "representative" : true,
+      "hmmStart" : 22,
+      "hmmEnd" : 210,
+      "hmmLength" : 0,
+      "hmmBounds" : "INCOMPLETE",
+      "envelopeStart" : 2,
+      "envelopeEnd" : 222,
+      "location-fragments" : [ {
+        "start" : 17,
+        "end" : 221,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR31839",
+    "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+    "evalue" : 3.3E-77,
+    "score" : 271.1,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR31839"
+  }, {
+    "signature" : {
+      "accession" : "SM00380",
+      "name" : "rav1_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 53,
+      "end" : 116,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 66,
+      "hmmLength" : 66,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 6.8E-31,
+      "score" : 118.6,
+      "location-fragments" : [ {
+        "start" : 53,
+        "end" : 116,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 6.8E-31,
+    "score" : 118.6,
+    "model-ac" : "SM00380"
+  }, {
+    "signature" : {
+      "accession" : "PF00847",
+      "name" : "AP2",
+      "description" : "AP2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 53,
+      "end" : 102,
+      "representative" : false,
+      "hmmStart" : 2,
+      "hmmEnd" : 53,
+      "hmmLength" : 54,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 2.3E-12,
+      "score" : 58.3,
+      "envelopeStart" : 52,
+      "envelopeEnd" : 103,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 53,
+        "end" : 102,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 9.5E-13,
+    "score" : 59.5,
+    "model-ac" : "PF00847"
+  } ],
+  "xref" : [ {
+    "name" : "AT5G51990.1",
+    "id" : "AT5G51990.1"
+  } ]
+},{
+  "sequence" : "TSIDQSDNSKKKQYILLPCLKPFSDLFLHQLGTQHCLCPWHYSVMQKLWQPPRCLAEKQQIYRELSSLLGPSLARCRCSCIESSSDFLDSIVPHARYLIAGGCSVVLALACIASGCERKQMHGHMAYVVGARAAAADDDWGESVVDRLSRARRPKKVDHRTNVKGMSRNLPFVLQPISSKPYTQPILLPEEFRFHRFLSGIRASNQTFVHLGLFPCKTQVFSSCQLDYASNRPYLFRWLSKTLLLLLYWFESLWDTSCLYGRSTNHSALHAQFCTTLEGPMAQSCKDQCPLNQFLFSSMRLFSSGSSLQVLHLSGEINPEGRGKMNS",
+  "md5" : "ea14a53d96f4c7b43e8e9f4eab879c18",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-3",
+    "id" : "lcl|CP002684.1_cds_ANM60620.1_2367|frame=-3"
+  } ]
+},{
+  "sequence" : "MMNPSHGRGLGSAGGSSSGRNQGGGGETVVEMFPSGLRVLVVDDDPTCLMILERMLRTCLYEVTKCNRAEMALSLLRKNKHGFDIVISDVHMPDMDGFKLLEHVGLEMDLPVIMMSADDSKSVVLKGVTHGAVDYLIKPVRMEALKNIWQHVVRKRRSEWSVPEHSGSIEETGERQQQQHRGGGGGAAVSGGEDAVDDNSSSVNEGNNWRSSSRKRKDEEGEEQGDDKDEDASNLKKPRVVWSVELHQQFVAAVNQLGVEKAVPKKILELMNVPGLTRENVASHLQKYRIYLRRLGGVSQHQGNLNNSFMTGQDASFGPLSTLNGFDLQALAVTGQLPAQSLAQLQAAGLGRPAMVSKSGLPVSSIVDERSIFSFDNTKTRFGEGLGHHGQQPQQQPQMNLLHGVPTGLQQQLPMGNRMSIQQQIAAVRAGNSVQNNGMLMPLAGQQSLPRGPPPMLTSSQSSIRQPMLSNRISERSGFSGRNNIPESSRVLPTSYTNLTTQHSSSSMPYNNFQPELPVNSFPLASAPGISVPVRKATSYQEEVNSSEAGFTTPSYDMFTTRQNDWDLRNIGIAFDSHQDSESAAFSASEAYSSSSMSRHNTTVAATEHGRNHQQPPSGMVQHHQVYADGNGGSVRVKSERVATDTATMAFHEQYSNQEDLMSALLKQV",
+  "md5" : "1cf259689ec229662dcb8b87af00a1de",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS51294",
+      "name" : "HTH_MYB",
+      "description" : "Myb-type HTH DNA-binding domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR017930",
+        "name" : "Myb_dom",
+        "description" : "Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 234,
+      "end" : 293,
+      "representative" : true,
+      "score" : 11.5396,
+      "alignment" : "NLKKPRVVWSVELHQQFVAAVNQLG-VEkAvPKKILELMNVPGLTRENVASHLQKYRIYLR",
+      "location-fragments" : [ {
+        "start" : 234,
+        "end" : 293,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51294"
+  }, {
+    "signature" : {
+      "accession" : "PTHR43874",
+      "name" : "TWO-COMPONENT RESPONSE REGULATOR",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045279",
+        "name" : "ARR-like",
+        "description" : "Two-component response regulator ARR-like",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 37,
+      "end" : 476,
+      "representative" : true,
+      "hmmStart" : 3,
+      "hmmEnd" : 192,
+      "hmmLength" : 0,
+      "hmmBounds" : "INCOMPLETE",
+      "envelopeStart" : 30,
+      "envelopeEnd" : 660,
+      "location-fragments" : [ {
+        "start" : 37,
+        "end" : 476,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR43874",
+    "name" : "TWO-COMPONENT RESPONSE REGULATOR",
+    "evalue" : 6.3E-88,
+    "score" : 305.9,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR43874"
+  }, {
+    "signature" : {
+      "accession" : "SM00448",
+      "name" : "REC_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 37,
+      "end" : 149,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 150,
+      "hmmLength" : 150,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 7.4E-31,
+      "score" : 118.5,
+      "location-fragments" : [ {
+        "start" : 37,
+        "end" : 149,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 7.4E-31,
+    "score" : 118.5,
+    "model-ac" : "SM00448"
+  }, {
+    "signature" : {
+      "accession" : "PS50110",
+      "name" : "RESPONSE_REGULATORY",
+      "description" : "Response regulatory domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 38,
+      "end" : 153,
+      "representative" : true,
+      "score" : 42.221428,
+      "alignment" : "RVLVVDDDPTCLMILERMLRTCLYEVTKCNRAEMALSLLRKNKhgFDIVISDVHMPDMDGFKLLEHVG-LEMDLPVIMMSADDSKSVVLKGVTHGAVDYLIKPVRMEALKNIWQHVV",
+      "location-fragments" : [ {
+        "start" : 38,
+        "end" : 153,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS50110"
+  }, {
+    "signature" : {
+      "accession" : "PF00072",
+      "name" : "Response_reg",
+      "description" : "Response regulator receiver domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001789",
+        "name" : "Sig_transdc_resp-reg_receiver",
+        "description" : "Signal transduction response regulator, receiver domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 39,
+      "end" : 147,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 108,
+      "hmmLength" : 111,
+      "hmmBounds" : "N_TERMINAL_COMPLETE",
+      "evalue" : 7.9E-20,
+      "score" : 82.5,
+      "envelopeStart" : 39,
+      "envelopeEnd" : 150,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 39,
+        "end" : 147,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 5.5E-20,
+    "score" : 83.0,
+    "model-ac" : "PF00072"
+  }, {
+    "signature" : {
+      "accession" : "PF00249",
+      "name" : "Myb_DNA-binding",
+      "description" : "Myb-like DNA-binding domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001005",
+        "name" : "SANT/Myb",
+        "description" : "SANT/Myb domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 239,
+      "end" : 289,
+      "representative" : false,
+      "hmmStart" : 1,
+      "hmmEnd" : 46,
+      "hmmLength" : 46,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 4.1E-5,
+      "score" : 34.9,
+      "envelopeStart" : 239,
+      "envelopeEnd" : 289,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 239,
+        "end" : 289,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 1.9E-5,
+    "score" : 36.0,
+    "model-ac" : "PF00249"
+  } ],
+  "xref" : [ {
+    "name" : "AT3G16857.1",
+    "id" : "AT3G16857.1"
+  } ]
+},{
+  "sequence" : "MTEESPEEDHGSPGVAETNPGSPSSKTNNNNNNNKEQDRFLPIANVGRIMKKVLPGNGKISKDAKETVQECVSEFISFVTGEASDKCQREKRKTINGDDIIWAITTLGFEDYVAPLKVYLCKYRDTEGEKVNSPKQQQQRQQQQQIQQQNHHNYQFQEQDQNNNNMSCTSYISHHHPSPFLPVDHQPFPNIAFSPKSLQKQFPQQHDNNIDSIHW",
+  "md5" : "43bacc1c532d55575250197ba51e45be",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS00685",
+      "name" : "NFYB_HAP3",
+      "description" : "NF-YB/HAP3 subunit signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003956",
+        "name" : "Transcrpt_fac_NFYB/HAP3_CS",
+        "description" : "Transcription factor, NFYB/HAP3, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 71,
+      "end" : 87,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "4M1I12M",
+      "alignment" : "CVSEfISFVTGEASDKC",
+      "location-fragments" : [ {
+        "start" : 71,
+        "end" : 87,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00685"
+  }, {
+    "signature" : {
+      "accession" : "PF00125",
+      "name" : "Histone",
+      "description" : "Core histone H2A/H2B/H3/H4",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR007125",
+        "name" : "Histone_H2A/H2B/H3",
+        "description" : "Histone H2A/H2B/H3",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 21,
+      "end" : 104,
+      "representative" : true,
+      "hmmStart" : 33,
+      "hmmEnd" : 119,
+      "hmmLength" : 122,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 5.1E-4,
+      "score" : 31.7,
+      "envelopeStart" : 2,
+      "envelopeEnd" : 107,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 21,
+        "end" : 104,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 2.2E-5,
+    "score" : 36.1,
+    "model-ac" : "PF00125"
+  } ],
+  "xref" : [ {
+    "name" : "AT2G13570.1",
+    "id" : "AT2G13570.1"
+  } ]
+},{
+  "sequence" : "MEKLQKMTSEKSLVIFSKNSCCMSHTIKTLFLDLGVNPTIYELDEINRGKEIEQALAQLGCSPTVPVVFIGGQLVGGANQVMSLHLNRSLIPMLKRVGALWL",
+  "md5" : "0558cb2434694673cafa78a4b7d4d142",
+  "matches" : [ ],
+  "xref" : [ {
+    "name" : "AT4G15670.1",
+    "id" : "AT4G15670.1"
+  } ]
+},{
+  "sequence" : "MAEGSMRPPEFNQPNKTSNGGEEECTVREQDRFMPIANVIRIMRRILPAHAKISDDSKETIQECVSEYISFITGEANERCQREQRKTITAEDVLWAMSKLGFDDYIEPLTLYLHRYRELEGERGVSCSAGSVSMTNGLVVKRPNGTMTEYGAYGPVPGIHMAQYHYRHQNGFVFSGNEPNSKMSGSSSGASGARVEVFPTQQHKY",
+  "md5" : "fc2ac14ec51dae7e6d00c2144a3e0144",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS00685",
+      "name" : "NFYB_HAP3",
+      "description" : "NF-YB/HAP3 subunit signature.",
+      "type" : "CONSERVED_SITE",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PATTERNS",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR003956",
+        "name" : "Transcrpt_fac_NFYB/HAP3_CS",
+        "description" : "Transcription factor, NFYB/HAP3, conserved site",
+        "type" : "CONSERVED_SITE",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 64,
+      "end" : 80,
+      "representative" : false,
+      "level" : "STRONG",
+      "cigarAlignment" : "4M1I12M",
+      "alignment" : "CVSEyISFITGEANERC",
+      "location-fragments" : [ {
+        "start" : 64,
+        "end" : 80,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS00685"
+  }, {
+    "signature" : {
+      "accession" : "PF00125",
+      "name" : "Histone",
+      "description" : "Core histone H2A/H2B/H3/H4",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR007125",
+        "name" : "Histone_H2A/H2B/H3",
+        "description" : "Histone H2A/H2B/H3",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 16,
+      "end" : 97,
+      "representative" : true,
+      "hmmStart" : 35,
+      "hmmEnd" : 119,
+      "hmmLength" : 122,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 0.0049,
+      "score" : 28.5,
+      "envelopeStart" : 5,
+      "envelopeEnd" : 100,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 16,
+        "end" : 97,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 0.0035,
+    "score" : 29.0,
+    "model-ac" : "PF00125"
+  } ],
+  "xref" : [ {
+    "name" : "AT5G47670.2",
+    "id" : "AT5G47670.2"
+  } ]
+},{
+  "sequence" : "MAVYEQTGTEQPKKRKSRARAGGLTVADRLKKWKEYNEIVEASAVKEGEKPKRKVPAKGSKKGCMKGKGGPDNSHCSFRGVRQRIWGKWVAEIREPKIGTRLWLGTFPTAEKAASAYDEAATAMYGSLARLNFPQSVGSEFTSTSSQSEVCTVENKAVVCGDVCVKHEDTDCESNPFSQILDVREESCGTRPDSCTVGHQDMNSSLNYDLLLEFEQQYWGQVLQEKEKPKQEEEEIQQQQQEQQQQQLQPDLLTVADYGWPWSNDIVNDQTSWDPNECFDINELLGDLNEPGPHQSQDQNHVNSGSYDLHPLHLEPHDGHEFNGLSSLDI",
+  "md5" : "cc02b3df1c53474abc66c0fa7e505731",
+  "matches" : [ {
+    "signature" : {
+      "accession" : "PS51032",
+      "name" : "AP2_ERF",
+      "description" : "AP2/ERF domain profile.",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PROSITE_PROFILES",
+        "version" : "2025_01"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 77,
+      "end" : 134,
+      "representative" : false,
+      "score" : 21.627666,
+      "alignment" : "SFRGVRQRIWGKWVAEIREP-KIGTRLWLGTFPTAEKAASAYDEAATAMYGSLARLNFP",
+      "location-fragments" : [ {
+        "start" : 77,
+        "end" : 134,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "PS51032"
+  }, {
+    "signature" : {
+      "accession" : "SM00380",
+      "name" : "rav1_2",
+      "description" : null,
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "SMART",
+        "version" : "9.0"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 77,
+      "end" : 140,
+      "representative" : true,
+      "hmmStart" : 1,
+      "hmmEnd" : 66,
+      "hmmLength" : 66,
+      "hmmBounds" : "COMPLETE",
+      "evalue" : 4.0E-40,
+      "score" : 149.3,
+      "location-fragments" : [ {
+        "start" : 77,
+        "end" : 140,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 4.0E-40,
+    "score" : 149.3,
+    "model-ac" : "SM00380"
+  }, {
+    "signature" : {
+      "accession" : "PTHR31839",
+      "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+      "description" : null,
+      "type" : "FAMILY",
+      "signatureLibraryRelease" : {
+        "library" : "PANTHER",
+        "version" : "19.0"
+      },
+      "entry" : {
+        "accession" : "IPR045277",
+        "name" : "DRE1A-I",
+        "description" : "Dehydration-responsive element-binding protein 1A-I",
+        "type" : "FAMILY",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 44,
+      "end" : 190,
+      "representative" : true,
+      "hmmStart" : 38,
+      "hmmEnd" : 151,
+      "hmmLength" : 0,
+      "hmmBounds" : "INCOMPLETE",
+      "envelopeStart" : 3,
+      "envelopeEnd" : 306,
+      "location-fragments" : [ {
+        "start" : 44,
+        "end" : 190,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "accession" : "PTHR31839",
+    "name" : "DEHYDRATION-RESPONSIVE ELEMENT-BINDING PROTEIN 1D",
+    "evalue" : 6.8E-23,
+    "score" : 93.7,
+    "proteinClass" : null,
+    "graftPoint" : null,
+    "goXRefs" : [ ],
+    "model-ac" : "PTHR31839"
+  }, {
+    "signature" : {
+      "accession" : "cd00018",
+      "name" : "AP2",
+      "description" : "AP2",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "CDD",
+        "version" : "3.21"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 76,
+      "end" : 136,
+      "representative" : false,
+      "sites" : [ {
+        "description" : "DNA binding site",
+        "numLocations" : 11,
+        "siteLocations" : [ {
+          "start" : 103,
+          "end" : 103,
+          "residue" : "W"
+        }, {
+          "start" : 88,
+          "end" : 88,
+          "residue" : "K"
+        }, {
+          "start" : 94,
+          "end" : 94,
+          "residue" : "R"
+        }, {
+          "start" : 92,
+          "end" : 92,
+          "residue" : "E"
+        }, {
+          "start" : 80,
+          "end" : 80,
+          "residue" : "G"
+        }, {
+          "start" : 84,
+          "end" : 84,
+          "residue" : "R"
+        }, {
+          "start" : 79,
+          "end" : 79,
+          "residue" : "R"
+        }, {
+          "start" : 106,
+          "end" : 106,
+          "residue" : "T"
+        }, {
+          "start" : 82,
+          "end" : 82,
+          "residue" : "R"
+        }, {
+          "start" : 86,
+          "end" : 86,
+          "residue" : "W"
+        }, {
+          "start" : 101,
+          "end" : 101,
+          "residue" : "R"
+        } ]
+      } ],
+      "evalue" : 5.27776E-37,
+      "score" : 118.913,
+      "location-fragments" : [ {
+        "start" : 76,
+        "end" : 136,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "model-ac" : "cd00018"
+  }, {
+    "signature" : {
+      "accession" : "PF00847",
+      "name" : "AP2",
+      "description" : "AP2 domain",
+      "type" : "DOMAIN",
+      "signatureLibraryRelease" : {
+        "library" : "PFAM",
+        "version" : "37.4"
+      },
+      "entry" : {
+        "accession" : "IPR001471",
+        "name" : "AP2/ERF_dom",
+        "description" : "AP2/ERF domain",
+        "type" : "DOMAIN",
+        "goXRefs" : [ ],
+        "pathwayXRefs" : [ ]
+      }
+    },
+    "locations" : [ {
+      "start" : 77,
+      "end" : 126,
+      "representative" : false,
+      "hmmStart" : 2,
+      "hmmEnd" : 53,
+      "hmmLength" : 54,
+      "hmmBounds" : "INCOMPLETE",
+      "evalue" : 9.5E-10,
+      "score" : 49.9,
+      "envelopeStart" : 76,
+      "envelopeEnd" : 127,
+      "postProcessed" : true,
+      "location-fragments" : [ {
+        "start" : 77,
+        "end" : 126,
+        "dc-status" : "CONTINUOUS"
+      } ]
+    } ],
+    "evalue" : 5.8E-10,
+    "score" : 50.6,
+    "model-ac" : "PF00847"
+  } ],
+  "xref" : [ {
+    "name" : "AT3G11020.1",
+    "id" : "AT3G11020.1"
+  } ]
+} ]
+}

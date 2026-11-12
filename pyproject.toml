@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "winnowtak"
+version = "3.7"
+description = "Transcription factor and protein kinase analysis tool for plant genomes"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "iTAK Next Team"},
+]
+
+keywords = [
+    "bioinformatics",
+    "transcription-factor",
+    "protein-kinase",
+    "plant-genomics",
+    "deep-learning",
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+]
+
+dependencies = [
+    "biopython>=1.83",
+    "pandas>=1.5",
+    "numpy>=1.23",
+]
+
+[project.optional-dependencies]
+predict = [
+    "torch>=2.0",
+    "torchvision>=0.15",
+    "torchaudio>=2.0",
+    "matplotlib>=3.5",
+]
+
+[project.urls]
+Repository = "https://git.moilab.net/moilab/projects/WinnowTAK"

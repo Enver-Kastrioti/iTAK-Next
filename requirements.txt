@@ -1,5 +1,0 @@
-biopython>=1.83
-pandas>=1.5
-numpy>=1.23
-torch
-matplotlib

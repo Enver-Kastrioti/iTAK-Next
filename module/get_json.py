@@ -67,28 +67,31 @@ def load_specific_thresholds():
     return {}
 
 
-def is_valid_score(score, score_threshold=1.0, accession=None, specific_thresholds=None):
+def is_valid_score(score, score_threshold=1.0, accession=None, specific_thresholds=None, strong_value=10.0):
     """
     Determine whether a score passes filtering:
     - If an accession-specific threshold is available, require score >= that threshold.
     - Otherwise, require score > the global threshold.
-    - The sentinel value 'STRONG' is always accepted.
+    - The sentinel value 'STRONG' is treated as a numeric value (default: 10.0).
     """
-    if score == "STRONG":
-        return True
-    try:
-        s = float(score)
-    except (ValueError, TypeError):
-        return False
+    if str(score).upper() == "STRONG":
+        s = float(strong_value)
+    else:
+        try:
+            s = float(score)
+        except (ValueError, TypeError):
+            return False
 
     if specific_thresholds and accession in specific_thresholds:
         return s >= float(specific_thresholds[accession])
     return s > float(score_threshold)
 
 
-def get_score_value(score):
+def get_score_value(score, strong_value=10.0):
     """Convert a score to a numeric value used for comparisons."""
-    return 100 if score == "STRONG" else float(score or 0)
+    if str(score).upper() == "STRONG":
+        return float(strong_value)
+    return float(score or 0)
 
 
 def process_ipr_groups(gene_data, gene_id, output_dir, debug=False, score_threshold=1.0, specific_thresholds=None):
@@ -186,11 +189,8 @@ def process_ipr_groups(gene_data, gene_id, output_dir, debug=False, score_thresh
             # Append processed matches
             final_matches.extend([
                 {
-                    "ipr": ipr,
-                    "ipr_name": m.get("ipr_name", "null"),
                     "accession": m["accession"],
                     "library": m["library"],
-                    "description": m.get("description", "null"),
                     "start": m["start"],
                     "end": m["end"],
                     "evalue": m["evalue"],

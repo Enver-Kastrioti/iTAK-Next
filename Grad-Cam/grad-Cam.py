@@ -274,12 +274,24 @@ def plot_gradcam(sequence, cam, title, save_path):
         sequence = sequence[:1000]
         
     cam_trimmed = cam[:seq_len]
+    cam_trimmed = np.asarray(cam_trimmed, dtype=np.float32)
+    cam_max = float(np.max(cam_trimmed)) if cam_trimmed.size else 0.0
+    if cam_max > 0:
+        cam_trimmed = cam_trimmed / cam_max
     
     plt.figure(figsize=(15, 6))
     
     # Plot heatmap
     # Expand dims to (1, seq_len) for imshow
-    plt.imshow(cam_trimmed[np.newaxis, :], aspect='auto', cmap='jet', alpha=0.6, extent=[0, seq_len, 0, 1])
+    plt.imshow(
+        cam_trimmed[np.newaxis, :],
+        aspect='auto',
+        cmap='jet',
+        alpha=0.6,
+        extent=[0, seq_len, 0, 1],
+        vmin=0.0,
+        vmax=1.0,
+    )
     
     # Plot sequence characters
     # If sequence is too long, we might not want to print every char, but let's try

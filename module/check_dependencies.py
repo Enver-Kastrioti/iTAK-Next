@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-iTAK3 dependency checking module.
+iTAK Next dependency checking module.
 
 Checks whether the required Python packages and external tools are available.
 """
@@ -9,7 +9,6 @@ Checks whether the required Python packages and external tools are available.
 import sys
 import subprocess
 import importlib
-import importlib.util
 import shutil
 from pathlib import Path
 import os
@@ -19,32 +18,22 @@ import tarfile
 try:
     from module.runtime_tools import (
         activate_bundled_interproscan_binaries,
-        build_runtime_env,
         resolve_helper_executable,
         resolve_java_executable,
     )
 except ImportError:
     activate_bundled_interproscan_binaries = None
-    build_runtime_env = None
     resolve_helper_executable = None
     resolve_java_executable = None
-
-try:
-    from module.db_manager import validate_interproscan_installation
-except ImportError:
-    validate_interproscan_installation = None
 
 class DependencyChecker:
     """Dependency checker."""
     
     def __init__(self, interproscan_path=None):
         self.missing_dependencies = []
+        self.missing_optional_dependencies = []
         self.warnings = []
-        self.interproscan_path = None
-        if interproscan_path:
-            self.warnings.append(
-                "External InterProScan paths are no longer supported; iTAK always uses db/interproscan"
-            )
+        self.interproscan_path = Path(interproscan_path) if interproscan_path else None
         
         # Required Python packages (needed for core functionality)
         self.required_python_packages = {
@@ -65,10 +54,10 @@ class DependencyChecker:
             'warnings': 'warnings (standard library)'
         }
         
-        # Python packages required by the default predictive workflow
-        self.predict_python_packages = {
-            'torch': 'PyTorch (required by the default predictive prefilter workflow)',
-            'matplotlib': 'matplotlib (required by prediction reporting and Grad-CAM plotting)'
+        # Optional Python packages (needed for specific features)
+        self.optional_python_packages = {
+            'torch': 'PyTorch (required only for prediction)',
+            'matplotlib': 'matplotlib (required by prediction / Grad-CAM plotting)'
         }
         
         # Required external tools
@@ -89,23 +78,14 @@ class DependencyChecker:
         self.db_archive = self.script_dir / "db.tar.gz"
         
         self.required_files = {
-            'interproscan.sh': self.script_dir / "db" / "interproscan" / "interproscan.sh",
-            'self_build.hmm': self.script_dir / "db" / "hmm_self_build" / "self_build.hmm",
+            'interproscan.sh': self.interproscan_path if self.interproscan_path else self.script_dir / "db" / "interproscan" / "interproscan.sh",
+            'self_build.hmm': self.script_dir / "hmm" / "self_build.hmm",
             'predict.py': self.script_dir / "pre_model" / "predict.py",
             'model.pth': self.script_dir / "pre_model" / "model.pth"
         }
     
     def check_python_package(self, package_name):
         """Check whether a Python package is installed."""
-        # For torch, use importlib.util.find_spec for a fast existence check
-        if package_name == 'torch':
-            try:
-                if importlib.util.find_spec(package_name) is not None:
-                    return True
-            except Exception:
-                pass
-            return False
-            
         try:
             importlib.import_module(package_name)
             return True
@@ -180,6 +160,33 @@ class DependencyChecker:
             helper_hmmscan = resolve_helper_executable(self.script_dir, "hmmer3", "hmmscan")
         if helper_hmmscan is not None:
             return True, f"Using platform helper hmmscan: {helper_hmmscan}"
+
+        # 0) If an external InterProScan path is provided, prioritize its bundled hmmscan
+        if self.interproscan_path:
+            interpro_dir = self.interproscan_path.parent
+            hmmscan_candidates = []
+            # Common path: bin/hmmer/hmmer3/hmmscan
+            hmmscan_candidates.append(interpro_dir / "bin" / "hmmer" / "hmmer3" / "hmmscan")
+            # Common variant: bin/hmmer/hmmscan
+            hmmscan_candidates.append(interpro_dir / "bin" / "hmmer" / "hmmscan")
+            # Common variant: bin/hmmscan
+            hmmscan_candidates.append(interpro_dir / "bin" / "hmmscan")
+            # Search within hmmer3 directory (fallback)
+            hmmer3_dir = interpro_dir / "bin" / "hmmer" / "hmmer3"
+            if hmmer3_dir.exists():
+                for path in hmmer3_dir.rglob("hmmscan"):
+                    hmmscan_candidates.append(path)
+            # Search within bin directory (final fallback)
+            bin_dir = interpro_dir / "bin"
+            if bin_dir.exists():
+                for path in bin_dir.rglob("hmmscan"):
+                    hmmscan_candidates.append(path)
+            for cand in hmmscan_candidates:
+                try:
+                    if cand.exists() and os.access(cand, os.X_OK) and cand.is_file():
+                        return True, f"Using bundled hmmscan from custom InterProScan: {cand}"
+                except Exception:
+                    pass
         
         # 1) Check bundled hmmscan
         internal_hmmscan = self.db_dir / "interproscan" / "bin" / "hmmer" / "hmmer3" / "hmmscan"
@@ -246,63 +253,54 @@ class DependencyChecker:
                 return False, f"InterProScan binary is macOS-only on this Linux host: {candidate}"
 
         return True, "InterProScan native binaries look compatible with the current platform"
-
-    def check_interproscan_layout(self, interproscan_dir):
-        """Validate the basic InterProScan directory layout and bundled dataset presence."""
+    
+    @staticmethod
+    def _find_interproscan_bin_dirs(interproscan_dir):
+        """Return a list of InterProScan binary subdirectories that may need executable permissions."""
         interproscan_dir = Path(interproscan_dir)
+        candidates = [
+            interproscan_dir / "bin",
+        ]
+        result = []
+        for candidate in candidates:
+            if candidate.exists() and candidate.is_dir():
+                result.append(str(candidate))
+        return result
 
-        if validate_interproscan_installation is None:
-            script_path = interproscan_dir / "interproscan.sh"
-            data_dir = interproscan_dir / "data"
-            if not script_path.exists():
-                self.warnings.append(f"InterProScan script does not exist: {script_path}")
+    def check_interproscan_setup(self):
+        # If an external InterProScan path is specified, validate that installation
+        if self.interproscan_path:
+            if not self.interproscan_path.exists():
                 return False
+                
+            if not os.access(self.interproscan_path, os.X_OK):
+                self.warnings.append(f"Specified InterProScan script is not executable: {self.interproscan_path}")
+                return False
+                
+            # Check InterProScan data directory
+            interproscan_dir = self.interproscan_path.parent
+            data_dir = interproscan_dir / "data"
+            
             if not data_dir.exists():
                 self.warnings.append(f"InterProScan data directory does not exist: {data_dir}")
                 return False
+
+            if (
+                activate_bundled_interproscan_binaries is not None
+                and interproscan_dir.resolve() == (self.script_dir / "db" / "interproscan").resolve()
+            ):
+                activated, activation_msg = activate_bundled_interproscan_binaries(self.script_dir, interproscan_dir)
+                if not activated:
+                    self.warnings.append(activation_msg)
+                    return False
+
+            native_ok, native_msg = self.check_interproscan_native_binaries(interproscan_dir)
+            if not native_ok:
+                self.warnings.append(native_msg)
+                return False
+                
             return True
 
-        issues = validate_interproscan_installation(interproscan_dir)
-        if issues:
-            for issue in issues:
-                self.warnings.append(issue)
-            return False
-
-        return True
-
-    def check_interproscan_version(self, interproscan_script, interproscan_dir):
-        """Run a minimal InterProScan self-test."""
-        interproscan_script = Path(interproscan_script)
-        interproscan_dir = Path(interproscan_dir)
-        env = build_runtime_env(self.script_dir) if build_runtime_env else os.environ.copy()
-
-        try:
-            result = subprocess.run(
-                [str(interproscan_script), "-version"],
-                capture_output=True,
-                text=True,
-                cwd=interproscan_dir,
-                env=env,
-                timeout=60,
-            )
-        except subprocess.TimeoutExpired:
-            return False, f"InterProScan self-test timed out: {interproscan_script} -version"
-        except Exception as e:
-            return False, f"InterProScan self-test could not be executed: {e}"
-
-        if result.returncode != 0:
-            details = (result.stderr or result.stdout or "").strip()
-            if details:
-                details = details.splitlines()[0]
-            else:
-                details = f"exit code {result.returncode}"
-            return False, f"InterProScan self-test failed: {details}"
-
-        output = (result.stdout or result.stderr or "").strip()
-        version_line = output.splitlines()[0] if output else "InterProScan -version completed successfully"
-        return True, version_line
-    
-    def check_interproscan_setup(self):
         interproscan_script = self.required_files['interproscan.sh']
         
         if not interproscan_script.exists():
@@ -313,8 +311,12 @@ class DependencyChecker:
             self.warnings.append(f"InterProScan script is not executable: {interproscan_script}")
             return False
         
+        # Check InterProScan data directory
         interproscan_dir = interproscan_script.parent
-        if not self.check_interproscan_layout(interproscan_dir):
+        data_dir = interproscan_dir / "data"
+        
+        if not data_dir.exists():
+            self.warnings.append(f"InterProScan data directory does not exist: {data_dir}")
             return False
 
         if activate_bundled_interproscan_binaries is not None:
@@ -323,14 +325,28 @@ class DependencyChecker:
                 self.warnings.append(activation_msg)
                 return False
 
+        # Auto-fix executable permissions on InterProScan bundled binaries
+        bin_paths = self._find_interproscan_bin_dirs(interproscan_dir)
+        total_fixed = 0
+        for bdir in bin_paths:
+            for root, dirs, files in os.walk(bdir):
+                for fname in files:
+                    fpath = os.path.join(root, fname)
+                    if not os.access(fpath, os.X_OK):
+                        try:
+                            st = os.stat(fpath)
+                            # Only add x if it's already readable (not a permission-denied file)
+                            if st.st_mode & 0o444:
+                                os.chmod(fpath, st.st_mode | 0o111)
+                                total_fixed += 1
+                        except Exception:
+                            pass
+        if total_fixed > 0:
+            self.warnings.append(f'Auto-fixed {total_fixed} InterProScan binary permissions (chmod +x)')
+
         native_ok, native_msg = self.check_interproscan_native_binaries(interproscan_dir)
         if not native_ok:
             self.warnings.append(native_msg)
-            return False
-
-        version_ok, version_msg = self.check_interproscan_version(interproscan_script, interproscan_dir)
-        if not version_ok:
-            self.warnings.append(version_msg)
             return False
         
         return True
@@ -398,6 +414,8 @@ class DependencyChecker:
         Ensure that the db directory is available.
 
         If the db directory is missing, attempt to extract it from an archive or download it.
+        When an external InterProScan is provided, db/interproscan is not strictly required, but
+        other assets (e.g., HMM files) may still be needed.
 
         Implemented via module/db_manager.py.
         
@@ -439,20 +457,22 @@ class DependencyChecker:
             skip_db_check (bool): Whether to skip db directory preparation/checks.
             test_mode (bool): Whether running in test mode (skip InterProScan/hmmscan checks).
         """
-        print("Starting iTAK3 dependency checks...")
+        print("Starting iTAK Next dependency checks...")
         print("=" * 60)
-
-        self.missing_dependencies = []
         
         all_dependencies_met = True
         
         # Ensure db directory is ready (unless skipped)
+        # If the user provides --interproscan, the local db directory is not required.
         if test_mode:
             print("\nDatabase files:")
             print("  [SKIP] Test mode (-test) does not require the db directory")
         elif skip_db_check:
             print("\nDatabase files:")
             print("  [SKIP] db checks are disabled")
+        elif self.interproscan_path:
+            print("\nDatabase files:")
+            print("  [SKIP] --interproscan specified; skipping db directory preparation checks")
         else:
             print("\nDatabase files:")
             if self.ensure_db_extracted():
@@ -472,21 +492,21 @@ class DependencyChecker:
                 self.missing_dependencies.append(f"Python package: {package}")
                 all_dependencies_met = False
         
-        if check_predict:
-            print("\nDefault predictive workflow Python packages:")
-            for package, description in self.predict_python_packages.items():
-                if package == 'torch':
-                    print("  [INFO] Checking PyTorch (this may take a few seconds)...")
+        # Check optional Python packages used by prediction-related paths
+        print("\nOptional Python packages:")
+        for package, description in self.optional_python_packages.items():
+            if not check_predict:
+                continue
 
-                if self.check_python_package(package):
-                    print(f"  [OK] {package:<15} - {description}")
-                else:
-                    print(f"  [ERROR] {package:<15} - {description}")
-                    self.missing_dependencies.append(f"Python package: {package}")
-                    all_dependencies_met = False
-        else:
-            print("\nDefault predictive workflow Python packages:")
-            print("  [SKIP] Prediction-related packages are not required for this run")
+            if package == 'torch':
+                print("  [INFO] Checking PyTorch (this may take a few seconds)...")
+            
+            if self.check_python_package(package):
+                print(f"  [OK] {package:<15} - {description}")
+            else:
+                print(f"  [WARN] {package:<15} - {description}")
+                self.missing_optional_dependencies.append(f"Python package: {package}")
+                print(f"      Note: missing {package} disables prediction")
 
         # Additional check: Biopython core features
         print("\nBiopython feature checks:")
@@ -579,7 +599,13 @@ class DependencyChecker:
         # Summary
         print("\n" + "=" * 60)
         if all_dependencies_met:
-            print("[OK] All required dependencies are satisfied. iTAK3 is ready to run.")
+            print("[OK] All required dependencies are satisfied. iTAK Next is ready to run.")
+            if self.missing_optional_dependencies:
+                print("[WARN] The following optional dependencies are missing; some features may be unavailable:")
+                for dep in self.missing_optional_dependencies:
+                    print(f"  - {dep}")
+                if check_predict:
+                    print("  Install PyTorch to enable prediction.")
         else:
             print("[ERROR] Missing required dependencies. Please install the following components:")
             for dep in self.missing_dependencies:
@@ -600,9 +626,8 @@ class DependencyChecker:
             for pkg in python_packages_missing:
                 if pkg == 'torch':
                     print("    PyTorch (choose a build appropriate for your system):")
-                    print("      Generic: pip install torch")
-                    print("      CPU: pip install torch --index-url https://download.pytorch.org/whl/cpu")
-                    print("      GPU (CUDA): pip install torch --index-url https://download.pytorch.org/whl/cu118")
+                    print("      CPU: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu")
+                    print("      GPU (CUDA): pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118")
                     print("      More options: https://pytorch.org/get-started/locally/")
                 elif pkg == 'matplotlib':
                     print("    pip install matplotlib")

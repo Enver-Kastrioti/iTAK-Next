@@ -1,0 +1,25 @@
+{
+  "_comment": "Per-family score thresholds for the self-build HMM path (hmmscan). Applied ONLY to hits of these models; models absent from this file fall back to the global --score-hmm value.",
+  "_source": "results_关键对比/FP_analysis/exp_xspecies_thr.py",
+  "_method": [
+    "Threshold chosen per model as a value inside the separation window (max score among misclassified hits, min score among gold-standard true positives], computed across all 6 core species (Ath/Car/Mac/Oru/Rsa/Zma) no_pre runs.",
+    "Separation windows: NF-YB (19.1, 52.1]  NF-YC (17.6, 20.9]  Alfin-like (112.8, -)  VARL (23.1, -)  DNC (35.5, -)  SAP (12.2, 63.7].",
+    "End-to-end 6-species result (verified on real CLI output): 521 misclassifications -> 168 cleared + 59 family-changed; gold-standard true positives 11899 -> 0 lost, 0 family-changed; '一致' set 2290 -> 5 affected (3 lost, 2 family-changed).",
+    "Extended to all 27 species (162 runs) + 15db (10 runs) + 6 full-library inter runs: 8 gold-standard species (Ath/Car/Mac/Oru/Rsa/Zma/Bra/Nta) show 0 gold TP lost, 0 family-changed."
+  ],
+  "_notes": [
+    "Do NOT copy the GA_table.txt values here. GA cutoffs (NF-YB 61.0, NF-YC 52.7, Alfin-like 88.35) were tuned on HMMER's own curation, not on this classification task; they cut 12 gold-standard TPs across the 6 species and leave the NF-Y/NF-YC Mac+Rsa proteomes under-thresholded.",
+    "Trihelix and G2-like are intentionally EXCLUDED: no separation window exists at 1.0 -- their GA cutoffs displace gold true positives into MYB-related.",
+    "LUG / NOZZLE / WUS-HB / ULT / STAT / VOZ: no errors observed in the 6-species set; left unthresholded (fall back to --score-hmm).",
+    "Alfin-like has no gold-standard family in PlantTFDB, so its window is bounded below only by misclassification scores. Kept low (25) to limit collateral removal of genuine PHD-family hits.",
+    "DNC is pinned to 1.0 (no threshold) on purpose. DBP declares 'Required:DNC#IPR001932', so any DNC cutoff above the global floor propagates to DBP and removes its calls wholesale; 40.0 cut ~819 DBP calls across the 27-species set. Those genes still carry IPR001932 on the InterPro side, so the cutoff was collateral damage rather than a genuine DNC error filter. 1.0 restores baseline behaviour for DNC/DBP."
+  ],
+  "thresholds": {
+    "NF-YB": 20.0,
+    "NF-YC": 20.0,
+    "Alfin-like": 25.0,
+    "VARL": 25.0,
+    "DNC": 1.0,
+    "SAP": 20.0
+  }
+}

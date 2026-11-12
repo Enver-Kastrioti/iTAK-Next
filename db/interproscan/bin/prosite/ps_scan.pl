@@ -32,7 +32,6 @@
 use 5.005_03; # uses perl >= v5.5
 use IO::File;
 use Carp qw(confess cluck);
-use FindBin qw($RealBin);
 use vars qw(@ISA $VERSION $errpos $errstr);
 use strict;
 use Data::Dumper;
@@ -550,7 +549,7 @@ my $NO_DIRECT_PIPE=$? || $^O eq "MSWin32" ? 1 : 0;
 # change this to the absolute path to the programs,
 # unless they are located in a directory in your PATH
 # or use option --pfscan and/or --psa2msa to give the full path.
-my $PFSCAN  = -x "$RealBin/pfscanV3" ? "$RealBin/pfscanV3" : 'pfscan';
+my $PFSCAN  = 'pfscan';
 my $PSA2MSA = 'psa2msa';
 my $errcode = 0;
 my $MOTIF_AC_REGEXP = '\w+\d+';#'PS\d{5}';

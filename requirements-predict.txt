@@ -1,0 +1,4 @@
+torch>=2.0
+torchvision>=0.15
+torchaudio>=2.0
+matplotlib>=3.5

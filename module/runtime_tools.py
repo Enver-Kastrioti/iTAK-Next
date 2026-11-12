@@ -38,6 +38,7 @@ def get_helper_root(script_dir):
     helper_root = Path(script_dir) / "bin" / platform_bin
     if helper_root.exists() and helper_root.is_dir():
         return helper_root
+    # Platform-specific helpers are no longer bundled; fall through gracefully.
     return None
 
 
@@ -97,7 +98,10 @@ def activate_bundled_interproscan_binaries(script_dir, interproscan_dir=None):
 
     helper_root = get_helper_root(script_dir)
     if helper_root is None:
-        return False, "No macOS helper binaries found under bin/osx"
+        # bin/osx/ is no longer bundled in the repository.
+        # On macOS, users should rely on system-installed tools or
+        # run install_runtime.sh to prepare helper binaries.
+        return True, "macOS helper binaries not bundled (use system tools or install_runtime.sh)"
 
     if interproscan_dir is None:
         interproscan_dir = Path(script_dir) / "db" / "interproscan"

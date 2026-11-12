@@ -43,7 +43,8 @@ class Parser:
         while self.peek() == ':':
             self.consume() # eat ':'
             right = self.parse_term()
-            if right is None: break
+            if right is None:
+                continue
             left_node = {'op': 'OR', 'children': [left, right]}
             if isinstance(left, dict) and left.get('op') == 'OR':
                 left_node['children'] = left['children'] + [right]
@@ -56,7 +57,8 @@ class Parser:
         while self.peek() == '#':
             self.consume() # eat '#'
             right = self.parse_factor()
-            if right is None: break
+            if right is None:
+                continue
             left_node = {'op': 'AND', 'children': [left, right]}
             if isinstance(left, dict) and left.get('op') == 'AND':
                 left_node['children'] = left['children'] + [right]
@@ -71,7 +73,7 @@ class Parser:
             if self.peek() == ')':
                 self.consume()
             return expr
-        elif token and token not in '):#':
+        elif token and token not in (')', ':', '#'):
             return self.consume()
         return None
 

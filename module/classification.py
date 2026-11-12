@@ -88,160 +88,6 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 rules_dict = {}
 result_spec = {}
 
-
-def _to_float_score(value):
-    if str(value).upper() == 'STRONG':
-        return 100.0
-    try:
-        return float(value)
-    except Exception:
-        return 0.0
-
-
-def _normalize_hit_fields(hit):
-    raw_ipr = hit.get("ipr", "") or ""
-    raw_ipr_name = hit.get("ipr_name", "") or ""
-    raw_description = hit.get("description", "") or ""
-    raw_evalue = hit.get("evalue", "") if hit.get("evalue", "") is not None else ""
-
-    if isinstance(raw_evalue, bool):
-        raw_evalue = ""
-    elif str(raw_evalue).lower() == "null":
-        raw_evalue = ""
-
-    return {
-        "ipr": raw_ipr,
-        "ipr_name": raw_ipr_name if str(raw_ipr_name).lower() not in {"null", "na"} else "",
-        "accession": hit.get("accession", "") or "",
-        "library": hit.get("library", "") or "",
-        "description": raw_description if str(raw_description).lower() not in {"null", "na"} else "",
-        "start": hit.get("start", "") if hit.get("start", "") is not None else "",
-        "end": hit.get("end", "") if hit.get("end", "") is not None else "",
-        "score": hit.get("score", "") if hit.get("score", "") is not None else "",
-        "evalue": raw_evalue,
-    }
-
-
-def _summarize_gene_hits(gene_data):
-    evidence_hits = []
-    matched_iprs = []
-    matched_accessions = []
-    matched_libraries = []
-
-    if len(gene_data) > 1 and isinstance(gene_data[1], dict):
-        for domain_key, hits in gene_data[1].items():
-            real_ipr = domain_key.split('&')[0]
-            if real_ipr not in matched_iprs:
-                matched_iprs.append(real_ipr)
-            if not isinstance(hits, list):
-                continue
-            for hit in hits:
-                normalized_hit = _normalize_hit_fields(hit)
-                normalized_hit["domain_key"] = domain_key
-                if not normalized_hit["ipr"]:
-                    normalized_hit["ipr"] = real_ipr if real_ipr.startswith("IPR") else ""
-                if not normalized_hit["description"]:
-                    normalized_hit["description"] = (
-                        normalized_hit.get("ipr_name", "")
-                        or normalized_hit["ipr"]
-                        or normalized_hit["accession"]
-                        or real_ipr
-                    )
-                evidence_hits.append(normalized_hit)
-                accession = normalized_hit["accession"]
-                library = normalized_hit["library"]
-                if accession and accession not in matched_accessions:
-                    matched_accessions.append(accession)
-                if library and library not in matched_libraries:
-                    matched_libraries.append(library)
-
-    evidence_hits.sort(
-        key=lambda hit: (
-            hit["ipr"],
-            hit["accession"],
-            -_to_float_score(hit["score"]),
-            str(hit["start"]),
-            str(hit["end"]),
-        )
-    )
-
-    return {
-        "matched_iprs": matched_iprs,
-        "matched_accessions": matched_accessions,
-        "matched_libraries": matched_libraries,
-        "evidence_hits": evidence_hits,
-        "matched_domain_count": len(evidence_hits),
-    }
-
-
-def _collect_logic_domains(node, domains):
-    if node is None:
-        return
-    if isinstance(node, str):
-        domains.add(node.split('&')[0])
-        return
-    if isinstance(node, dict):
-        for child in node.get("children", []):
-            _collect_logic_domains(child, domains)
-
-
-def _collect_rule_evidence(rule_data, gene_summary):
-    required_domains = set()
-    _collect_logic_domains(rule_data.get("logic"), required_domains)
-
-    hits = []
-    for hit in gene_summary["evidence_hits"]:
-        domain_key = hit.get("domain_key", "")
-        real_ipr = domain_key.split('&')[0]
-        accession = hit.get("accession", "")
-        if real_ipr in required_domains or accession in required_domains:
-            hits.append(hit)
-
-    if not hits:
-        hits = list(gene_summary["evidence_hits"])
-
-    matched_iprs = []
-    matched_accessions = []
-    matched_libraries = []
-    for hit in hits:
-        ipr = hit.get("ipr", "")
-        accession = hit.get("accession", "")
-        library = hit.get("library", "")
-        if ipr and ipr not in matched_iprs:
-            matched_iprs.append(ipr)
-        if accession and accession not in matched_accessions:
-            matched_accessions.append(accession)
-        if library and library not in matched_libraries:
-            matched_libraries.append(library)
-
-    summary_tokens = []
-    for hit in hits:
-        label = hit.get("ipr") or hit.get("accession") or hit.get("domain_key", "NA")
-        library = hit.get("library")
-        score = hit.get("score")
-        start = hit.get("start")
-        end = hit.get("end")
-        token = label
-        if library:
-            token = f"{token}@{library}"
-        coord = ""
-        if start != "" or end != "":
-            coord = f"{start}-{end}".strip("-")
-        if coord:
-            token = f"{token}[{coord}]"
-        if score != "":
-            token = f"{token}(score={score})"
-        summary_tokens.append(token)
-
-    return {
-        "matched_iprs": matched_iprs,
-        "matched_accessions": matched_accessions,
-        "matched_libraries": matched_libraries,
-        "matched_domain_count": len(hits),
-        "evidence_hits": hits,
-        "evidence_summary": "; ".join(summary_tokens) if summary_tokens else "NA",
-    }
-
 def initialize_rules(rule_file_path):
     """Initialize rule definitions from a rule file."""
     global rules_dict
@@ -352,6 +198,29 @@ def get_ipr_counts(gene_data):
         
     return final_counts
 
+
+def get_ipr_max_scores(gene_data):
+    ipr_max_scores = {}
+    if len(gene_data) > 1 and isinstance(gene_data[1], dict):
+        for ipr_key, hits in gene_data[1].items():
+            real_ipr = ipr_key.split('&')[0]
+            max_score = 0.0
+            if isinstance(hits, list):
+                for hit in hits:
+                    score_val = hit.get('score', 0)
+                    if str(score_val).upper() == 'STRONG':
+                        score_val = 10.0
+                    else:
+                        try:
+                            score_val = float(score_val)
+                        except Exception:
+                            score_val = 0.0
+                    if score_val > max_score:
+                        max_score = score_val
+            if max_score > ipr_max_scores.get(real_ipr, 0.0):
+                ipr_max_scores[real_ipr] = max_score
+    return ipr_max_scores
+
 def evaluate_logic(node, ipr_counts):
     """Recursively evaluate a rule logic tree."""
     if node is None:
@@ -382,14 +251,21 @@ def evaluate_logic(node, ipr_counts):
             
     return False
 
-def check_rule_match(ipr_counts, rule_data):
+def check_rule_match(ipr_counts, rule_data, ipr_max_scores=None, forbidden_score_threshold=10.0):
     """Check whether IPR copy counts satisfy a rule."""
     # Forbidden constraints
     forbidden = rule_data.get("forbidden", [])
     for f in forbidden:
         if f == 'NA': continue
         if f in ipr_counts:
-            return False
+            if ipr_max_scores is None:
+                return False
+            try:
+                max_score = float(ipr_max_scores.get(f, 0.0) or 0.0)
+            except Exception:
+                max_score = 0.0
+            if max_score > float(forbidden_score_threshold):
+                return False
     
     # Logic constraints
     logic_tree = rule_data.get("logic")
@@ -430,7 +306,7 @@ def classify_genes(input_dict, mode='specific'):
         for gene_id, gene_data in gene_match.items():
             # Compute IPR copy counts for this gene
             ipr_counts = get_ipr_counts(gene_data)
-            gene_summary = _summarize_gene_hits(gene_data)
+            ipr_max_scores = get_ipr_max_scores(gene_data)
             
             # Collect all matching families
             matched_families = []
@@ -438,7 +314,7 @@ def classify_genes(input_dict, mode='specific'):
             
             # Evaluate all rules
             for rule_id, rule_data in rules_dict.items():
-                if check_rule_match(ipr_counts, rule_data):
+                if check_rule_match(ipr_counts, rule_data, ipr_max_scores):
                     matched_families.append(rule_data)
             
             # If any rules match, select the best candidate
@@ -449,29 +325,6 @@ def classify_genes(input_dict, mode='specific'):
                 # - rules with AND constraints and/or multiplicity (&N, N>1) are prioritized
                 # - score is used as a secondary criterion among candidates of equal weight
                 
-                # Precompute the maximum score per IPR
-                ipr_max_scores = {}
-                # Preprocessing step: compute max score per real IPR key
-                if len(gene_data) > 1 and isinstance(gene_data[1], dict):
-                    for ipr_key, hits in gene_data[1].items():
-                        real_ipr = ipr_key.split('&')[0]
-                        max_score = 0.0
-                        if isinstance(hits, list):
-                            for hit in hits:
-                                score_val = hit.get('score', 0)
-                                if str(score_val).upper() == 'STRONG':
-                                    score_val = 100.0
-                                else:
-                                    try:
-                                        score_val = float(score_val)
-                                    except:
-                                        score_val = 0.0
-                                if score_val > max_score:
-                                    max_score = score_val
-                        # If the same real_ipr appears under multiple keys, keep the maximum
-                        if max_score > ipr_max_scores.get(real_ipr, 0):
-                            ipr_max_scores[real_ipr] = max_score
-
                 def calculate_rule_score_new(rule):
                     # 1) Rule categorization: class-a vs class-b
                     # - class-a: a single domain, or domains connected only by OR
@@ -516,7 +369,7 @@ def classify_genes(input_dict, mode='specific'):
                                             if isinstance(hits, list):
                                                 for hit in hits:
                                                     s = hit.get('score', 0)
-                                                    if str(s).upper() == 'STRONG': s = 100.0
+                                                    if str(s).upper() == 'STRONG': s = 10.0
                                                     try: s = float(s)
                                                     except: s = 0.0
                                                     scores.append(s)
@@ -621,20 +474,12 @@ def classify_genes(input_dict, mode='specific'):
                 
                 # Build result dictionary.
                 # We use Name instead of Family, while using ID internally to disambiguate rules.
-                evidence = _collect_rule_evidence(final_rule, gene_summary)
                 result[gene_id] = {
-                    "rule_id": final_rule.get("id", "NA"),
                     "name": final_rule["name"],
                     "family": final_rule["name"], # Populate Family using Name for consistency
                     "type": final_rule["type"],
                     "desc": final_rule.get("desc", []),
-                    "other_family": "NA", # Do not display alternative families
-                    "matched_iprs": evidence["matched_iprs"],
-                    "matched_accessions": evidence["matched_accessions"],
-                    "matched_libraries": evidence["matched_libraries"],
-                    "matched_domain_count": evidence["matched_domain_count"],
-                    "evidence_summary": evidence["evidence_summary"],
-                    "evidence_hits": evidence["evidence_hits"],
+                    "other_family": "NA" # Do not display alternative families
                 }
     
     # Persist results to disk (only for direct invocation, not for process_with_data)

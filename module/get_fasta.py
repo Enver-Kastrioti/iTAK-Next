@@ -1,100 +1,8 @@
 import os
 import json
 import argparse
-import gzip
 from Bio import SeqIO
 from Bio.Seq import Seq
-
-NUCLEOTIDE_ALPHABET = set("ACGTUNWSMKRYBDHV")
-PROTEIN_ALPHABET = set("ACDEFGHIKLMNPQRSTVWYXBZJUO")
-START_CODONS = {"ATG"}
-STOP_CODONS = {"TAA", "TAG", "TGA"}
-
-
-def normalize_sequence(seq):
-    return "".join(str(seq).split()).upper()
-
-
-def strip_compression_suffix(path):
-    path = str(path)
-    if path.endswith(".gz"):
-        return path[:-3]
-    return path
-
-
-def get_input_stem(path):
-    return os.path.splitext(os.path.basename(strip_compression_suffix(path)))[0]
-
-
-def open_fasta_text(path, mode="rt", encoding="utf-8"):
-    path = str(path)
-    if "b" not in mode and encoding is None:
-        encoding = "utf-8"
-    if path.endswith(".gz"):
-        return gzip.open(path, mode, encoding=encoding)
-    return open(path, mode, encoding=encoding)
-
-
-def sanitize_protein_sequence(seq):
-    seq = normalize_sequence(seq)
-    if not seq:
-        return seq
-    seq = seq.rstrip("*")
-    return seq.replace("*", "X")
-
-
-def _has_terminal_stop(seq):
-    seq = normalize_sequence(seq).replace("U", "T")
-    if len(seq) < 3:
-        return False
-    last_full_codon = seq[(len(seq) // 3 - 1) * 3:(len(seq) // 3) * 3]
-    return last_full_codon in STOP_CODONS
-
-
-def _is_likely_nucleotide_sequence(seq):
-    seq = normalize_sequence(seq).replace("U", "T")
-    if not seq:
-        return False
-    if not set([c for c in seq if c.isalpha()]).issubset(NUCLEOTIDE_ALPHABET):
-        return False
-    if seq.startswith("ATG"):
-        return True
-    if len(seq) % 3 == 0 and _has_terminal_stop(seq):
-        return True
-    return False
-
-
-def classify_input_sequence(seq):
-    seq = normalize_sequence(seq)
-    letters = [c for c in seq if c.isalpha()]
-    if not letters:
-        return "empty"
-
-    charset = set(letters)
-    nucleotide_like = charset.issubset(NUCLEOTIDE_ALPHABET)
-    protein_like = charset.issubset(PROTEIN_ALPHABET)
-
-    if nucleotide_like and _is_likely_nucleotide_sequence(seq):
-        return "nucleotide"
-    if protein_like:
-        return "protein"
-    if nucleotide_like:
-        return "nucleotide"
-    return "invalid"
-
-
-def validate_protein_sequence(seq, record_id=None):
-    seq = sanitize_protein_sequence(seq)
-    if not seq:
-        raise ValueError("is empty")
-    invalid_non_letters = sorted({c for c in seq if not c.isalpha()})
-    if invalid_non_letters:
-        raise ValueError(f"contains unsupported characters: {', '.join(invalid_non_letters)}")
-
-    invalid_chars = sorted({c for c in seq if c.isalpha() and c not in PROTEIN_ALPHABET})
-    if invalid_chars:
-        raise ValueError(f"contains non-protein characters: {', '.join(invalid_chars)}")
-    return seq
 
 def get_output_dir(base_dir=None):
     """Get the output directory path.
@@ -132,7 +40,7 @@ def _repo_root():
 def get_project_output_dir(fasta_file):
     root = _repo_root()
     output_base = os.path.join(root, "output")
-    base = get_input_stem(fasta_file)
+    base = os.path.splitext(os.path.basename(fasta_file))[0]
     if not os.path.exists(output_base):
         os.makedirs(output_base)
     candidates = []
@@ -161,7 +69,7 @@ def read_fasta_to_dict(fasta_file):
     fasta_dict = {}
     
     try:
-        with open_fasta_text(fasta_file, 'rt') as handle:
+        with open(fasta_file, 'r') as handle:
             for record in SeqIO.parse(handle, "fasta"):
                 # Use record.id as the key and the sequence as the value
                 fasta_dict[record.id] = str(record.seq)
@@ -233,7 +141,7 @@ def generate_classified_fasta(fasta_file, classification_result, output_file=Non
     try:
         # If output_file is not provided, generate a default path
         if not output_file:
-            input_name = get_input_stem(fasta_file)
+            input_name = os.path.splitext(os.path.basename(fasta_file))[0]
             if output_dir:
                 result_dir = output_dir
             else:
@@ -252,19 +160,70 @@ def generate_classified_fasta(fasta_file, classification_result, output_file=Non
         print(f"Error generating classified FASTA file: {e}")
         return None
 
-def _looks_like_cds(seq):
-    return classify_input_sequence(seq) == "nucleotide"
+def _best_orf_coverage(seq, table=1):
+    """六个读框中最长无终止 ORF 占编码容量（len/3）的比例，范围 0–1。
+
+    真 CDS 在其正确读框中几乎不含内部终止子，覆盖率≈1；而序列组成恰好
+    只由核酸字母构成的真实蛋白，六帧翻译会散布终止子，覆盖率显著偏低。
+    """
+    s = Seq(seq.upper())
+    if len(s) < 3:
+        return 0.0
+    capacity = len(s) / 3.0
+    best = 0
+    for strand in (s, s.reverse_complement()):
+        for frame in (0, 1, 2):
+            sub = strand[frame:]
+            rem = len(sub) % 3
+            if rem:
+                sub = sub[:-rem]
+            if len(sub) < 3:
+                continue
+            try:
+                aa = str(sub.translate(table=table, to_stop=False))
+            except Exception:
+                continue
+            longest = max((len(seg) for seg in aa.split('*')), default=0)
+            if longest > best:
+                best = longest
+    return best / capacity
+
+
+def _looks_like_cds(seq, min_orf_coverage=0.95):
+    """判断输入序列是否为需六帧翻译的核酸 CDS。
+
+    仅"字母全部落在 IUPAC 核酸集"不足以判定：蛋白质组中真实存在的蛋白
+    若恰好只由 ACGTUNWSMKRYBDHV 这些字母组成（例如某读框的产物），也会
+    满足该条件，从而被误送入六帧翻译、序列被翻译产物替换（污染下游）。
+    因此追加"存在近乎完整的开放阅读框"作为必要条件。
+    """
+    s = seq.upper()
+    letters = [c for c in s if c.isalpha()]
+    if not letters:
+        return False
+    nuc = set("ACGTUNWSMKRYBDHV")
+    if not set(letters).issubset(nuc):
+        return False
+    return _best_orf_coverage(s) >= min_orf_coverage
 
 def _best_six_frame_translate(seq, table=1, min_orf_aa=30):
     s = Seq(seq)
     candidates = []
     for frame in (0, 1, 2):
-        aa = str(s[frame:].translate(table=table, to_stop=False))
+        sub = s[frame:]
+        rem = len(sub) % 3
+        if rem:
+            sub = sub[:-rem]
+        aa = str(sub.translate(table=table, to_stop=False))
         seg = max(aa.split('*'), key=len) if aa else ""
         candidates.append((seg, f"+{frame+1}"))
     rc = s.reverse_complement()
     for frame in (0, 1, 2):
-        aa = str(rc[frame:].translate(table=table, to_stop=False))
+        sub = rc[frame:]
+        rem = len(sub) % 3
+        if rem:
+            sub = sub[:-rem]
+        aa = str(sub.translate(table=table, to_stop=False))
         seg = max(aa.split('*'), key=len) if aa else ""
         candidates.append((seg, f"-{frame+1}"))
     candidates.sort(key=lambda x: len(x[0]), reverse=True)
@@ -273,64 +232,41 @@ def _best_six_frame_translate(seq, table=1, min_orf_aa=30):
         return "", best[1]
     return best
 
-def _extract_orfs_from_frame(frame_seq, frame_label, table=1, min_orf_aa=30):
-    codons = [frame_seq[i:i + 3] for i in range(0, len(frame_seq) - 2, 3)]
-    if not codons:
-        return []
-
-    aa_seq = str(Seq("".join(codons)).translate(table=table, to_stop=False))
+def _six_frame_translate_all(seq, table=1):
+    s = Seq(seq)
     results = []
-    current_start = None
-    orf_index = 0
-
-    for idx, (codon, aa_char) in enumerate(zip(codons, aa_seq)):
-        if current_start is None and codon in START_CODONS:
-            current_start = idx
-
-        if aa_char == "*":
-            if current_start is not None:
-                peptide = aa_seq[current_start:idx]
-                if len(peptide) >= min_orf_aa:
-                    orf_index += 1
-                    results.append((peptide, f"{frame_label}|orf={orf_index}"))
-            current_start = None
-
-    return results
-
-
-def _extract_translated_orfs(seq, table=1, min_orf_aa=30):
-    s = Seq(normalize_sequence(seq).replace("U", "T"))
-    results = []
-
     for frame in (0, 1, 2):
-        frame_seq = str(s[frame:])
-        results.extend(_extract_orfs_from_frame(frame_seq, f"+{frame+1}", table=table, min_orf_aa=min_orf_aa))
-
+        sub = s[frame:]
+        rem = len(sub) % 3
+        if rem:
+            sub = sub[:-rem]
+        aa = str(sub.translate(table=table, to_stop=False)).replace('*', '')
+        results.append((aa, f"+{frame+1}"))
     rc = s.reverse_complement()
     for frame in (0, 1, 2):
-        frame_seq = str(rc[frame:])
-        results.extend(_extract_orfs_from_frame(frame_seq, f"-{frame+1}", table=table, min_orf_aa=min_orf_aa))
-
+        sub = rc[frame:]
+        rem = len(sub) % 3
+        if rem:
+            sub = sub[:-rem]
+        aa = str(sub.translate(table=table, to_stop=False)).replace('*', '')
+        results.append((aa, f"-{frame+1}"))
     return results
 
 def generate_protein_sequences_in_memory(fasta_file, genetic_code=1, min_orf_aa=30):
     try:
         sequences = []
-        with open_fasta_text(fasta_file, 'rt') as handle:
+        with open(fasta_file, 'r') as handle:
             for record in SeqIO.parse(handle, "fasta"):
-                seq = normalize_sequence(record.seq)
-                seq_type = classify_input_sequence(seq)
-                if seq_type == "nucleotide":
-                    translated = _extract_translated_orfs(seq, table=genetic_code, min_orf_aa=min_orf_aa)
+                seq = str(record.seq)
+                if _looks_like_cds(seq):
+                    translated = _six_frame_translate_all(seq, table=genetic_code)
                     for aa, frame in translated:
-                        sequences.append({"header": f"{record.id}|{frame}", "sequence": aa})
-                elif seq_type == "protein":
-                    sequences.append({"header": record.id, "sequence": validate_protein_sequence(seq, record.id)})
+                        sequences.append({"header": f"{record.id}|frame={frame}", "sequence": aa})
                 else:
-                    raise ValueError(f"Sequence {record.id} is neither a valid protein nor a likely CDS input")
+                    sequences.append({"header": record.id, "sequence": seq})
         return sequences
     except Exception as e:
-        print(f"Failed to generate in-memory protein sequences: {e}")
+        print(f"Failed to generate in-memory sequences via six-frame translation: {e}")
         return []
 
 def format_tf_fasta_with_classification_from_mem(seqs_dict, classification_result, output_file):
@@ -351,7 +287,7 @@ def format_tf_fasta_with_classification_from_mem(seqs_dict, classification_resul
         print(f"Error generating FASTA file (in-memory): {e}")
         return False
 def get_processed_fasta_path(fasta_file, output_dir=None):
-    input_name = get_input_stem(fasta_file)
+    input_name = os.path.splitext(os.path.basename(fasta_file))[0]
     project_dir = get_project_output_dir(fasta_file) if output_dir is None else output_dir
     # Previously: write into a "six_frame_translation" subdirectory.
     # Now: write directly under the project output directory.
@@ -362,62 +298,49 @@ def generate_protein_fasta_with_translation(fasta_file, output_file=None, output
         if not output_file:
             output_file = get_processed_fasta_path(fasta_file, output_dir)
         total = 0
-        kept_proteins = 0
-        translated_orfs = 0
-        nucleotide_entries = 0
-        skipped_nucleotide_entries = 0
-
-        with open_fasta_text(fasta_file, 'rt') as handle, open(output_file, 'w') as out:
+        kept = 0
+        translated_frames = 0
+        has_translation = False
+        
+        # Determine whether translation is needed. If all inputs are proteins, translation is skipped.
+        
+        with open(fasta_file, 'r') as handle, open(output_file, 'w') as out:
             for record in SeqIO.parse(handle, "fasta"):
                 total += 1
-                seq = normalize_sequence(record.seq)
-                seq_type = classify_input_sequence(seq)
-
-                if seq_type == "nucleotide":
-                    nucleotide_entries += 1
-                    translated = _extract_translated_orfs(seq, table=genetic_code, min_orf_aa=min_orf_aa)
-                    if not translated:
-                        skipped_nucleotide_entries += 1
-                        print(
-                            f"[WARN] No complete ORF meeting min_orf_aa={min_orf_aa} was found for nucleotide sequence {record.id}; skipping"
-                        )
-                        continue
-                    for aa, frame in translated:
-                        out.write(f">{record.id}|{frame}\n")
-                        out.write(aa + "\n")
-                        translated_orfs += 1
-                elif seq_type == "protein":
-                    protein_seq = validate_protein_sequence(seq, record.id)
-                    out.write(f">{record.id}\n")
-                    out.write(protein_seq + "\n")
-                    kept_proteins += 1
+                seq = str(record.seq)
+                if _looks_like_cds(seq):
+                    has_translation = True
+                    try:
+                        translated = _six_frame_translate_all(seq, table=genetic_code)
+                        for aa, frame in translated:
+                            out.write(f">{record.id}|frame={frame}\n")
+                            out.write(aa + "\n")
+                            translated_frames += 1
+                    except Exception:
+                        out.write(f">{record.id}\n")
+                        out.write(seq + "\n")
+                        kept += 1
                 else:
-                    raise ValueError(f"Sequence {record.id} is neither a valid protein nor a likely CDS input")
-
-        print(
-            f"Read {total} sequences; retained {kept_proteins} protein sequences; generated {translated_orfs} ORF-derived protein sequences from {nucleotide_entries} nucleotide entries"
-        )
-        if skipped_nucleotide_entries:
-            print(f"Skipped {skipped_nucleotide_entries} nucleotide entries without complete ORFs")
+                    out.write(f">{record.id}\n")
+                    out.write(seq + "\n")
+                    kept += 1
+        
+        print(f"Read {total} sequences; retained {kept} protein sequences; generated {translated_frames} translated-frame sequences via six-frame translation")
         print(f"Written to: {output_file}")
+        
         return output_file
     except Exception as e:
-        if output_file and os.path.exists(output_file):
-            try:
-                os.remove(output_file)
-            except OSError:
-                pass
-        print(f"Failed to write processed protein FASTA: {e}")
+        print(f"Failed to write protein FASTA from six-frame translation: {e}")
         return None
 
 def main():
-    parser = argparse.ArgumentParser(description='Generate a FASTA file with TF annotations or preprocess mixed protein/CDS input into protein FASTA')
+    parser = argparse.ArgumentParser(description='Generate a FASTA file with TF annotations or perform six-frame translation')
     parser.add_argument('-i', '--input', required=True, help='Path to input FASTA file')
     parser.add_argument('-o', '--output', help='Path to output FASTA file (optional)')
     parser.add_argument('--classification', help='Path to classification-result JSON file (for testing)')
-    parser.add_argument('--translate-only', action='store_true', help='Preprocess mixed protein/CDS input and write protein FASTA output')
+    parser.add_argument('--translate-only', action='store_true', help='Run six-frame translation only and write protein FASTA output')
     parser.add_argument('--genetic-code', type=int, default=1, help='Genetic code table ID used for translation')
-    parser.add_argument('--min-orf-aa', type=int, default=30, help='Minimum complete ORF length threshold (amino acids)')
+    parser.add_argument('--min-orf-aa', type=int, default=30, help='Minimum ORF length threshold (amino acids)')
     
     args = parser.parse_args()
     
@@ -440,7 +363,7 @@ def main():
         if out:
             print(f"Protein FASTA saved to: {out}")
         else:
-            print("Input preprocessing failed")
+            print("Six-frame translation failed")
     else:
         if args.classification:
             try:
