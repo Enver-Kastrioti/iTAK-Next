@@ -7,7 +7,15 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Resolve symlinks so the launcher also works when linked into PATH, e.g.
+#   ln -s "$PWD/itaknext" /usr/local/bin/itaknext
+SOURCE="${BASH_SOURCE[0]}"
+while [[ -L "$SOURCE" ]]; do
+    SOURCE_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ "$SOURCE" != /* ]] && SOURCE="$SOURCE_DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 ENTRY_SCRIPT="$SCRIPT_DIR/itaknext.py"
 
 # 1) Explicit interpreter override, e.g. PYTHON=/path/to/venv/bin/python ./itaknext ...
